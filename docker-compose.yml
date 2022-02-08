@@ -1,0 +1,34 @@
+# Docker schema version definition
+# Check the compatibility matrix with the current schema version in the File Creation Reference.
+# https://docs.docker.com/compose/compose-file/
+version: "3.8"
+
+# Services or Containers List definition
+services:
+  backend:
+    container_name: dasoni_backend
+    image: springio/gs-spring-boot-docker
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  postgres:
+    container_name: dasoni_database
+    image: postgres:14
+    restart: unless-stopped # 강제 종료 되었을 때 재 실행
+    volumes:
+      - ./database/conf.d/postgres.conf:/etc/postgresql/postgresql.conf:rw
+      - ./database/conf.d/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - ./database/data:/var/lib/postgresql
+      - ./database/initdb.d:/docker-entrypoint-initdb.d
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    ports:
+      - "5432:5432"
+    environment:
+      TZ: "Asia/Seoul"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
