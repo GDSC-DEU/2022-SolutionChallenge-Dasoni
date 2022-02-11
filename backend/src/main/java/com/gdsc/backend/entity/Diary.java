@@ -20,6 +20,7 @@ import java.util.UUID;
 public class Diary extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Schema(description = "다이어리 아이디", nullable = false)
     private UUID id;
 
     @Schema(description = "제목", nullable = false, example = "Sample Diary Title")

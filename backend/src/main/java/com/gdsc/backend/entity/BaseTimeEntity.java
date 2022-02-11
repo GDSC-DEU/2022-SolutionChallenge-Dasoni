@@ -9,8 +9,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+/**
+ * BaseTimeEntity class is automatically managing
+ * createdDate and modifiedDate of all entities.
+ * @author Jiyoon Bak
+ */
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -18,10 +23,10 @@ public abstract class BaseTimeEntity {
     @Schema(description = "생성 날짜")
     @CreatedDate
     @Column(name="created_date")
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Schema(description = "수정 날짜")
     @LastModifiedDate
     @Column(name="modified_date")
-    private LocalDate modifiedDate;
+    private LocalDateTime modifiedDate;
 }

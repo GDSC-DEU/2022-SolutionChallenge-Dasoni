@@ -1,6 +1,7 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.entity.Diary;
+import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.repository.DiaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,5 +19,12 @@ public class DiaryService {
         return diaryRepository.findAll(pageable);
     }
 
-    public void save(Diary diary) { diaryRepository.save(diary); }
+    public Diary save(DiaryRequest diaryRequest) {
+        return diaryRepository.save(
+                Diary.builder()
+                        .title(diaryRequest.getTitle())
+                        .emotion(diaryRequest.getEmotion())
+                        .content(diaryRequest.getContent())
+                        .build());
+    }
 }
