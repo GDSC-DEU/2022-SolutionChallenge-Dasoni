@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class DiaryService {
     private final DiaryRepository diaryRepository;
@@ -26,5 +28,9 @@ public class DiaryService {
                         .emotion(diaryRequest.getEmotion())
                         .content(diaryRequest.getContent())
                         .build());
+    }
+
+    public void deleteById(UUID idx) {
+        diaryRepository.deleteById(idx);
     }
 }
