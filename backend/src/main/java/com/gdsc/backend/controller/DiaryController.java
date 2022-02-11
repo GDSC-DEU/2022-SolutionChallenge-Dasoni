@@ -43,5 +43,5 @@ public class DiaryController {
     public ResponseEntity<DiaryListResponse> getDiaries(@PageableDefault Pageable pageable) {
         Page<Diary> diaries = diaryService.findDiaries(pageable);
         return ResponseEntity.ok(new DiaryListResponse(pageable, diaries));
-    }
+    } 
 }
