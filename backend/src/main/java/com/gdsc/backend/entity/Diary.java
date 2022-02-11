@@ -1,5 +1,7 @@
 package com.gdsc.backend.entity;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.gdsc.backend.entity.enums.EmotionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -14,7 +16,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "diary")
 @NoArgsConstructor
-public class Diary {
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class Diary extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
