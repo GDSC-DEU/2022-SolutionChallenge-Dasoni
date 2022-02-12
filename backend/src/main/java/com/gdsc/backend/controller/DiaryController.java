@@ -47,6 +47,14 @@ public class DiaryController {
         return ResponseEntity.ok(new DiaryListResponse(pageable, diaries));
     }
 
+    @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary"
+    )
+    @GetMapping(value = "/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getDiary(
+            @Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
+        return ResponseEntity.ok("{}");
+    }
+
     @Operation(summary = "다이어리 추가", description = "새로운 다이어리 데이터를 추가합니다.", tags = "diary",
             responses = {
                     @ApiResponse(responseCode = "201", description = "데이터 생성 성공",
