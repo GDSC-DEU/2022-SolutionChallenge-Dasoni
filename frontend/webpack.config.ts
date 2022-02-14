@@ -23,7 +23,7 @@ module.exports = {
           loader: require.resolve('ts-loader'),
           options: {
             getCustomTransformers: () => ({
-              befor: [isDevelopment && ReactRefreshTypeScript()].filter(
+              before: [isDevelopment && ReactRefreshTypeScript()].filter(
                 Boolean
               ),
             }),
