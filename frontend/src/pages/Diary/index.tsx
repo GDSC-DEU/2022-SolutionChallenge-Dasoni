@@ -1,15 +1,34 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import axios from 'axios';
+import useSWR from 'swr';
+import { api } from '../../api';
+
+interface DiaryContent {
+  diary_id: string;
+  title: string;
+  emotion: string;
+  content: string;
+  created_date: string;
+  updated_date: string;
+}
 
 function Diary() {
-  const [dummyDiaries, setdummyDiaries] = useState([]);
+  const fetcher = async (url: string) => {
+    const response = await axios.get(url);
+    return response.data.resources;
+  };
+
+  const { data, error } = useSWR(`${api}/api/diaries`, fetcher);
+  const contents = data?.content;
+
   return (
     <>
       <h2>Diary Page</h2>
       <ol>
-        {dummyDiaries.map((diary: Diary) => (
-          <li key={diary.diary_id}>{diary.title}</li>
-        ))}
+        {contents &&
+          contents.map((content: DiaryContent) => (
+            <li key={content.diary_id}>{content.title}</li>
+          ))}
       </ol>
     </>
   );
