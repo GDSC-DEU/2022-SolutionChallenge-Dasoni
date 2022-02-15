@@ -1,8 +1,8 @@
-import * as React from 'react';
-import Diary from './pages/Diary';
-import Layout from './layouts/Layout';
+import * as React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from "./layouts/Layout";
+import Diary from "./pages/Diary";
 
 function App() {
   return (

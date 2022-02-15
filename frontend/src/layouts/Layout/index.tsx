@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Outlet } from 'react-router';
+import * as React from "react";
+import { Outlet } from "react-router";
 
 function Layout() {
   return (
