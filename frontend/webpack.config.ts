@@ -32,6 +32,14 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.p?css$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "postcss-loader" },
+        ],
+      },
     ],
   },
   plugins: [
