@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.PagedModel;
 
+import java.util.UUID;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -20,4 +22,5 @@ public class DiaryListResponse {
         this.resources = PagedModel.of(page.getContent(), pageMetadata);
         this.resources.add(linkTo(methodOn(DiaryController.class).getDiaries(pageable)).withSelfRel());
     }
+
 }

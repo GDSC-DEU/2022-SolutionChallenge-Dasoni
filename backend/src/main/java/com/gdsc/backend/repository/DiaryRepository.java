@@ -9,6 +9,6 @@ import java.util.UUID;
 
 
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
-    Diary getById(@Param("id") UUID id);
+    Diary getById(UUID id);
     @Transactional void deleteById(UUID id);
 }

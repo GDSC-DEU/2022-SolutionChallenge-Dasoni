@@ -4,6 +4,7 @@ import com.gdsc.backend.entity.Diary;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryListResponse;
 import com.gdsc.backend.http.response.DiaryResponse;
+import com.gdsc.backend.repository.DiaryRepository;
 import com.gdsc.backend.service.DiaryService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -46,6 +47,23 @@ public class DiaryController {
         Page<Diary> diaries = diaryService.findDiaries(pageable);
         return ResponseEntity.ok(new DiaryListResponse(pageable, diaries));
     }
+
+    @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary",
+            responses = {
+            @ApiResponse(responseCode = "200", description = "다이어리 상세 조회 성공",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+        }
+    )
+    @GetMapping(value = "/{idx}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getDiary(
+            @Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id){
+        if(diaryService.findDiary(id) == null ){
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(diaryService.findDiary(id), HttpStatus.OK);
+
+    }
+
 
     @Operation(summary = "다이어리 추가", description = "새로운 다이어리 데이터를 추가합니다.", tags = "diary",
             responses = {

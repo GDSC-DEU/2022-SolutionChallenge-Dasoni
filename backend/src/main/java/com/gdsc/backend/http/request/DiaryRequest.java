@@ -1,5 +1,6 @@
 package com.gdsc.backend.http.request;
 
+import com.gdsc.backend.entity.Diary;
 import com.gdsc.backend.entity.enums.EmotionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -16,4 +17,13 @@ public class DiaryRequest {
 
     @Schema(description = "다이어리 내용", nullable = true, example = "Sample Diary Content")
     private String content;
+
+    public Diary toEntity(){
+        Diary diary = Diary.builder()
+                .title(title)
+                .emotion(emotion)
+                .content(content)
+                .build();
+        return diary;
+    }
 }
