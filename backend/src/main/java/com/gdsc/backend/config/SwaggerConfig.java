@@ -19,7 +19,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.List;
 
 @Configuration
-@EnableOpenApi
 @RequiredArgsConstructor
 public class SwaggerConfig {
     private final TypeResolver typeResolver;
