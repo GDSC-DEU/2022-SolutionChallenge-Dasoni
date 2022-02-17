@@ -56,7 +56,10 @@ public class DiaryController {
     @GetMapping(value = "/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getDiary(
             @Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
-        return ResponseEntity.ok("{}");
+        if(diaryService.findDiary(id) == null){
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(diaryService.findDiary(id), HttpStatus.OK);
     }
 
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,10 +25,16 @@ public class DiaryService {
     }
 
     @Transactional
-    public Diary findById(Long id){
-        Diary entity = diaryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다 id=" + id));
-        return new Diary();
+    public Diary findDiary(UUID id){
+        Optional<Diary> diaryWrapper = Optional.ofNullable(diaryRepository.getById(id));
+        Diary diary = diaryWrapper.get();
+
+        Diary diaryRequest = Diary.builder()
+                .title(diary.getTitle())
+                .content(diary.getContent())
+                .emotion(diary.getEmotion())
+                .build();
+        return diaryRequest;
     }
     public Diary save(DiaryRequest diaryRequest) {
         return diaryRepository.save(
