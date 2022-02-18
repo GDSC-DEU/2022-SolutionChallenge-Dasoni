@@ -40,6 +40,14 @@ module.exports = {
           { loader: "postcss-loader" },
         ],
       },
+      {
+        test: /\.(png|jpe?g|svg)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+          publicPath: "assets",
+        },
+      },
     ],
   },
   plugins: [
