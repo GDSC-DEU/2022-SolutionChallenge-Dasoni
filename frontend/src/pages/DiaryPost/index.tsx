@@ -1,17 +1,55 @@
+import axios from "axios";
 import * as React from "react";
 
+import { baseURL } from "../../api";
 import DiaryInput from "../../components/atoms/inputs/DiaryInput";
 
+interface DiaryPost {
+  content: string;
+  emotion: string;
+  title: string;
+}
+
+interface DiaryPostResponse {
+  content: {
+    content: string;
+    created_date: string;
+    emotion: string;
+    id: string;
+    modified_date: string;
+    title: string;
+  };
+  link: string;
+}
 
 function DiaryPost() {
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [emotion, setEmotion] = React.useState("");
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const response = await axios.post<DiaryPostResponse>(
+      `${baseURL}/api/diaries`,
+      {
+        title,
+        content,
+        emotion,
+      }
+    );
+    setTitle("");
+    setContent("");
+    setEmotion("");
+
+    console.log(response);
+  };
+
   return (
     <>
       <h1>post page</h1>
       <form>
+        {/* <form onSubmit={handleSubmit}> */}
         <DiaryInput
           type="text"
           value={title}
