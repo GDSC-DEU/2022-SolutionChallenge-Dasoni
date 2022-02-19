@@ -32,6 +32,22 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.p?css$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "postcss-loader" },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|svg)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[path][name].[ext]",
+          publicPath: "assets",
+        },
+      },
     ],
   },
   plugins: [
