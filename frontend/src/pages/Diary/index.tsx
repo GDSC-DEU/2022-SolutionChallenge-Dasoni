@@ -2,10 +2,11 @@ import axios from "axios";
 import * as React from "react";
 import useSWR from "swr";
 
-import { api } from "../../api";
+import { baseURL } from "../../api";
+import MainBox from "../../components/atoms/boxes/MainBox";
+import WriteButton from "../../components/atoms/buttons/WriteButton";
 
-import type { AxiosResponse } from "axios";
-import type { Fetcher, Key } from "swr";
+import { DiaryArticle, QuoteArticle, WeeklyMoodArticle } from "./styles";
 
 interface DiaryContent {
   diary_id: string;
@@ -28,17 +29,49 @@ function Diary() {
     return response.data.resources.content;
   };
 
-  const { data } = useSWR(`${api}/api/diaries`, fetcher);
+  const { data } = useSWR(`${baseURL}/api/diaries`, fetcher);
 
   return (
     <>
-      <h2>Diary Page</h2>
-      <ol>
-        {data &&
-          data.map((content) => (
-            <li key={content.diary_id}>{content.title}</li>
-          ))}
-      </ol>
+      <QuoteArticle>
+        <MainBox>
+          <div>13 Fe, 2022</div>
+          <div>Whoever is happy will make others happy too.</div>
+        </MainBox>
+      </QuoteArticle>
+      <WeeklyMoodArticle>
+        <MainBox>
+          <div>Weekly Mood</div>
+          <div>2.07 - 2.13</div>
+          <div>Mood Icon</div>
+          <div>
+            You seem to have felt sad these days. Why don’t you share yout
+            story?
+          </div>
+        </MainBox>
+      </WeeklyMoodArticle>
+      <DiaryArticle>
+        <div>
+          <span>February</span>
+          <span>toggle</span>
+        </div>
+        <section>
+          {data &&
+            data.map((content) => (
+              <MainBox key={content.diary_id}>
+                <div>
+                  <div>Mood Icon</div>
+                  <div>{content.created_date}</div>
+                </div>
+                <div>
+                  <div>{content.title}</div>
+                  <div>{content.content}</div>
+                </div>
+              </MainBox>
+            ))}
+        </section>
+      </DiaryArticle>
+      <WriteButton />
     </>
   );
 }
