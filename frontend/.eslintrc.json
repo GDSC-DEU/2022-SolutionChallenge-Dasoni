@@ -12,9 +12,10 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/typescript",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
   ],
-  "plugins": ["@typescript-eslint", "import"],
+  "plugins": ["@typescript-eslint", "import", "react-hooks"],
   "rules": {
     "sort-imports": [
       "error",
@@ -58,6 +59,13 @@
     "@typescript-eslint/consistent-type-imports": [
       "error",
       { "prefer": "type-imports" }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "additionalHooks": "useRecoilCallback"
+      }
     ]
   },
   "env": {
