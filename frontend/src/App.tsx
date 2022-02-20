@@ -1,5 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 import MainLayout from "./layouts/MainLayout";
 import Diary from "./pages/Diary";
@@ -10,12 +11,14 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Diary />} />
-          <Route path="post" element={<DiaryPost />} />
-        </Route>
-      </Routes>
+      <RecoilRoot>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Diary />} />
+            <Route path="post" element={<DiaryPost />} />
+          </Route>
+        </Routes>
+      </RecoilRoot>
     </BrowserRouter>
   );
 }
