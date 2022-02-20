@@ -1,35 +1,38 @@
 import axios from "axios";
 import * as React from "react";
+import { useCallback } from "react";
+import { useRecoilState } from "recoil";
 import useSWR from "swr";
 
 import { baseURL } from "../../api";
 import MainBox from "../../components/atoms/boxes/MainBox";
 import WriteButton from "../../components/atoms/buttons/WriteButton";
+import { diariesState } from "../../recoil/Diary";
 
 import { DiaryArticle, QuoteArticle, WeeklyMoodArticle } from "./styles";
 
-interface DiaryContent {
-  diary_id: string;
-  title: string;
-  emotion: string;
-  content: string;
-  created_date: string;
-  updated_date: string;
-}
+import type { DiaryTypes } from "recoil/Diary";
 
 interface Config {
   resources: {
-    content: DiaryContent[];
+    content: DiaryTypes[];
   };
 }
 
 function Diary() {
-  const fetcher = async (url: string) => {
-    const response = await axios.get<Config>(url);
-    return response.data.resources.content;
-  };
+  const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesState);
 
-  const { data } = useSWR(`${baseURL}/api/diaries`, fetcher);
+  const fetcher = useCallback(
+    async (url: string) => {
+      console.log("실행?");
+      const response = await axios.get<Config>(url);
+      setDiaries(response.data.resources.content);
+
+      return response.data.resources.content;
+    },
+    [setDiaries]
+  );
+  useSWR(`${baseURL}/api/diaries`, fetcher);
 
   return (
     <>
@@ -56,16 +59,16 @@ function Diary() {
           <span>toggle</span>
         </div>
         <section>
-          {data &&
-            data.map((content) => (
-              <MainBox key={content.diary_id}>
+          {diaries &&
+            diaries.map((diary) => (
+              <MainBox key={diary.diary_id}>
                 <div>
                   <div>Mood Icon</div>
-                  <div>{content.created_date}</div>
+                  <div>{diary.created_date}</div>
                 </div>
                 <div>
-                  <div>{content.title}</div>
-                  <div>{content.content}</div>
+                  <div>{diary.title}</div>
+                  <div>{diary.content}</div>
                 </div>
               </MainBox>
             ))}
