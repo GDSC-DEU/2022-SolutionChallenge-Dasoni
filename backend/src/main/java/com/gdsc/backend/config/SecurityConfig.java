@@ -1,21 +1,29 @@
 package com.gdsc.backend.config;
 
 
+import com.gdsc.backend.config.properties.CorsProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CorsProperties corsProperties;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .formLogin().disable() // The form login method is disable because the OAuth2 login will be used.
+                .httpBasic().disable()
                 .headers().frameOptions().disable()
 
                 .and()
@@ -25,6 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .cors().configurationSource(corsConfigurationSource())
 
+//                .and()
+//                .oauth2Login()
+//                .authorizationEndpoint()
+//                .baseUri("/oauth2/authorization")
+//                .authorizationRequestRepository()
+
                 .and()
                 .authorizeRequests()
                 .antMatchers( "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs").permitAll() // About Swagger UI
@@ -33,16 +47,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
+
         CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedHeaders(Arrays.asList(corsProperties.getAllowedHeaders().split(",")));
+        configuration.setAllowedMethods(Arrays.asList(corsProperties.getAllowedMethods().split(",")));
+        configuration.setAllowedOrigins(Arrays.asList(corsProperties.getAllowedOrigins().split(",")));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(configuration.getMaxAge());
 
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(false);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        corsConfigurationSource.registerCorsConfiguration("/**", configuration);
+        return corsConfigurationSource;
     }
 }
