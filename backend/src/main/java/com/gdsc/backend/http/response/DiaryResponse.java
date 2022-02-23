@@ -21,4 +21,5 @@ public class DiaryResponse {
     public static DiaryResponse of(URI uri, Diary diary) {
         return new DiaryResponse(uri.toString(), diary);
     }
+
 }
