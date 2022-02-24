@@ -4,7 +4,6 @@ import com.gdsc.backend.entity.Diary;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.repository.DiaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-@ComponentScan
 @Service
 public class DiaryService {
     private final DiaryRepository diaryRepository;

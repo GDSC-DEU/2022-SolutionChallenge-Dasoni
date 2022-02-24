@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dasoni_database:5432/dasoni
-    username: sonida
-    password: dasoni2022
+    url: jdbc:postgresql://dasoni_database:5432/{database_name}
+    username: {database_username}
+    password: {database_password}
   jpa:
     hibernate:
       ddl-auto: create-drop

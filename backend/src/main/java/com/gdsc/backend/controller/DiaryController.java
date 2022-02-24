@@ -19,17 +19,14 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Optional;
 import java.util.UUID;
 
 
 @Tag(name = "diary", description = "다이어리 관련 API")
 @RestController
-@Controller
 @RequestMapping("/api/diaries")
 public class DiaryController {
     private final DiaryService diaryService;
@@ -51,7 +48,7 @@ public class DiaryController {
 
     @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary",
             responses = {
-            @ApiResponse(responseCode = "200", description = "다이어리 상세 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+            @ApiResponse(responseCode = "200", description = "다이어리 상세 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Diary.class)))
         }
     )
     @GetMapping(value = "/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
