@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 
-import { baseURL } from "../../api";
+import { DASONI_BACKEND_API } from "../../.env";
 import MainBox from "../../components/atoms/boxes/MainBox";
 import WriteButton from "../../components/atoms/buttons/WriteButton";
 import { diariesState } from "../../recoil/Diary";
@@ -26,13 +26,14 @@ function Diary() {
     async (url: string) => {
       console.log("실행?");
       const response = await axios.get<Config>(url);
+      console.log("data: ", response.data);
       setDiaries(response.data.resources.content);
 
       return response.data.resources.content;
     },
     [setDiaries]
   );
-  useSWR(`${baseURL}/api/diaries`, fetcher);
+  useSWR(`${DASONI_BACKEND_API}/api/diaries`, fetcher);
 
   return (
     <>

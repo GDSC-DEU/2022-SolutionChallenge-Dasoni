@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as React from "react";
 
-import { baseURL } from "../../api";
+import { DASONI_BACKEND_API } from "../../.env";
 import DiaryInput from "../../components/atoms/inputs/DiaryInput";
 
 interface DiaryPost {
