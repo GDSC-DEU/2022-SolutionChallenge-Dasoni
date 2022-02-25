@@ -1,5 +1,5 @@
 name: Deploy to Firebase Hosting on PR
-on: 
+on:
   pull_request:
     paths:
       - '**/frontend/**'
@@ -9,12 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: num run build
+      - run: npm run build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DASONI_75E6A }}'
           projectId: dasoni-75e6a
-          entryPoint: ./frontend
-          
+          entryPoint: './frontend'
