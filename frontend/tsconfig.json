@@ -6,6 +6,6 @@
     "baseUrl": "src",
     "typeRoots": ["node_modules/@types", "@types"]
   },
-  "include": ["src/**/*.tsx", "src/**/*.ts"],
+  "include": ["src/**/*.tsx", "src/**/*.ts", ".eslintrc.js"],
   "exclude": ["node_modules", "**/__tests__/**", "**/*.d.ts"]
 }
