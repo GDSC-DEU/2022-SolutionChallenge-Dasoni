@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as React from "react";
 
-import { DASONI_BACKEND_API } from "../../.env";
+import { DASONI_BACKEND_API } from "../../secret";
 import DiaryInput from "../../components/atoms/inputs/DiaryInput";
 
 interface DiaryPost {
@@ -31,7 +31,7 @@ function DiaryPost() {
     e.preventDefault();
 
     const response = await axios.post<DiaryPostResponse>(
-      `${baseURL}/api/diaries`,
+      `${DASONI_BACKEND_API}/api/diaries`,
       {
         title,
         content,

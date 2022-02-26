@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import useSWR from "swr";
 
-import { DASONI_BACKEND_API } from "../../.env";
+import { DASONI_BACKEND_API } from "../../secret";
 import MainBox from "../../components/atoms/boxes/MainBox";
 import WriteButton from "../../components/atoms/buttons/WriteButton";
 import { diariesState } from "../../recoil/Diary";
