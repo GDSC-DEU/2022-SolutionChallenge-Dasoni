@@ -19,7 +19,6 @@ import java.util.UUID;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Diary extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(description = "다이어리 아이디", nullable = false)
     private UUID id;
 

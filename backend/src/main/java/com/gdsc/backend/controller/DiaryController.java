@@ -7,7 +7,6 @@ import com.gdsc.backend.http.response.DiaryResponse;
 import com.gdsc.backend.service.DiaryService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,7 +32,7 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     @Autowired
-    public DiaryController(DiaryService diaryService) { this.diaryService = diaryService; }
+    public DiaryController(DiaryService diaryService) {this.diaryService = diaryService; }
 
     @Operation(summary = "전체 다이어리 조회", description = "사용자의 전체 다이어리를 최신 날짜 순으로 조회합니다.", tags = "diary",
         responses = {
@@ -44,8 +43,22 @@ public class DiaryController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiaryListResponse> getDiaries(@PageableDefault Pageable pageable) {
         Page<Diary> diaries = diaryService.findDiaries(pageable);
-        return ResponseEntity.ok(new DiaryListResponse(pageable, diaries));
+        return  ResponseEntity.ok(new DiaryListResponse(pageable, diaries));
     }
+
+    @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary",
+            responses = {
+            @ApiResponse(responseCode = "200", description = "다이어리 상세 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Diary.class)))
+        }
+    )
+    @GetMapping(value = "/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Diary> getDiary(@Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
+
+        Diary diary = diaryService.findDiary(id);
+        return ResponseEntity.ok(diary);
+
+    }
+
 
     @Operation(summary = "다이어리 추가", description = "새로운 다이어리 데이터를 추가합니다.", tags = "diary",
             responses = {
