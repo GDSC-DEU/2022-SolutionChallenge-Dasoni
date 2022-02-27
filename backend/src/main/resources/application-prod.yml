@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dasoni_database:5432/{database_name}
-    username: {database_username}
-    password: {database_password}
+    url: jdbc:postgresql://dasoni_database:5432/{database-name}
+    username: {username}
+    password: {password}
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -13,3 +13,24 @@ spring:
         show_sql: true
     generate-ddl: true
     defer-datasource-initialization: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: {cliend-id}
+            client-secret: {client-secret}
+            scope: profile, email
+cors:
+  allowed-origins: { origin-url }
+  allowed-methods: { methods }
+  allowed-headers: { headers }
+  max-age: 3600
+jwt:
+  header: Authorization
+  secret: { secret-key }
+  token-validity-in-seconds: { token-validity-in-seconds }
+  token-refresh-validity-in-seconds: { token-refresh-validity-in-seconds }
