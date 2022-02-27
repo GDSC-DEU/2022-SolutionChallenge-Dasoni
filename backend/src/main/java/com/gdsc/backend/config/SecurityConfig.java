@@ -1,7 +1,9 @@
 package com.gdsc.backend.config;
 
-
 import com.gdsc.backend.config.properties.CorsProperties;
+import com.gdsc.backend.oauth2.CustomOAuth2UserService;
+import com.gdsc.backend.oauth2.OAuth2SuccessHandler;
+import com.gdsc.backend.oauth2.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +18,10 @@ import java.util.Arrays;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final TokenProvider tokenProvider;
     private final CorsProperties corsProperties;
+    private final OAuth2SuccessHandler successHandler;
+    private final CustomOAuth2UserService oAuth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -33,17 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .cors().configurationSource(corsConfigurationSource())
 
-//                .and()
-//                .oauth2Login()
-//                .authorizationEndpoint()
-//                .baseUri("/oauth2/authorization")
-//                .authorizationRequestRepository()
-
                 .and()
                 .authorizeRequests()
                 .antMatchers( "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs").permitAll() // About Swagger UI
                 .antMatchers("/api/diaries/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+
+                .and()
+                .oauth2Login()
+                .successHandler(successHandler)
+                .userInfoEndpoint().userService(oAuth2UserService);
+//                .authorizationEndpoint()
+//                .baseUri("/oauth2/authorization")
+//                .authorizationRequestRepository();
     }
 
     @Bean
