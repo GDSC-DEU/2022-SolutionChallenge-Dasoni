@@ -4,8 +4,8 @@ import { StyledDiaryInput } from "./styles";
 
 export interface DiaryInputProps {
   type: string;
-  value: string;
-  placeholder: string;
+  value?: string;
+  placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   valid: boolean;
 }
