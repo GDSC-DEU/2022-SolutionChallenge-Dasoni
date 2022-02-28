@@ -12,7 +12,7 @@ import { diariesState } from "../../recoil/Diary";
 import { DiaryArticle, QuoteArticle, WeeklyMoodArticle } from "./styles";
 
 import type { DiaryTypes } from "recoil/Diary";
-import DailyCalendar from "../../components/molecules/calendar/DailyCalendar";
+import DailyCalendar from "../../components/molecules/calendars/DailyCalendar";
 
 interface Config {
   resources: {
