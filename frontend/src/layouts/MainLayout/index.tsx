@@ -1,8 +1,9 @@
+import { Header } from "../../components/atoms/wrapper/Header";
 import * as React from "react";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 
-import { ButtonBox, Header, Main, Nav } from "./styles";
+import { ButtonBox, Main, Nav } from "./styles";
 
 function MainLayout() {
   return (
