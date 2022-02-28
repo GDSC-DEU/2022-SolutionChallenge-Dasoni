@@ -3,6 +3,7 @@ import * as React from "react";
 
 import { DASONI_BACKEND_API } from "../../secret";
 import DiaryInput from "../../components/atoms/inputs/DiaryInput";
+import DailyCalendar from "../../components/molecules/calendar/DailyCalendar";
 
 interface DiaryPost {
   content: string;
@@ -47,9 +48,8 @@ function DiaryPost() {
 
   return (
     <>
-      <h1>post page</h1>
-      <form>
-        {/* <form onSubmit={handleSubmit}> */}
+      <DailyCalendar backgroundColor="#F7F7F7">Thursday, Feb 24</DailyCalendar>
+      <form onSubmit={handleSubmit}>
         <DiaryInput
           type="text"
           value={title}

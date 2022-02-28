@@ -12,6 +12,7 @@ import { diariesState } from "../../recoil/Diary";
 import { DiaryArticle, QuoteArticle, WeeklyMoodArticle } from "./styles";
 
 import type { DiaryTypes } from "recoil/Diary";
+import DailyCalendar from "../../components/molecules/calendar/DailyCalendar";
 
 interface Config {
   resources: {
@@ -55,8 +56,9 @@ function Diary() {
         </MainBox>
       </WeeklyMoodArticle>
       <DiaryArticle>
+        <DailyCalendar>Jan 2022</DailyCalendar>
         <div>
-          <span>February</span>
+          <span>Show notification</span>
           <span>toggle</span>
         </div>
         <section>
