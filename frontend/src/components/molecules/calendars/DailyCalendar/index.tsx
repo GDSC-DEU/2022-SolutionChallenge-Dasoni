@@ -7,9 +7,9 @@ function DailyCalendar(props: {
 }) {
   return (
     <DailyCalendarWrap backgroundColor={props?.backgroundColor || "#fff"}>
-      <span className="back">뒤로</span>
-      <span className="date">{props.children}</span>
-      <span className="front">앞으로</span>
+      <span className="arrows prev-month">&lt;</span>
+      <span className="month">{props.children}</span>
+      <span className="arrows next-month">&gt;</span>
     </DailyCalendarWrap>
   );
 }
