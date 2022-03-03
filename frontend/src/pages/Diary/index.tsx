@@ -5,14 +5,22 @@ import { useRecoilState } from "recoil";
 import useSWR from "swr";
 
 import { DASONI_BACKEND_API } from "../../secret";
-import MainBox from "../../components/atoms/boxes/MainBox";
+import ShadowBox from "../../components/molecules/boxes/ShadowBox";
 import WriteButton from "../../components/atoms/buttons/WriteButton";
 import { diariesState } from "../../recoil/Diary";
 
-import { DiaryArticle, QuoteArticle, WeeklyMoodArticle } from "./styles";
+import {
+  DiaryArticle,
+  QuoteArticle,
+  Quote,
+  WeeklyMoodArticle,
+  Notification,
+} from "./styles";
 
 import type { DiaryTypes } from "recoil/Diary";
 import DailyCalendar from "../../components/molecules/calendars/DailyCalendar";
+import DiaryContentBox from "../../components/molecules/boxes/DiaryContentBox";
+import ToggleSwitchButton from "../../components/atoms/buttons/ToggleSwitchButton";
 
 interface Config {
   resources: {
@@ -39,41 +47,42 @@ function Diary() {
   return (
     <>
       <QuoteArticle>
-        <MainBox>
-          <div>13 Fe, 2022</div>
-          <div>Whoever is happy will make others happy too.</div>
-        </MainBox>
+        <ShadowBox>
+          <div className="date">13 Feb, 2022</div>
+          <Quote>
+            <div className="quote">
+              Whoever is happy will make others happy too.
+            </div>
+            <div className="author">Anne Frank</div>
+          </Quote>
+        </ShadowBox>
       </QuoteArticle>
       <WeeklyMoodArticle>
-        <MainBox>
-          <div>Weekly Mood</div>
-          <div>2.07 - 2.13</div>
-          <div>Mood Icon</div>
-          <div>
+        <ShadowBox align="center">
+          <div className="title">Weekly Mood</div>
+          <div className="date">2.07 - 2.13</div>
+          <div className="emotion-icon"></div>
+          <div className="suggestion">
             You seem to have felt sad these days. Why don’t you share yout
             story?
           </div>
-        </MainBox>
+        </ShadowBox>
       </WeeklyMoodArticle>
       <DiaryArticle>
         <DailyCalendar>Jan 2022</DailyCalendar>
-        <div>
+        <Notification>
           <span>Show notification</span>
-          <span>toggle</span>
-        </div>
+          <ToggleSwitchButton />
+        </Notification>
         <section>
           {diaries &&
             diaries.map((diary) => (
-              <MainBox key={diary.diary_id}>
-                <div>
-                  <div>Mood Icon</div>
-                  <div>{diary.created_date}</div>
-                </div>
-                <div>
-                  <div>{diary.title}</div>
-                  <div>{diary.content}</div>
-                </div>
-              </MainBox>
+              <DiaryContentBox
+                key={diary.diary_id}
+                created_date={diary.created_date}
+                title={diary.title}
+                content={diary.content}
+              />
             ))}
         </section>
       </DiaryArticle>
