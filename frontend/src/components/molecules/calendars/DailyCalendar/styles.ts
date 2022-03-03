@@ -13,12 +13,11 @@ export const DailyCalendarWrap = styled.div<{ backgroundColor: string }>`
 
   padding: 11px 0;
 
-  .date {
+  .month {
     margin: 0 17px;
   }
-  .date,
-  .back,
-  .front {
+  .month,
+  .arrows {
     cursor: pointer;
   }
 `;
