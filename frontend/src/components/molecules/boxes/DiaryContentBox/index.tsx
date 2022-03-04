@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import { ShadowBoxWrap } from "../ShadowBox/styles";
-
 import { DiaryContentBoxWrap } from "./styles";
 
 export interface DiaryContentBoxProps {
@@ -15,19 +13,22 @@ function DiaryContentBox(props: DiaryContentBoxProps) {
   const { key, created_date, title, content } = props;
 
   return (
-    <ShadowBoxWrap key={key}>
-      <DiaryContentBoxWrap>
-        <div>
-          <div className="mood-icon"></div>
-          <div className="date">12 Sat</div>
-          {/* <div>{created_date}</div> */}
-        </div>
-        <div>
-          <div className="title">{title}</div>
-          <div className="content">{content}</div>
-        </div>
-      </DiaryContentBoxWrap>
-    </ShadowBoxWrap>
+    <DiaryContentBoxWrap key={key}>
+      <div className="left">
+        <div className="warning-signer"></div>
+        <div className="mood-icon"></div>
+        <div className="date">12 Sat</div>
+        {/* <div>{created_date}</div> */}
+      </div>
+      <div className="center">
+        <div className="title">{title}</div>
+        <div className="content">{content}</div>
+      </div>
+      <div className="right">
+        <div className="menu-button"></div>
+        <div className="warning-button"></div>
+      </div>
+    </DiaryContentBoxWrap>
   );
 }
 
