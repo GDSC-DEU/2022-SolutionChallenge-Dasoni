@@ -3,7 +3,6 @@ package com.gdsc.backend.http.response;
 import com.gdsc.backend.entity.Diary;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
-import org.springframework.hateoas.Link;
 
 import java.net.URI;
 

@@ -24,7 +24,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
-
 @Tag(name = "diary", description = "다이어리 관련 API")
 @RestController
 @RequestMapping("/api/diaries")
