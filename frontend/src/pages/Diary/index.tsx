@@ -21,6 +21,7 @@ import type { DiaryTypes } from "recoil/Diary";
 import DailyCalendar from "../../components/molecules/calendars/DailyCalendar";
 import DiaryContentBox from "../../components/molecules/boxes/DiaryContentBox";
 import ToggleSwitchButton from "../../components/atoms/buttons/ToggleSwitchButton";
+import { Link } from "react-router-dom";
 
 interface Config {
   resources: {
@@ -33,9 +34,8 @@ function Diary() {
 
   const fetcher = useCallback(
     async (url: string) => {
-      console.log("실행?");
       const response = await axios.get<Config>(url);
-      console.log("data: ", response.data);
+      console.log("get response: ", response.data);
       setDiaries(response.data.resources.content);
 
       return response.data.resources.content;
@@ -58,15 +58,17 @@ function Diary() {
         </ShadowBox>
       </QuoteArticle>
       <WeeklyMoodArticle>
-        <ShadowBox align="center">
-          <div className="title">Weekly Mood</div>
-          <div className="date">2.07 - 2.13</div>
-          <div className="emotion-icon"></div>
-          <div className="suggestion">
-            You seem to have felt sad these days. Why don’t you share yout
-            story?
-          </div>
-        </ShadowBox>
+        <Link to="/weekly">
+          <ShadowBox align="center">
+            <div className="title">Weekly Mood</div>
+            <div className="date">2.07 - 2.13</div>
+            <div className="emotion-icon"></div>
+            <div className="suggestion">
+              You seem to have felt sad these days. Why don’t you share yout
+              story?
+            </div>
+          </ShadowBox>
+        </Link>
       </WeeklyMoodArticle>
       <DiaryArticle>
         <DailyCalendar>Jan 2022</DailyCalendar>

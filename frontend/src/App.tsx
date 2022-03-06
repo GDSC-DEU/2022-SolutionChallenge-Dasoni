@@ -12,6 +12,7 @@ import Statistics from "./pages/Statistics";
 import Map from "./pages/Map";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
+import DiaryWeeklyList from "./pages/DiaryWeeklyList";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="feed" element={<Feed />} />
             <Route path="statistics" element={<Statistics />} />
           </Route>
+          <Route path="/weekly" element={<DiaryWeeklyList />} />
           <Route path="/" element={<SubPageLayout />}>
             <Route path="post" element={<DiaryPost />} />
             <Route path="map" element={<Map />} />
