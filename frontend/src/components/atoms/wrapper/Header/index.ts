@@ -16,4 +16,22 @@ export const Header = styled.header`
     line-height: 24px;
     margin-top: 4px;
   }
+
+  .back-button {
+    width: 24px;
+    height: 24px;
+    background: gray;
+  }
+
+  .title {
+    text-align: center;
+    width: 100%;
+    margin-left: -24px;
+
+    font-family: Pretendard;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.2px;
+  }
 `;
