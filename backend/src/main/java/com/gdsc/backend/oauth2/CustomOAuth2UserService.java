@@ -1,36 +1,58 @@
 package com.gdsc.backend.oauth2;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdsc.backend.entity.enums.SocialType;
+import com.gdsc.backend.oauth2.dto.AccessTokenSocialTypeToken;
+import com.gdsc.backend.oauth2.dto.GoogleIdToken;
+import com.gdsc.backend.oauth2.dto.OAuth2AccessTokenAttribute;
+import com.gdsc.backend.oauth2.dto.OAuth2UserDetails;
+import com.gdsc.backend.oauth2.strategy.GoogleLoadStrategy;
+import com.gdsc.backend.oauth2.strategy.SocialLoadStrategy;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.Base64;
+
 
 @Slf4j
 @Service
-public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
-        OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
+public class CustomOAuth2UserService {
+    private final ObjectMapper objectMapper;
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId(); // google, facebook, kakao 등의 registration id
-        String userNameAttributeName = userRequest.getClientRegistration()
-                .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+    @Autowired
+    public CustomOAuth2UserService(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
-        OAuth2Attribute oAuth2Attribute =
-                OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+    public Object getAccessToken(AccessTokenSocialTypeToken authentication, ClientRegistrationRepository clientRegistrationRepository) {
+        SocialType socialType = authentication.getSocialType();
 
-        log.debug("{}", oAuth2Attribute);
+        SocialLoadStrategy socialLoadStrategy = getSocialLoadStrategy(socialType, clientRegistrationRepository);
+        return socialLoadStrategy.getSocialAccessCode(authentication.getCode(), authentication.getRedirect_url());
+    }
 
-        return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
-                oAuth2Attribute.getAttributes(), "email");
+    @SneakyThrows
+    public OAuth2UserDetails getOAuth2UserDetails(SocialType socialType, OAuth2AccessTokenAttribute response) {
+        String[] chunks = response.getIdToken().split("\\.");
+        Base64.Decoder decoder = Base64.getDecoder();
+        String payload = new String(decoder.decode(chunks[1]));
+        GoogleIdToken decodeIdToken = objectMapper.readValue(payload, GoogleIdToken.class);
+
+        return OAuth2UserDetails.builder()
+                .principal(decodeIdToken.getSub())
+                .socialType(socialType)
+                .username(decodeIdToken.getEmail())
+                .build();
+    }
+
+    private SocialLoadStrategy getSocialLoadStrategy(SocialType socialType, ClientRegistrationRepository clientRegistrationRepository) {
+        if (socialType == SocialType.GOOGLE) {
+            return new GoogleLoadStrategy(clientRegistrationRepository);
+        } else {
+            throw new IllegalArgumentException("지원하지 않는 로그인 형식입니다");
+        }
     }
 }

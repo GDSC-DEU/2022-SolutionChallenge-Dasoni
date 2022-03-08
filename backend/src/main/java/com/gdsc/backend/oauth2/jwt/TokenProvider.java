@@ -1,6 +1,7 @@
 package com.gdsc.backend.oauth2.jwt;
 
 
+import com.gdsc.backend.entity.enums.RoleType;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -69,16 +70,16 @@ public class TokenProvider implements InitializingBean {
      * @see org.springframework.security.core.Authentication
      * @return 유저의 권한 정보와 토큰, 리프레시 토큰 값이 지정된 Token 객체
      */
-    public Token createToken(UUID id, String roleType) {
+    public Token createToken(UUID id, RoleType roleType) {
 
         Claims claims = Jwts.claims().setSubject(id.toString());
-        claims.put(AUTHORITIES_KEY, roleType);
+        claims.put(AUTHORITIES_KEY, roleType.getGrantedAuthority());
 
         Date now = new Date();
 
         // 유저의 권한 정보와 토큰, 리프레시 토큰을 반환한다.
         return Token.builder()
-                .roleType(roleType)
+                .roleType(roleType.getGrantedAuthority())
                 .token(Jwts.builder()
                         .setClaims(claims)
                         .setIssuedAt(now)
@@ -106,9 +107,7 @@ public class TokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return new UsernamePasswordAuthenticationToken(claims.getSubject(), token, authorities);
     }
 
     /*
