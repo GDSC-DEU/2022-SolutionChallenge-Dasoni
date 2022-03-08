@@ -2,10 +2,14 @@ package com.gdsc.backend.entity;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.gdsc.backend.entity.enums.RoleType;
+import com.gdsc.backend.entity.enums.SocialType;
+import com.gdsc.backend.entity.enums.StateType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -35,18 +39,32 @@ public class Users extends BaseTimeEntity {
     @Column(unique = true)
     private String principal;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")}
-    )
-    private Set<Authority> authorities;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    private SocialType socialType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    private RoleType roleType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    private StateType stateType;
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+    public void setStateType(StateType stateType) {
+        this.stateType = stateType;
+    }
 
     @Builder
-    public Users(String email, String principal, Set<Authority> authorities) {
+    public Users(String email, String principal, SocialType socialType, RoleType roleType, StateType stateType) {
         this.email = email;
         this.principal = principal;
-        this.authorities = authorities;
+        this.socialType = socialType;
+        this.roleType = roleType;
+        this.stateType = stateType;
     }
 }
