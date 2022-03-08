@@ -1,8 +1,8 @@
 package com.gdsc.backend.config;
 
 import com.gdsc.backend.config.properties.CorsProperties;
-import com.gdsc.backend.oauth2.CustomOAuth2UserService;
-import com.gdsc.backend.oauth2.OAuth2SuccessHandler;
+import com.gdsc.backend.oauth2.CustomOAuth2AuthenticationFilter;
+import com.gdsc.backend.oauth2.jwt.JwtFilter;
 import com.gdsc.backend.oauth2.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -20,11 +24,16 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
     private final CorsProperties corsProperties;
-    private final OAuth2SuccessHandler successHandler;
-    private final CustomOAuth2UserService oAuth2UserService;
+    private final CustomOAuth2AuthenticationFilter oAuth2AuthenticationFilter;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        JwtFilter jwtFilter = new JwtFilter(tokenProvider);
         http
                 .csrf().disable()
                 .formLogin().disable() // The form login method is disable because the OAuth2 login will be used.
@@ -41,16 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers( "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs").permitAll() // About Swagger UI
-                .antMatchers("/api/diaries/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/api/oauth2/login/**").permitAll() // OAuth2 Login
+                .anyRequest().hasRole("GUEST")
 
                 .and()
-                .oauth2Login()
-                .successHandler(successHandler)
-                .userInfoEndpoint().userService(oAuth2UserService);
-//                .authorizationEndpoint()
-//                .baseUri("/oauth2/authorization")
-//                .authorizationRequestRepository();
+                .addFilterBefore(oAuth2AuthenticationFilter, OAuth2LoginAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
