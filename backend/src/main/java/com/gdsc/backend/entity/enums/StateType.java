@@ -2,7 +2,8 @@ package com.gdsc.backend.entity.enums;
 
 public enum StateType {
     PREGNANT("Unmarried_pregnant"),
-    MOTHER("Unmarried_mother");
+    MOTHER("Unmarried_mother"),
+    FATHER("Unmarried_father");
 
     private String value;
 
