@@ -10,7 +10,6 @@ import lombok.ToString;
 @ToString
 @Getter
 @Builder
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Token {
     private String roleType;
     private String token;

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UpdateUserRequest {
     public UpdateUserRequest(StateType stateType) {
         this.stateType = stateType;
