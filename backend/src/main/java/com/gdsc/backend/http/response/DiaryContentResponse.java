@@ -11,11 +11,22 @@ import java.util.UUID;
 
 @Getter
 public class DiaryContentResponse {
+    @Schema(description = "다이어리 아이디")
     private UUID diaryId;
+
+    @Schema(description = "제목", example = "Sample Diary Title")
     private String title;
+
+    @Schema(description = "다이어리 내용", example = "Sample Diary Content")
     private String content;
+
+    @Schema(description = "사용자가 등록한 감정", example = "Happy")
     private String emotion;
+
+    @Schema(description = "사용자가 입력한 다이어리 내용을 분석한 감정 결과", example = "Happy")
     private String contentEmotion;
+
+    @Schema(description = "다이어리 날짜")
     private LocalDate date;
 
     private DiaryContentResponse(Diary diary) {

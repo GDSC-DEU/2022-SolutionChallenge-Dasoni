@@ -31,12 +31,12 @@ public class Diary extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Schema(description = "사용자가 등록한 감정", nullable = false, allowableValues = {"HAPPY", "GOOD", "AVERAGE", "POOR", "BAD"}, example = "HAPPY")
+    @Schema(description = "사용자가 등록한 감정", nullable = false, allowableValues = {"VERY_HAPPY", "HAPPY", "NORMAL", "SAD", "VERY_SAD"}, example = "HAPPY")
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 8)
     private EmotionType emotion;
 
-    @Schema(description = "사용자가 입력한 다이어리 내용을 분석한 감정 결과", nullable = false, allowableValues = {"HAPPY", "GOOD", "AVERAGE", "POOR", "BAD"}, example = "HAPPY")
+    @Schema(description = "사용자가 입력한 다이어리 내용을 분석한 감정 결과", nullable = false, allowableValues = {"VERY_HAPPY", "HAPPY", "NORMAL", "SAD", "VERY_SAD"}, example = "HAPPY")
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = true, length = 8)
     private EmotionType contentEmotion;
