@@ -1,11 +1,11 @@
 package com.gdsc.backend.entity.enums;
 
 public enum EmotionType {
-    HAPPY("매우 행복"),
-    GOOD("행복"),
-    AVERAGE("평범"),
-    POOR("나쁨"),
-    BAD("매우 나쁨");
+    VERY_HAPPY("Very Happy"),
+    HAPPY("Happy"),
+    NORMAL("Normal"),
+    SAD("Sad"),
+    VERY_SAD("Very Sad");
 
     private String value;
 

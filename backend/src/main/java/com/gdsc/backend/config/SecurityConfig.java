@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers( "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs").permitAll() // About Swagger UI
                 .antMatchers("/api/oauth2/login/**").permitAll() // OAuth2 Login
-                .anyRequest().hasRole("GUEST")
+                .anyRequest().hasRole("USER")
 
                 .and()
                 .addFilterBefore(oAuth2AuthenticationFilter, OAuth2LoginAuthenticationFilter.class)

@@ -9,15 +9,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collection;
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.List;
 
 @Schema(description = "사용자")
 @Getter
@@ -50,6 +48,9 @@ public class Users extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
     private StateType stateType;
+
+    @OneToMany(mappedBy = "users", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Diary> diaries = new ArrayList<>();
 
     public void setRoleType(RoleType roleType) {
         this.roleType = roleType;
