@@ -3,7 +3,9 @@ package com.gdsc.backend.controller;
 import com.gdsc.backend.entity.Diary;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryListResponse;
+import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.http.response.DiaryResponse;
+import com.gdsc.backend.http.response.EmotionAverageResponse;
 import com.gdsc.backend.service.DiaryService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -12,18 +14,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Tag(name = "diary", description = "다이어리 관련 API")
 @RestController
 @RequestMapping("/api/diaries")
@@ -40,9 +42,24 @@ public class DiaryController {
         }
     )
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DiaryListResponse> getDiaries(@PageableDefault Pageable pageable) {
-        Page<Diary> diaries = diaryService.findDiaries(pageable);
-        return  ResponseEntity.ok(new DiaryListResponse(pageable, diaries));
+    public ResponseEntity<DiaryListResponse> getDiaries(
+            @Parameter(name = "year", in = ParameterIn.QUERY, description = "조회할 다이어리 년도") @RequestParam Integer year,
+            @Parameter(name = "month", in = ParameterIn.QUERY, description = "조회할 다이어리 월") @RequestParam Integer month
+    ) {
+        if (!(month >= 1 && month <=12)) {
+            log.trace("정확하지 않는 달을 입력하였습니다.");
+            throw new RuntimeException();
+        }
+
+        EmotionAverageResponse emotionAverage = EmotionAverageResponse.builder().emotion("Very Sad").build();
+        List<DiaryContentResponse> diaries = diaryService.findDiariesContent(year, month);
+
+        DiaryListResponse response = DiaryListResponse.builder()
+                .emotionAverage(emotionAverage)
+                .diaries(diaries)
+                .build();
+
+        return  ResponseEntity.ok(response);
     }
 
     @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary",
@@ -52,7 +69,6 @@ public class DiaryController {
     )
     @GetMapping(value = "/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Diary> getDiary(@Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
-
         Diary diary = diaryService.findDiary(id);
         return ResponseEntity.ok(diary);
 
