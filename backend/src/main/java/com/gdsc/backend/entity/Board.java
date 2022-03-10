@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
 @Getter
 @Entity
-@Table(name = "supportProject")
+@Table(name = "boards")
 @NoArgsConstructor
 public class Board {
     @Id
@@ -28,28 +27,37 @@ public class Board {
     @Column(nullable = false)
     private String organizer;
 
+    @Schema(description = "시작 날짜", nullable = false, example = "Application Start Date")
+    @Column(nullable = false)
+    private LocalDate startDate;
+
+    @Schema(description = "종료 날짜", nullable = false, example = "Application Finish Date")
+    @Column(nullable = false)
+    private LocalDate finishDate;
+
     @Schema(description = "카테고리", nullable = false, allowableValues = {"All", "Financial", "Housing", "MedicalCare"}, example = "Categorizing Project")
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private BoardCategory boardCategory;
 
-    @Schema(description = "작성날짜", nullable = false, example = "written date")
-    @Column(nullable = false)
-    private LocalDate date;
-
     @Schema(description = "내용", nullable = false, example = "Supporting Project Content")
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Schema(description = "웹사이트 주소", nullable = false, example = "Website link")
+    @Column(nullable = false)
+    private String link;
 
     @Schema(description = "즐겨찾기", nullable = false, example = "bookmark of project")
     @Column(nullable = false)
     private boolean bookmark;
 
     @Builder
-    public Board(String title, String organizer, LocalDate date, BoardCategory boardCategory, String content){
+    public Board(String title, String organizer, LocalDate startDate, LocalDate finishDate, BoardCategory boardCategory, String content){
         this.title = title;
         this.organizer = organizer;
-        this.date = date;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
         this.boardCategory = boardCategory;
         this.content = content;
     }

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
-    @Query(value = "SELECT b from Board b where b.boardCategory = :boardCategory")
-    Page<Board> getByBoardCategory(@Param("boardCategory") BoardCategory boardCategory, Pageable pageable);
+    @Query(value = "SELECT b from Board b where b.boardCategory = :boardCategory order by b.startDate desc")
+    Page<Board> findByBoardCategory(@Param("boardCategory") BoardCategory boardCategory, Pageable pageable);
+
+    @Query(value = "SELECT b from Board b where b.bookmark = true order by b.startDate desc")
+    Page<Board> findByBookmark(Pageable pageable);
 }
