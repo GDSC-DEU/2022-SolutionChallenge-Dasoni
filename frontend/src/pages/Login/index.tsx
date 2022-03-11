@@ -53,7 +53,7 @@ function Login() {
         buttonText="Register with Google"
         onFailure={onResponseGoogleFailure}
         onSuccess={onResponseGoogleSuccess}
-        redirectUri="http://localhost:3000"
+        redirectUri="http://localhost:3000/accounts/google/login/callback/"
       />
     </div>
 
