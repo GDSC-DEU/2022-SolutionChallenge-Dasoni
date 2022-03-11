@@ -33,9 +33,7 @@ function App() {
             <Route path="support" element={<Support />} />
             <Route path="settings" element={<Settings />} />
           </Route>
-
           <Route path="/weekly" element={<DiaryWeeklyList />} />
-
           <Route path="/login" element={<Login />} />
         </Routes>
       </RecoilRoot>
