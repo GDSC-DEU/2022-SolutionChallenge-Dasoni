@@ -6,6 +6,7 @@ import com.gdsc.backend.oauth2.jwt.JwtFilter;
 import com.gdsc.backend.oauth2.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -51,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers( "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs").permitAll() // About Swagger UI
                 .antMatchers("/api/oauth2/login/**").permitAll() // OAuth2 Login
+                .antMatchers(HttpMethod.PATCH, "/api/users").hasAnyRole("GUEST", "USER")
                 .anyRequest().hasRole("USER")
 
                 .and()
