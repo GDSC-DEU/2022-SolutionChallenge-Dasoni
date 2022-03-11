@@ -13,6 +13,7 @@ import Map from "./pages/Map";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
 import DiaryWeeklyList from "./pages/DiaryWeeklyList";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="support" element={<Support />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+          <Route path="/login" element={<Login />} />
         </Routes>
       </RecoilRoot>
     </BrowserRouter>

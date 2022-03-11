@@ -4,7 +4,7 @@ import axios from "axios";
 import { DASONI_BACKEND_API, OAuthClientId } from "../../secret";
 import { GoogleLogin } from "react-google-login";
 
-import { LoginSection, Logo, LoginList } from "./styles";
+// import { LoginSection, Logo, LoginList } from "./styles";
 
 function Login() {
   const onResponseGoogleSuccess = async (response: { code: string }) => {
@@ -40,26 +40,25 @@ function Login() {
   }, []);
 
   return (
-    <LoginSection>
-      <Logo>
-        <img src="" alt="dasoni-logo" />
-      </Logo>
-      <LoginList>
-        <GoogleLogin
-          clientId={OAuthClientId}
-          responseType="code"
-          scope="https://www.googleapis.com/auth/userinfo.email"
-          buttonText="Register with Google"
-          onFailure={onResponseGoogleFailure}
-          onSuccess={onResponseGoogleSuccess}
-          redirectUri="http://localhost:3000"
-        />
-        {/* <GoogleLoginButton onClick={() => googleLogin()}>
-          <img src="" alt="google" />
-          <span>Register with Google</span>
-        </GoogleLoginButton> */}
-      </LoginList>
-    </LoginSection>
+    // <LoginSection>
+    //   <Logo>
+    //     <img src="" alt="dasoni-logo" />
+    //   </Logo>
+    //   <LoginList>
+    <div>
+      <GoogleLogin
+        clientId={OAuthClientId}
+        responseType="code"
+        scope="https://www.googleapis.com/auth/userinfo.email"
+        buttonText="Register with Google"
+        onFailure={onResponseGoogleFailure}
+        onSuccess={onResponseGoogleSuccess}
+        redirectUri="http://localhost:3000"
+      />
+    </div>
+
+    //   </LoginList>
+    // </LoginSection>
   );
 }
 
