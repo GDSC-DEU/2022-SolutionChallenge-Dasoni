@@ -4,35 +4,34 @@ import axios from "axios";
 import { DASONI_BACKEND_API, OAuthClientId } from "../../secret";
 import { GoogleLogin } from "react-google-login";
 
-import { LoginSection, Logo, LoginList } from "./styles";
+import { LoginSection, Logo, LoginList, GoogleLoginButton } from "./styles";
+import { Navigate } from "react-router-dom";
 
 function Login() {
-  const onResponseGoogleSuccess = async (response: { code: string }) => {
+  const onResponseGoogleSuccess = async (response: any) => {
     const { code } = response;
 
-    console.log(code);
+    const body = new URLSearchParams({
+      code,
+      redirect_uri: "http://localhost:3000",
+    });
 
-    // const response2 = await axios.post(
-    //   `${DASONI_BACKEND_API}/oauth2/login/google`,
-    //   {
-    //     code,
-    //     redirect_uri: "http://localhost:3000/",
-    //   },
-    //   {
-    //     headers: {
-    //       "Content-type": "application/x-www-form-urlencoded",
-    //     },
-    //   }
-    // );
+    const options = {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "*/*",
+      },
+    };
 
-    // axios
-    //   .post({})
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    await axios
+      .post(`${DASONI_BACKEND_API}/oauth2/login/google`, body, options)
+      .then((res) => {
+        console.log(res);
+        <Navigate to="/" />;
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   const onResponseGoogleFailure = useCallback((response) => {
@@ -48,16 +47,21 @@ function Login() {
         <GoogleLogin
           clientId={OAuthClientId}
           responseType="code"
-          scope="https://www.googleapis.com/auth/userinfo.email"
+          accessType="offline"
           buttonText="Register with Google"
           onFailure={onResponseGoogleFailure}
           onSuccess={onResponseGoogleSuccess}
           redirectUri="http://localhost:3000"
+          render={(renderProps) => (
+            <GoogleLoginButton
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+            >
+              <img src="" alt="google-logo" />
+              <span>Register with Google</span>
+            </GoogleLoginButton>
+          )}
         />
-        {/* <GoogleLoginButton onClick={() => googleLogin()}>
-          <img src="" alt="google" />
-          <span>Register with Google</span>
-        </GoogleLoginButton> */}
       </LoginList>
     </LoginSection>
   );

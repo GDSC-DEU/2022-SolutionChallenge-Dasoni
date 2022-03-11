@@ -13,6 +13,7 @@ import Map from "./pages/Map";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
 import DiaryWeeklyList from "./pages/DiaryWeeklyList";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -25,13 +26,16 @@ function App() {
             <Route path="feed" element={<Feed />} />
             <Route path="statistics" element={<Statistics />} />
           </Route>
-          <Route path="/weekly" element={<DiaryWeeklyList />} />
+
           <Route path="/" element={<SubPageLayout />}>
             <Route path="post" element={<DiaryPost />} />
             <Route path="map" element={<Map />} />
             <Route path="support" element={<Support />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+
+          <Route path="/weekly" element={<DiaryWeeklyList />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </RecoilRoot>
     </BrowserRouter>
