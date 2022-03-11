@@ -26,14 +26,17 @@ function App() {
             <Route path="feed" element={<Feed />} />
             <Route path="statistics" element={<Statistics />} />
           </Route>
-          <Route path="/weekly" element={<DiaryWeeklyList />} />
-          <Route path="/login" element={<Login />} />
+
           <Route path="/" element={<SubPageLayout />}>
             <Route path="post" element={<DiaryPost />} />
             <Route path="map" element={<Map />} />
             <Route path="support" element={<Support />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+
+          <Route path="/weekly" element={<DiaryWeeklyList />} />
+
+          <Route path="/login" element={<Login />} />
         </Routes>
       </RecoilRoot>
     </BrowserRouter>
