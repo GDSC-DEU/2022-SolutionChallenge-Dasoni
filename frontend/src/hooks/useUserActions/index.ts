@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 
 import { userAtom } from "recoil/User";
 import { authAtom } from "recoil/Auth";
-import { DASONI_BACKEND_API, OAuthClientId } from "secret";
+import { DASONI_BACKEND_API } from "secret";
 
 function useUserActions() {
   const setAuth = useSetRecoilState(authAtom);
@@ -29,7 +29,7 @@ function useUserActions() {
     await axios
       .post(`${DASONI_BACKEND_API}/oauth2/login/google`, body, options)
       .then((res) => {
-        setAuth(res.data.token);
+        setAuth({ token: res.data.token });
         setUser(res.data.roleType);
         navigate("/");
       })
@@ -38,8 +38,14 @@ function useUserActions() {
       });
   }
 
+  function logout() {
+    setAuth({ token: null });
+    navigate("/login");
+  }
+
   return {
     googleLogin,
+    logout,
   };
 }
 
