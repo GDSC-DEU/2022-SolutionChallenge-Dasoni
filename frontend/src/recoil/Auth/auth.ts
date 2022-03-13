@@ -1,9 +1,9 @@
 import { atom } from "recoil";
+import { AuthTypes } from "./types";
 
-export const authAtom = atom({
+export const authAtom = atom<AuthTypes>({
   key: "auth",
-  default: null,
-  // default: {
-  //   token: null,
-  // },
+  default: {
+    token: null,
+  },
 });
