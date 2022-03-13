@@ -1,10 +1,11 @@
 import * as React from "react";
 import { useCallback } from "react";
-import { OAuthClientId } from "../../secret";
 import { GoogleLogin } from "react-google-login";
 
+import { OAuthClientId } from "secret";
+import useUserActions from "hooks/useUserActions";
+
 import { LoginSection, Logo, LoginList, GoogleLoginButton } from "./styles";
-import useUserActions from "../../hooks/useUserActions";
 
 function Login() {
   const userActions = useUserActions();

@@ -2,9 +2,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
-import { userAtom } from "../../recoil/User";
-import { authAtom } from "../../recoil/Auth";
-import { DASONI_BACKEND_API, OAuthClientId } from "../../secret";
+import { userAtom } from "recoil/User";
+import { authAtom } from "recoil/Auth";
+import { DASONI_BACKEND_API, OAuthClientId } from "secret";
 
 function useUserActions() {
   const setAuth = useSetRecoilState(authAtom);

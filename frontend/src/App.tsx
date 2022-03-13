@@ -2,18 +2,18 @@ import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
-import MainLayout from "./layouts/MainLayout";
-import SubPageLayout from "./layouts/SubPageLayout";
-import Diary from "./pages/Diary";
-import DiaryPost from "./pages/DiaryPost";
-import Feed from "./pages/Feed";
-import GlobalStyle from "./styles/GlobalStyle";
-import Statistics from "./pages/Statistics";
-import Map from "./pages/Map";
-import Support from "./pages/Support";
-import Settings from "./pages/Settings";
-import DiaryWeeklyList from "./pages/DiaryWeeklyList";
-import Login from "./pages/Login";
+import Diary from "pages/Diary";
+import DiaryPost from "pages/DiaryPost";
+import Feed from "pages/Feed";
+import Statistics from "pages/Statistics";
+import Map from "pages/Map";
+import Support from "pages/Support";
+import Settings from "pages/Settings";
+import DiaryWeeklyList from "pages/DiaryWeeklyList";
+import Login from "pages/Login";
+import MainLayout from "layouts/MainLayout";
+import SubPageLayout from "layouts/SubPageLayout";
+import GlobalStyle from "styles/GlobalStyle";
 
 function App() {
   return (

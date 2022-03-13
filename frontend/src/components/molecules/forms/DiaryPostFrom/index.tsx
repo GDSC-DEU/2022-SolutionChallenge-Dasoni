@@ -2,12 +2,12 @@ import axios from "axios";
 import * as React from "react";
 import { useRecoilState } from "recoil";
 
-import { DASONI_BACKEND_API } from "../../../../secret";
-import DiaryInput from "../../../../components/atoms/inputs/DiaryInput";
-import { diariesState } from "../../../../recoil/Diary";
+import { DASONI_BACKEND_API } from "secret";
+import DiaryInput from "components/atoms/inputs/DiaryInput";
+import { diariesAtom } from "recoil/Diary";
 
-import type { DiaryTypes } from "../../../../recoil/Diary";
-import SumbitButton from "../../../../components/atoms/buttons/SubmitButton";
+import type { DiaryTypes } from "recoil/Diary";
+import SumbitButton from "components/atoms/buttons/SubmitButton";
 import {
   DiaryPostFormWrap,
   InputLabel,

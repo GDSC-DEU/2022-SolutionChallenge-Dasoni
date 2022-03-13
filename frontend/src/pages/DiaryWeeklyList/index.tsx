@@ -1,9 +1,11 @@
-import { Header } from "../../components/atoms/wrapper/Header";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import CalloutBox from "../../components/molecules/boxes/CalloutBox";
+
+import { Header } from "components/atoms/wrapper/Header";
+import CalloutBox from "components/molecules/boxes/CalloutBox";
+import DiaryContentBox from "components/molecules/boxes/DiaryContentBox";
+
 import { Main } from "./styles";
-import DiaryContentBox from "../../components/molecules/boxes/DiaryContentBox";
 
 function DiaryWeeklyList() {
   return (

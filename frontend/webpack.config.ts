@@ -10,6 +10,7 @@ module.exports = {
   devtool: isDevelopment ? "eval" : "hidden-source-map",
   resolve: {
     extensions: [".jsx", ".js", ".tsx", ".ts"],
+    modules: [path.join(__dirname, "src"), "node_modules"],
   },
 
   entry: {

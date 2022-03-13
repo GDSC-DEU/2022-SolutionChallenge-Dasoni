@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import DailyCalendar from "../../components/molecules/calendars/DailyCalendar";
-import DiaryPostForm from "../../components/molecules/forms/DiaryPostFrom";
+import DailyCalendar from "components/molecules/calendars/DailyCalendar";
+import DiaryPostForm from "components/molecules/forms/DiaryPostFrom";
 
 function DiaryPost() {
   return (
