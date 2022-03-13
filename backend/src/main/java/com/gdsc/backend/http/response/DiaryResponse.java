@@ -1,13 +1,10 @@
 package com.gdsc.backend.http.response;
 
 import com.gdsc.backend.entity.Diary;
-import com.gdsc.backend.entity.enums.EmotionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 public class DiaryResponse {
