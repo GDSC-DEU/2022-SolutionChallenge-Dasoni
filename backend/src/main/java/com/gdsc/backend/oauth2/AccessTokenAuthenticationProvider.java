@@ -6,15 +6,12 @@ import com.gdsc.backend.entity.enums.RoleType;
 import com.gdsc.backend.oauth2.dto.AccessTokenSocialTypeToken;
 import com.gdsc.backend.oauth2.dto.OAuth2AccessTokenAttribute;
 import com.gdsc.backend.oauth2.dto.OAuth2UserDetails;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Component;
-import lombok.SneakyThrows;
 
 
 @Component

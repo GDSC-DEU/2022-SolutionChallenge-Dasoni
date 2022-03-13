@@ -2,9 +2,7 @@ package com.gdsc.backend.oauth2;
 
 import com.gdsc.backend.entity.enums.SocialType;
 import com.gdsc.backend.oauth2.dto.AccessTokenSocialTypeToken;
-import com.gdsc.backend.oauth2.dto.OAuth2UserDetails;
 import com.gdsc.backend.oauth2.jwt.TokenProvider;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.authentication.ProviderManager;
@@ -31,11 +29,7 @@ public class CustomOAuth2AuthenticationFilter extends AbstractAuthenticationProc
     public CustomOAuth2AuthenticationFilter(AccessTokenAuthenticationProvider accessTokenAuthenticationProvider, TokenProvider tokenProvider) {
         super(DEFAULT_OAUTH2_LOGIN_PATH_REQUEST_MATCHER); // 위에서 설정한  "/api/oauth/login/*" 의 요청에, GET 으로 온 요청을 처리하기 위해 설정한다.
         this.setAuthenticationManager(new ProviderManager(accessTokenAuthenticationProvider));
-//        this.setAuthenticationSuccessHandler((request, response, authentication) -> {
-//
-//        });
         this.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(tokenProvider));
-//        this.setAuthenticationFailureHandler();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.entity.Diary;
-import com.gdsc.backend.entity.Users;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.repository.DiaryRepository;
