@@ -45,9 +45,20 @@ function useUserActions() {
     navigate("/login");
   }
 
+  async function signup(stateType: string) {
+    await axios
+      .patch(`${DASONI_BACKEND_API}/users`, {
+        stateType,
+      })
+      .then((res) => {
+        setUser({ stateType });
+      });
+  }
+
   return {
     googleLogin,
     logout,
+    signup,
   };
 }
 
