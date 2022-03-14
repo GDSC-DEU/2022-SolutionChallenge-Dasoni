@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { userAtom } from "recoil/User";
 import { authAtom } from "recoil/Auth";
@@ -9,6 +9,7 @@ import { DASONI_BACKEND_API } from "secret";
 function useUserActions() {
   const setAuth = useSetRecoilState(authAtom);
   const setUser = useSetRecoilState(userAtom);
+  const auth = useRecoilValue(authAtom);
   let navigate = useNavigate();
 
   async function googleLogin(response: any) {
@@ -29,9 +30,10 @@ function useUserActions() {
     await axios
       .post(`${DASONI_BACKEND_API}/oauth2/login/google`, body, options)
       .then((res) => {
-        setAuth({ token: res.data.token });
-        setUser(res.data.roleType);
-        navigate("/");
+        setAuth({ token: res.data.token, roleType: res.data.roleType });
+
+        auth.roleType == "ROLE_GUEST" && navigate("/signup");
+        auth.roleType == "ROLE_USER" && navigate("/");
       })
       .catch((error) => {
         console.log(error.response);
