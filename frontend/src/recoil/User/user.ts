@@ -1,8 +1,9 @@
 import { atom } from "recoil";
+import { UserTypes } from "./types";
 
-export const userAtom = atom({
+export const userAtom = atom<UserTypes>({
   key: "user",
   default: {
-    roleType: "ROLE_GUEST",
+    stateType: null,
   },
 });
