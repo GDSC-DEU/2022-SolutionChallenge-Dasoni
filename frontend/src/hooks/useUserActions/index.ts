@@ -46,12 +46,24 @@ function useUserActions() {
   }
 
   async function signup(stateType: string) {
+    let config = {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
     await axios
-      .patch(`${DASONI_BACKEND_API}/users`, {
-        stateType,
-      })
+      .patch(
+        `${DASONI_BACKEND_API}/users`,
+        {
+          stateType,
+        },
+        config
+      )
       .then((res) => {
         setUser({ stateType });
+        navigate("/");
       });
   }
 
