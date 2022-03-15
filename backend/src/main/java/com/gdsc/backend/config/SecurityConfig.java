@@ -1,6 +1,5 @@
 package com.gdsc.backend.config;
 
-import com.gdsc.backend.config.properties.CorsProperties;
 import com.gdsc.backend.oauth2.CustomOAuth2AuthenticationFilter;
 import com.gdsc.backend.oauth2.jwt.JwtFilter;
 import com.gdsc.backend.oauth2.jwt.TokenProvider;
@@ -16,15 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
-    private final CorsProperties corsProperties;
     private final CustomOAuth2AuthenticationFilter oAuth2AuthenticationFilter;
 
     @Bean
@@ -61,17 +59,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
-
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedHeaders(Arrays.asList(corsProperties.getAllowedHeaders().split(",")));
-        configuration.setAllowedMethods(Arrays.asList(corsProperties.getAllowedMethods().split(",")));
-        configuration.setAllowedOrigins(Arrays.asList(corsProperties.getAllowedOrigins().split(",")));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(configuration.getMaxAge());
 
-        corsConfigurationSource.registerCorsConfiguration("/**", configuration);
-        return corsConfigurationSource;
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(false);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
