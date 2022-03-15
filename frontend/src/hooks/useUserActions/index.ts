@@ -30,7 +30,10 @@ function useUserActions() {
     await axios
       .post(`${DASONI_BACKEND_API}/oauth2/login/google`, body, options)
       .then((res) => {
-        setAuth({ token: res.data.token, roleType: res.data.roleType });
+        setAuth({
+          token: res.data.token,
+          roleType: res.data.roleType,
+        });
 
         auth.roleType == "ROLE_GUEST" && navigate("/signup");
         auth.roleType == "ROLE_USER" && navigate("/");
