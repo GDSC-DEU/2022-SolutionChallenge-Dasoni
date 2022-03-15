@@ -5,5 +5,6 @@ export const authAtom = atom<AuthTypes>({
   key: "auth",
   default: {
     token: null,
+    roleType: "ROLE_GUEST",
   },
 });

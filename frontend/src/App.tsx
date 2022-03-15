@@ -11,6 +11,7 @@ import Support from "pages/Support";
 import Settings from "pages/Settings";
 import DiaryWeeklyList from "pages/DiaryWeeklyList";
 import Login from "pages/Login";
+import Signup from "pages/Signup";
 import MainLayout from "layouts/MainLayout";
 import SubPageLayout from "layouts/SubPageLayout";
 import GlobalStyle from "styles/GlobalStyle";
@@ -36,6 +37,7 @@ function App() {
 
           <Route path="/weekly" element={<DiaryWeeklyList />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </RecoilRoot>
     </BrowserRouter>
