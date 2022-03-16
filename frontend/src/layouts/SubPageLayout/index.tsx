@@ -3,15 +3,19 @@ import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Header } from "components/atoms/wrapper/Header";
+import { ButtonBox } from "layouts/MainLayout/styles";
 
 function SubPageLayout() {
   return (
     <>
       <Header>
-        <Link to="/">
-          <div>&lt;</div>
-        </Link>
-        <span className="title"></span>
+        <div className="logo">
+          <Link to="/">DASONI</Link>
+        </div>
+        <ButtonBox>
+          <span className="search"></span>
+          <span className="hamberger-menu"></span>
+        </ButtonBox>
       </Header>
       <main>
         <Outlet />

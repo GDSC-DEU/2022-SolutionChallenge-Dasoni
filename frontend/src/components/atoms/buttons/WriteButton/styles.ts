@@ -7,7 +7,7 @@ export const WriteButtonWrapper = styled.div`
 
   width: 56px;
   height: 56px;
-  background: #9b9b9b;
+  background: #fe6f5b;
   border-radius: 50%;
   display: flex;
   justify-content: center;
