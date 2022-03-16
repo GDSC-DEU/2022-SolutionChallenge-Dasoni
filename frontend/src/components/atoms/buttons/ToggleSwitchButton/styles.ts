@@ -8,21 +8,22 @@ export const ToggleBoxLabel = styled.label`
   position: absolute;
   top: 0;
   left: 0;
-  width: 34px;
-  height: 14px;
-  border-radius: 7px;
-  background: #c2c2c2;
+  width: 36px;
+  height: 20px;
+  background: #e6e6e6;
+  border-radius: 32px;
   cursor: pointer;
 
   &::after {
     content: "";
     display: block;
     border-radius: 50%;
-    margin-top: -3px;
-    width: 20px;
-    height: 20px;
-    background: #e9e9e9;
-    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 3px;
+    margin-left: 3px;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    box-shadow: 0px 4px 5px -1px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
   }
 `;
@@ -33,17 +34,18 @@ export const ToogleBox = styled.input`
   border-radius: 7px;
   width: 34px;
   height: 14px;
+  margin: 0;
 
   &:checked + ${ToggleBoxLabel} {
+    background: #fe6f5b;
+    content: "";
+    display: block;
+    width: 36px;
+    height: 20px;
+    transition: 0.5s;
+
     &::after {
-      content: "";
-      display: block;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      margin-left: 17px;
-      transition: 0.2s;
-      background: #616161;
+      margin-left: 19px;
     }
   }
 `;
