@@ -34,7 +34,7 @@ public class DiaryContentResponse {
         this.title = diary.getTitle();
         this.content = diary.getContent();
         this.emotion = diary.getEmotion().getValue();
-        this.contentEmotion = diary.getContentEmotion().getValue();
+        this.contentEmotion = "HAPPY";
         this.date = diary.getDate();
     }
 

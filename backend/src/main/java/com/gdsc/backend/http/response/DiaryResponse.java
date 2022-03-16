@@ -8,9 +8,9 @@ import java.net.URI;
 
 @Getter
 public class DiaryResponse {
-    private DiaryContentResponse content;
+    private final DiaryContentResponse content;
     @Schema(description = "다이어리 링크", nullable = true, example = "http://{url}/{diary_id}")
-    private String link;
+    private final String link;
 
     private DiaryResponse(String link, DiaryContentResponse content) {
         this.link = link;
@@ -18,7 +18,7 @@ public class DiaryResponse {
     }
 
     public static DiaryResponse of(URI uri, Diary diary) {
-        return new DiaryResponse(uri.toString(), null);
+        return new DiaryResponse(uri.toString(), DiaryContentResponse.of(diary));
     }
 
 }
