@@ -1,11 +1,11 @@
 import { selector } from "recoil";
 
-import { diariesState } from "./diary";
+import { diariesAtom } from "./diary";
 
-export const getDiariesState = selector({
-  key: "getDiariesState",
+export const getDiaries = selector({
+  key: "getDiaries",
   get: ({ get }) => {
-    const diaries = get(diariesState);
+    const diaries = get(diariesAtom);
     return diaries;
   },
 });
