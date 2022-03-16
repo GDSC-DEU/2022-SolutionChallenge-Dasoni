@@ -1,6 +1,7 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.entity.Diary;
+import com.gdsc.backend.entity.Users;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.repository.DiaryRepository;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,13 +39,10 @@ public class DiaryService {
         return diaryRepository.getById(id);
     }
 
-    public Diary save(DiaryRequest diaryRequest) {
-        return diaryRepository.save(
-                Diary.builder()
-                        .title(diaryRequest.getTitle())
-                        .emotion(diaryRequest.getEmotion())
-                        .content(diaryRequest.getContent())
-                        .build());
+    public Diary save(Diary diary) {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        diary.setUsers(userRepository.getById(userId));
+        return diaryRepository.save(diary);
     }
 
     public void deleteById(UUID idx) {
