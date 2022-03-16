@@ -23,20 +23,27 @@ export const ButtonBox = styled.div`
 export const Nav = styled.nav`
   display: flex;
   flex-direction: row;
-  padding: 0 16px;
-  background: #f7f7f7;
+  justify-content: space-between;
+  width: 100%;
 
   font-family: Pretendard;
   font-size: 16px;
   line-height: 19px;
   letter-spacing: -0.2px;
 
+  border-bottom: 0.5px solid #dadada;
+
+  & > a {
+    flex-grow: 1;
+    text-align: center;
+  }
+
   .nav-item {
-    padding: 12px 10px;
+    padding: 12px 0px;
   }
   .current {
     font-weight: bold;
-    border-bottom: 2px solid #838383;
+    border-bottom: 2px solid #fe6f5b;
   }
 `;
 

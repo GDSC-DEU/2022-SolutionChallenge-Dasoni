@@ -6,10 +6,9 @@ export const DailyCalendarWrap = styled.div<{ backgroundColor: string }>`
   flex-direaction: row;
   justify-content: center;
 
-  font-family: Montserrat;
-  font-weight: 500;
-  line-height: 20px;
-  letter-spacing: 0.2px;
+  font-family: "Roboto";
+  font-weight: 700;
+  line-height: 19px;
 
   padding: 11px 0;
 

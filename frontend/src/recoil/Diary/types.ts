@@ -1,10 +1,10 @@
 export interface DiaryTypes {
-  diary_id: string;
-  title: string;
-  emotion: string;
   content: string;
-  created_date: string;
-  updated_date: string;
+  contentEmotion: string;
+  date: string;
+  diaryId: string;
+  emotion: string;
+  title: string;
 }
 
 export interface Config {

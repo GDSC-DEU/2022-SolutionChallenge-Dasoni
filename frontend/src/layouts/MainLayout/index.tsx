@@ -1,4 +1,4 @@
-import { Header } from "../../components/atoms/wrapper/Header";
+import { Header } from "components/atoms/wrapper/Header";
 import * as React from "react";
 import { useState, useCallback } from "react";
 import { Outlet } from "react-router";

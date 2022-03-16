@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DiaryContentBoxWrap = styled.div`
   position: relative;
-  background-color: #f7f7f7;
+  background-color: #fff;
   border-radius: 10px;
   filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.48))
     drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.12));
@@ -26,44 +26,47 @@ export const DiaryContentBoxWrap = styled.div`
       left: 0;
       width: 8px;
       height: 100%;
-      background: #c2c2c2;
+      background: #fe6f5b;
       border-radius: 8px 0px 0px 8px;
     }
 
     .mood-icon {
       width: 44px;
       height: 44px;
-      background: gray;
+      background: #ffbf41;
       border-radius: 50%;
       margin-bottom: 7px;
     }
     .date {
-      padding: 2px 6px 0;
+      padding: 4px 6px;
       border-radius: 5px;
-      font-family: SF Pro;
-      font-weight: bold;
-      font-size: 11px;
-      line-height: 167%;
-      background: #dadada;
+      font-family: "Roboto";
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 14px;
+      background: #ffbf41;
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #ffffff;
     }
   }
 
   .center {
-    border-left: 1px solid #9b9b9b;
+    border-left: 0.5px solid #9b9b9b;
     padding: 7px 0 7px 12px;
+    font-family: "Roboto";
 
     .title {
-      font-family: Pretendard;
       font-weight: 600;
-      font-size: 16px;
       line-height: 120%;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
     .content {
-      font-family: Pretendard;
+      font-weight: 400;
       font-size: 14px;
-      line-height: 140%;
-      letter-spacing: -0.2px;
+      line-height: 150%;
     }
   }
   .right {
