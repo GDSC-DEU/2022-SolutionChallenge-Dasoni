@@ -1,13 +1,21 @@
 import axios from "axios";
 import * as React from "react";
-import { useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useCallback, useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import useSWR from "swr";
+import { Link } from "react-router-dom";
 
-import { DASONI_BACKEND_API } from "../../secret";
-import ShadowBox from "../../components/molecules/boxes/ShadowBox";
-import WriteButton from "../../components/atoms/buttons/WriteButton";
-import { diariesState } from "../../recoil/Diary";
+import { DASONI_BACKEND_API } from "secret";
+import { diariesAtom, DiaryTypes } from "recoil/Diary";
+import { authAtom } from "recoil/Auth";
+import { userAtom } from "recoil/User";
+import useDiaryActions from "hooks/useDiaryActions";
+
+import DailyCalendar from "components/molecules/calendars/DailyCalendar";
+import DiaryContentBox from "components/molecules/boxes/DiaryContentBox";
+import ToggleSwitchButton from "components/atoms/buttons/ToggleSwitchButton";
+import ShadowBox from "components/molecules/boxes/ShadowBox";
+import WriteButton from "components/atoms/buttons/WriteButton";
 
 import {
   DiaryArticle,
@@ -17,51 +25,42 @@ import {
   Notification,
 } from "./styles";
 
-import type { DiaryTypes } from "recoil/Diary";
-import DailyCalendar from "../../components/molecules/calendars/DailyCalendar";
-import DiaryContentBox from "../../components/molecules/boxes/DiaryContentBox";
-import ToggleSwitchButton from "../../components/atoms/buttons/ToggleSwitchButton";
-import { Link } from "react-router-dom";
-
-interface Config {
-  resources: {
-    content: DiaryTypes[];
-  };
-}
-
 function Diary() {
-  const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesState);
+  const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesAtom);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [day, setDay] = useState(new Date().getDate());
+  const diaryActions = useDiaryActions();
 
-  const fetcher = useCallback(
-    async (url: string) => {
-      const response = await axios.get<Config>(url);
-      console.log("get response: ", response.data);
-      setDiaries(response.data.resources.content);
-
-      return response.data.resources.content;
-    },
-    [setDiaries]
+  useSWR(`${DASONI_BACKEND_API}/diaries`, (url) =>
+    diaryActions.getDiaries(url, { year, month })
   );
-  useSWR(`${DASONI_BACKEND_API}/api/diaries`, fetcher);
 
   return (
     <>
       <QuoteArticle>
         <ShadowBox>
-          <div className="date">13 Feb, 2022</div>
+          <div className="date">
+            {day} {month}, {year}
+          </div>
           <Quote>
             <div className="quote">
-              Whoever is happy will make others happy too.
+              Whether you think you can or you think you can't, you're right.
             </div>
             <div className="author">Anne Frank</div>
           </Quote>
         </ShadowBox>
       </QuoteArticle>
       <WeeklyMoodArticle>
+        <div className="title">
+          <span>Your recent mood</span>
+          <img />
+        </div>
         <Link to="/weekly">
           <ShadowBox align="center">
-            <div className="title">Weekly Mood</div>
-            <div className="date">2.07 - 2.13</div>
+            <div className="date">
+              {month}.{day - 7} - {month}.{day}
+            </div>
             <div className="emotion-icon"></div>
             <div className="suggestion">
               You seem to have felt sad these days. Why don’t you share yout
@@ -73,15 +72,15 @@ function Diary() {
       <DiaryArticle>
         <DailyCalendar>Jan 2022</DailyCalendar>
         <Notification>
-          <span>Show notification</span>
+          <span>Notification</span>
           <ToggleSwitchButton />
         </Notification>
         <section>
           {diaries &&
             diaries.map((diary) => (
               <DiaryContentBox
-                key={diary.diary_id}
-                created_date={diary.created_date}
+                key={diary.diaryId}
+                created_date={diary.date}
                 title={diary.title}
                 content={diary.content}
               />

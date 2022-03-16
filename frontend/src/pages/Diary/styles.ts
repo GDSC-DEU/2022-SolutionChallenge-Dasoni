@@ -18,11 +18,12 @@ export const QuoteArticle = styled.article`
 export const Quote = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: "Nunito";
+  font-weight: 400;
+  color: #1f1f1f;
 
   .quote {
-    font-size: 16px;
     line-height: 140%;
-    color: #1f1f1f;
   }
   .author {
     font-size: 12px;
@@ -41,11 +42,29 @@ export const WeeklyMoodArticle = styled.article`
   font-family: Montserrat;
 
   .title {
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 120%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
     color: #1f1f1f;
+    font-family: "Roboto";
+    font-weight: 700;
+    line-height: 19px;
+
+    margin-bottom: 8px;
+
+    & > img {
+      width: 24px;
+      height: 24px;
+      background: gray;
+    }
   }
+
+  & > a > div {
+    background: linear-gradient(0deg, #bce0fb, #bce0fb), #ffffff;
+    padding: 12px 20px;
+  }
+
   .date {
     font-weight: bold;
     font-size: 14px;
@@ -70,11 +89,11 @@ export const Notification = styled.div`
   margin-bottom: 10px;
 
   span {
-    font-family: Montserrat;
-    font-weight: 500;
-    font-size: 12px;
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 14px;
     line-height: 150%;
-    margin-right: 12px;
+    margin-right: 4px;
   }
 `;
 
