@@ -20,6 +20,7 @@ import java.util.UUID;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Diary extends BaseTimeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(description = "다이어리 아이디", nullable = false)
     private UUID id;
 
@@ -48,6 +49,10 @@ public class Diary extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 
     @Builder
     public Diary(String title, EmotionType emotion, String content, LocalDate date) {

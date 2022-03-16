@@ -71,20 +71,20 @@ public class DiaryController {
     public ResponseEntity<Diary> getDiary(@Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
         Diary diary = diaryService.findDiary(id);
         return ResponseEntity.ok(diary);
-
     }
 
 
     @Operation(summary = "다이어리 추가", description = "새로운 다이어리 데이터를 추가합니다.", tags = "diary",
             responses = {
                     @ApiResponse(responseCode = "201", description = "데이터 생성 성공",
-                        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+                        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                        schema = @Schema(implementation = DiaryResponse.class)))
             }
     )
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiaryResponse> postDiary(@RequestBody DiaryRequest diaryRequest) {
-        Diary result = diaryService.save(diaryRequest);
+        Diary result = diaryService.save(diaryRequest.toEntity());
         return new ResponseEntity<>(DiaryResponse.of(ServletUriComponentsBuilder.fromCurrentContextPath()
                                                                                 .path(result.getId().toString())
                                                                                 .build()
