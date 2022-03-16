@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +24,8 @@ public class DiaryService {
     @Autowired
     public DiaryService(UserRepository userRepository, DiaryRepository diaryRepository) {
         this.userRepository = userRepository;
-        this.diaryRepository=diaryRepository; }
+        this.diaryRepository=diaryRepository;
+    }
 
     public List<DiaryContentResponse> findDiariesContent(Integer year, Integer month) {
         UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
@@ -45,8 +45,9 @@ public class DiaryService {
         return diaryRepository.save(diary);
     }
 
-    public void deleteById(UUID idx) {
-        diaryRepository.deleteById(idx);
+    public void deleteById(UUID diaryId) {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        diaryRepository.deleteByUsersAndId(userRepository.getById(userId), diaryId);
     }
 
     private DiaryContentResponse makeResponse(Diary diary) {

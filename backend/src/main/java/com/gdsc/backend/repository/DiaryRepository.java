@@ -14,4 +14,5 @@ import java.util.UUID;
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, UUID> {
     List<Diary> findDiariesByUsersAndDateBetween(Users userId, LocalDate start, LocalDate end);
+    @Transactional void deleteByUsersAndId(Users user, UUID id);
 }
