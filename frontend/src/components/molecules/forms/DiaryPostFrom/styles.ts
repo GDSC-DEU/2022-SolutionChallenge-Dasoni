@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DiaryPostFormWrap = styled.section`
+export const DiaryPostFormWrap = styled.form`
   display: flex;
   flex-direction: column;
   margin: 10px 16px;

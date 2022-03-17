@@ -1,13 +1,11 @@
 import axios from "axios";
 import * as React from "react";
-import { useRecoilState } from "recoil";
+import { useState, useCallback } from "react";
 
-import { DASONI_BACKEND_API } from "secret";
 import DiaryInput from "components/atoms/inputs/DiaryInput";
-import { diariesAtom } from "recoil/Diary";
-
-import type { DiaryTypes } from "recoil/Diary";
 import SumbitButton from "components/atoms/buttons/SubmitButton";
+import useDiaryActions from "hooks/useDiaryActions";
+
 import {
   DiaryPostFormWrap,
   InputLabel,
@@ -16,51 +14,31 @@ import {
   MoodItem,
 } from "./styles";
 
-interface DiaryPost {
-  content: string;
-  emotion: string;
-  isShared: boolean;
-}
-
-interface DiaryPostResponse {
-  content: {
-    id: string;
-    title: string;
-    content: string;
-    emotion: string;
-    created_date: string;
-    modified_date: string;
-  };
-  link: string;
-}
-
 function DiaryPostForm() {
-  const [date, setDate] = React.useState("2020-10-10");
-  const [content, setContent] = React.useState("");
-  const [emotion, setEmotion] = React.useState("");
-  const [isShared, setIsShared] = React.useState(false);
+  const diaryActions = useDiaryActions();
+  const [content, setContent] = useState("");
+  const [date, setDate] = useState("2022-03-02");
+  const [emotion, setEmotion] = useState("");
+  const [feed, setFeed] = useState(false);
+  const [title, setTitle] = useState("");
 
-  const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesState);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const response = await axios.post<DiaryPostResponse>(
-      `${DASONI_BACKEND_API}/api/diaries`,
-      {
+      diaryActions.postDiary({
         content,
+        date,
         emotion,
-      }
-    );
-    // setDiaries([...diaries, response.data.content]);
+        feed,
+        title,
+      });
+    },
+    [content, date, emotion, feed, title]
+  );
 
-    setContent("");
-    setEmotion("");
-
-    console.log(response);
-  };
   return (
-    <DiaryPostFormWrap onSubmit={handleSubmit}>
+    <DiaryPostFormWrap onSubmit={onSubmit}>
       <InputLabel>
         <DiaryInput
           type="date"
@@ -70,27 +48,65 @@ function DiaryPostForm() {
           valid={true}
         />
       </InputLabel>
+      <InputLabel>
+        <DiaryInput
+          type="text"
+          value={title}
+          placeholder="Title"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+          valid={true}
+        />
+      </InputLabel>
 
       <InputLabel>
         Choose your mood
         <MoodBox>
-          <MoodItem className="clicked" onClick={() => setEmotion("So bad")}>
+          <MoodItem
+            className="clicked"
+            onClick={(e) => {
+              e.preventDefault();
+              setEmotion("VERY_SAD");
+            }}
+          >
             <img src="" />
             <div>So bad</div>
           </MoodItem>
-          <MoodItem onClick={() => setEmotion("Bad")}>
+          <MoodItem
+            onClick={(e) => {
+              e.preventDefault();
+              setEmotion("SAD");
+              console.log(emotion);
+            }}
+          >
             <img src="" />
             <div>Bad</div>
           </MoodItem>
-          <MoodItem onClick={() => setEmotion("So-so")}>
+          <MoodItem
+            onClick={(e) => {
+              e.preventDefault();
+              setEmotion("NORMAL");
+            }}
+          >
             <img src="" />
             <div>So-so</div>
           </MoodItem>
-          <MoodItem onClick={() => setEmotion("Happy")}>
+          <MoodItem
+            onClick={(e) => {
+              e.preventDefault();
+              setEmotion("HAPPY");
+            }}
+          >
             <img src="" />
             <div>Happy</div>
           </MoodItem>
-          <MoodItem onClick={() => setEmotion("So Happy")}>
+          <MoodItem
+            onClick={(e) => {
+              e.preventDefault();
+              setEmotion("VERY_HAPPY");
+            }}
+          >
             <img src="" />
             <div>So Happy</div>
           </MoodItem>
@@ -109,7 +125,7 @@ function DiaryPostForm() {
       <CheckBoxLabel>
         <DiaryInput
           type="checkbox"
-          onChange={(e) => setIsShared(e.target.checked)}
+          onChange={(e) => setFeed(e.target.checked)}
           valid={true}
         />
         Share this story
