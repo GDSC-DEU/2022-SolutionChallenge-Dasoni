@@ -64,13 +64,12 @@ public class DiaryController {
 
     @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary",
             responses = {
-            @ApiResponse(responseCode = "200", description = "다이어리 상세 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Diary.class)))
+            @ApiResponse(responseCode = "200", description = "다이어리 상세 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = DiaryContentResponse.class)))
         }
     )
     @GetMapping(value = "/{idx}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Diary> getDiary(@Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
-        Diary diary = diaryService.findDiary(id);
-        return ResponseEntity.ok(diary);
+    public ResponseEntity<DiaryContentResponse> getDiary(@Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 다이어리의 아이디") @PathVariable("idx") UUID id) {
+        return ResponseEntity.ok(DiaryContentResponse.of(diaryService.findDiary(id)));
     }
 
 
@@ -92,6 +91,26 @@ public class DiaryController {
                                     result), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "다이어리 수정", description = "다이어리 내용을 수정합니다.", tags = "diary",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "다이어리 수정 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = DiaryResponse.class)))
+            }
+    )
+    @PatchMapping(value = "/{idx}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DiaryResponse> patchDiary(
+            @Parameter(name = "idx", in = ParameterIn.PATH, description = "삭제할 다이어리의 아이디") @PathVariable("idx") UUID id,
+            @RequestBody DiaryRequest diaryRequest
+    ) {
+        Diary result = diaryService.update(id, diaryRequest);
+        return new ResponseEntity<>(DiaryResponse.of(ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path(result.getId().toString())
+                        .build()
+                        .toUri(),
+                result), HttpStatus.OK);
+    }
+
     @Operation(summary = "다이어리 삭제", description = "다이어리 아이디를 통해 다이어리 데이터를 삭제합니다.", tags = "diary",
             responses = {
                     @ApiResponse(responseCode = "204", description = "데이터 삭제 성공")
@@ -100,7 +119,8 @@ public class DiaryController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{idx}")
     public ResponseEntity<Void> deleteDiary(
-            @Parameter(name = "idx", in = ParameterIn.PATH, description = "삭제할 다이어리의 아이디") @PathVariable("idx") UUID id){
+            @Parameter(name = "idx", in = ParameterIn.PATH, description = "삭제할 다이어리의 아이디") @PathVariable("idx") UUID id
+    ){
         diaryService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
