@@ -5,6 +5,7 @@ import { GoogleLogin } from "react-google-login";
 import { OAuthClientId } from "secret";
 import useUserActions from "hooks/useUserActions";
 
+import logoImg from "assets/logo/dasoni_logo.svg";
 import { LoginSection, Logo, LoginList, GoogleLoginButton } from "./styles";
 
 function Login() {
@@ -16,7 +17,7 @@ function Login() {
   return (
     <LoginSection>
       <Logo>
-        <img src="" alt="dasoni-logo" />
+        <img src={logoImg} alt="dasoni-logo" />
       </Logo>
       <LoginList>
         <GoogleLogin

@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 
 import { WriteButtonWrapper } from "./styles";
 
+import pen from "assets/icons/pen.png";
+
 function WriteButton() {
   return (
     <>
       <Link to="/post">
-        <WriteButtonWrapper>write</WriteButtonWrapper>
+        <WriteButtonWrapper>
+          <img src={pen} />
+        </WriteButtonWrapper>
       </Link>
     </>
   );

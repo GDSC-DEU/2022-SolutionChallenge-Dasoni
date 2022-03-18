@@ -1,14 +1,11 @@
-import axios from "axios";
 import * as React from "react";
-import { useCallback, useState, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
 import useSWR from "swr";
 import { Link } from "react-router-dom";
 
 import { DASONI_BACKEND_API } from "secret";
 import { diariesAtom, DiaryTypes } from "recoil/Diary";
-import { authAtom } from "recoil/Auth";
-import { userAtom } from "recoil/User";
 import useDiaryActions from "hooks/useDiaryActions";
 
 import DailyCalendar from "components/molecules/calendars/DailyCalendar";
@@ -24,6 +21,13 @@ import {
   WeeklyMoodArticle,
   Notification,
 } from "./styles";
+
+import arrow_right from "assets/icons/arrow-right.png";
+import very_sad from "assets/emotionIcons/very_sad.svg";
+import sad from "assets/emotionIcons/sad.svg";
+import normal from "assets/emotionIcons/normal.svg";
+import happy from "assets/emotionIcons/happy.svg";
+import very_happy from "assets/emotionIcons/very_happy.svg";
 
 function Diary() {
   const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesAtom);
@@ -54,14 +58,18 @@ function Diary() {
       <WeeklyMoodArticle>
         <div className="title">
           <span>Your recent mood</span>
-          <img />
+          <Link to="/weekly">
+            <img src={arrow_right} />
+          </Link>
         </div>
         <Link to="/weekly">
           <ShadowBox align="center">
             <div className="date">
               {month}.{day - 7} - {month}.{day}
             </div>
-            <div className="emotion-icon"></div>
+            <div className="emotion-icon">
+              <img src={very_sad} />
+            </div>
             <div className="suggestion">
               You seem to have felt sad these days. Why don’t you share yout
               story?
