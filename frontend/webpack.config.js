@@ -1,3 +1,4 @@
+/*eslint-env es6*/
 const isDevelopment = process.env.NODE_ENV !== "production";
 const path = require("path");
 
@@ -44,10 +45,6 @@ module.exports = {
       {
         test: /\.(png|jpe?g|svg)$/i,
         loader: "file-loader",
-        options: {
-          name: "[path][name].[ext]",
-          publicPath: "assets",
-        },
       },
     ],
   },
