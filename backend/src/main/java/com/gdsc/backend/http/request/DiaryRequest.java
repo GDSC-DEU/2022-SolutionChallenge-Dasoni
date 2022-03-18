@@ -1,10 +1,12 @@
 package com.gdsc.backend.http.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gdsc.backend.entity.Diary;
 import com.gdsc.backend.entity.enums.EmotionType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -21,7 +23,8 @@ public class DiaryRequest {
     @Schema(description = "다이어리 내용", nullable = true, example = "Sample Diary Content")
     private String content;
 
-    @Schema(implementation = LocalDate.class, description = "다이어리 날짜", nullable = false, example = "2022-03-01")
+    @Schema(description = "다이어리 날짜", nullable = false, example = "2022-03-01")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
 
     @Schema(description = "피드 공유 여부", nullable = true, example = "false")

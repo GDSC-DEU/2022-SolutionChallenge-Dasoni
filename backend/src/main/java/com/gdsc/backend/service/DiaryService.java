@@ -1,7 +1,6 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.entity.Diary;
-import com.gdsc.backend.entity.Users;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.repository.DiaryRepository;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,6 +43,27 @@ public class DiaryService {
         UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         diary.setUsers(userRepository.getById(userId));
         return diaryRepository.save(diary);
+    }
+
+    public Diary update(UUID diaryId, DiaryRequest request) {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        Optional<Diary> data = diaryRepository.findDiaryByUsersAndId(userRepository.getById(userId), diaryId);
+        data.ifPresent(diary -> {
+            if(request.getTitle() != null) {
+                diary.setTitle(request.getTitle());
+            }
+            if(request.getContent() != null) {
+                diary.setContent(request.getContent());
+            }
+            if(request.getEmotion() != null) {
+                diary.setEmotion(request.getEmotion());
+            }
+            if(request.getDate() != null) {
+                diary.setDate(request.getDate());
+            }
+            diaryRepository.save(diary);
+        });
+        return diaryRepository.getById(diaryId);
     }
 
     public void deleteById(UUID diaryId) {
