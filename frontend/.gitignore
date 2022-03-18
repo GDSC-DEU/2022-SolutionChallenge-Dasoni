@@ -7,7 +7,7 @@ logs
 node_modules
 
 dist
-api
+secret
 
 
 ### Firebase ###

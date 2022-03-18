@@ -9,34 +9,14 @@ module.export = {
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:import/typescript",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
   ],
   plugins: ["@typescript-eslint", "import", "react-hooks"],
   rules: {
-    "sort-imports": [
-      "error",
-      {
-        ignoreCase: false,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-      },
-    ],
-
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        js: "never",
-        jsx: "never",
-        ts: "never",
-        tsx: "never",
-      },
-    ],
     "import/order": [
       "error",
       {
@@ -69,15 +49,17 @@ module.export = {
     ],
   },
   env: {
+    browser: true,
     node: true,
+    es6: true,
   },
   settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [".js", ".ts"],
+      "@typescript-eslint/parser": [".js", ".ts", ".tsx"],
     },
     "import/resolver": {
       node: {
-        extensions: [".js", ".ts"],
+        extensions: [".js", ".ts", ".tsx"],
       },
       typescript: {
         alwaysTryTypes: true,

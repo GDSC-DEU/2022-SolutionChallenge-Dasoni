@@ -11,12 +11,8 @@ export const Header = styled.header<{ position?: string }>`
   padding: 12px 16px;
   border-bottom: 0.48px solid #c2c2c2;
 
-  .logo {
-    font-family: Montserrat;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 24px;
-    margin-top: 4px;
+  .logo > a > img {
+    width: 98px;
   }
 
   .back-button {

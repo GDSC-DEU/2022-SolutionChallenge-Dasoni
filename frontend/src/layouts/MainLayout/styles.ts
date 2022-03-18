@@ -6,16 +6,9 @@ export const ButtonBox = styled.div`
   flex-direction: row;
   justify-content: flex-end;
 
-  .search {
+  img {
     width: 24px;
     height: 24px;
-    background: gray;
-  }
-
-  .hamberger-menu {
-    width: 24px;
-    height: 24px;
-    background: gray;
     margin-left: 12px;
   }
 `;

@@ -53,10 +53,9 @@ export const WeeklyMoodArticle = styled.article`
 
     margin-bottom: 8px;
 
-    & > img {
+    & > a > img {
       width: 24px;
       height: 24px;
-      background: gray;
     }
   }
 
@@ -70,10 +69,9 @@ export const WeeklyMoodArticle = styled.article`
     font-size: 14px;
     line-height: 137%;
   }
-  .emotion-icon {
+  .emotion-icon > img {
     width: 67px;
     height: 67px;
-    background: gray;
     margin: 5px 0;
   }
   .suggestion {

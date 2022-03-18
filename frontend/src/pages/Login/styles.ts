@@ -11,8 +11,6 @@ export const LoginSection = styled.section`
 export const Logo = styled.article`
   margin-top: 218px;
   width: 125px;
-  height: 119px;
-  background: #fff;
 `;
 
 export const LoginList = styled.article`

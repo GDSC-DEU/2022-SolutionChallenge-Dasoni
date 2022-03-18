@@ -31,10 +31,8 @@ export const DiaryContentBoxWrap = styled.div`
     }
 
     .mood-icon {
-      width: 44px;
-      height: 44px;
-      background: #ffbf41;
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
       margin-bottom: 7px;
     }
     .date {
@@ -73,16 +71,15 @@ export const DiaryContentBoxWrap = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-end;
 
     .menu-button {
       width: 24px;
       height: 24px;
-      background: gray;
     }
     .warning-button {
-      width: 24px;
-      height: 24px;
-      background: gray;
+      width: 20px;
+      height: 20px;
     }
   }
 `;

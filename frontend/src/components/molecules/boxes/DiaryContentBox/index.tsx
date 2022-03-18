@@ -2,6 +2,14 @@ import * as React from "react";
 
 import { DiaryContentBoxWrap } from "./styles";
 
+import very_sad from "assets/emotionIcons/very_sad.svg";
+import sad from "assets/emotionIcons/sad.svg";
+import normal from "assets/emotionIcons/normal.svg";
+import happy from "assets/emotionIcons/happy.svg";
+import very_happy from "assets/emotionIcons/very_happy.svg";
+import dropdown from "assets/icons/dropdown-menu.png";
+import warning from "assets/icons/warning.png";
+
 export interface DiaryContentBoxProps {
   key: string;
   created_date: string;
@@ -16,7 +24,7 @@ function DiaryContentBox(props: DiaryContentBoxProps) {
     <DiaryContentBoxWrap key={key}>
       <div className="left">
         <div className="warning-signer"></div>
-        <div className="mood-icon"></div>
+        <img src={normal} className="mood-icon" />
         <div className="date">12 Sat</div>
         {/* <div>{created_date}</div> */}
       </div>
@@ -25,8 +33,8 @@ function DiaryContentBox(props: DiaryContentBoxProps) {
         <div className="content">{content}</div>
       </div>
       <div className="right">
-        <div className="menu-button"></div>
-        <div className="warning-button"></div>
+        <img className="menu-button" src={dropdown} />
+        <img className="warning-button" src={warning} />
       </div>
     </DiaryContentBoxWrap>
   );
