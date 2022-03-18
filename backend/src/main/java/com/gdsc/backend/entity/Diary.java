@@ -34,7 +34,7 @@ public class Diary extends BaseTimeEntity {
 
     @Schema(description = "사용자가 등록한 감정", nullable = false, allowableValues = {"VERY_HAPPY", "HAPPY", "NORMAL", "SAD", "VERY_SAD"}, example = "HAPPY")
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false, length = 8)
+    @Column(nullable = false, length = 10)
     private EmotionType emotion;
 
     @Schema(description = "사용자가 입력한 다이어리 내용을 분석한 감정 결과", nullable = false, allowableValues = {"VERY_HAPPY", "HAPPY", "NORMAL", "SAD", "VERY_SAD"}, example = "HAPPY")
@@ -49,6 +49,22 @@ public class Diary extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setEmotion(EmotionType emotion) {
+        this.emotion = emotion;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public void setUsers(Users users) {
         this.users = users;
