@@ -13,7 +13,6 @@ import DiaryWeeklyList from "pages/DiaryWeeklyList";
 import Login from "pages/Login";
 import Signup from "pages/Signup";
 import MainLayout from "layouts/MainLayout";
-import SubPageLayout from "layouts/SubPageLayout";
 import GlobalStyle from "styles/GlobalStyle";
 
 function App() {
@@ -26,9 +25,6 @@ function App() {
             <Route index element={<Diary />} />
             <Route path="feed" element={<Feed />} />
             <Route path="statistics" element={<Statistics />} />
-          </Route>
-
-          <Route path="/" element={<SubPageLayout />}>
             <Route path="post" element={<DiaryPost />} />
             <Route path="map" element={<Map />} />
             <Route path="support" element={<Support />} />
