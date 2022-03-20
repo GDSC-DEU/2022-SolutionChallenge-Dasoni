@@ -28,6 +28,7 @@ import sad from "assets/emotionIcons/sad.svg";
 import normal from "assets/emotionIcons/normal.svg";
 import happy from "assets/emotionIcons/happy.svg";
 import very_happy from "assets/emotionIcons/very_happy.svg";
+import Nav from "components/organisms/Nav";
 
 function Diary() {
   const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesAtom);
@@ -42,6 +43,7 @@ function Diary() {
 
   return (
     <>
+      <Nav />
       <QuoteArticle>
         <ShadowBox>
           <div className="date">
