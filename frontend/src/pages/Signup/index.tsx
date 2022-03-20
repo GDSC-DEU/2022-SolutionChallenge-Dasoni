@@ -1,4 +1,4 @@
-import { Header } from "components/atoms/wrapper/Header";
+import Header from "components/organisms/Header";
 import { ClickButton } from "components/atoms/buttons/ClickButton";
 import * as React from "react";
 import { useState, SetStateAction, Dispatch } from "react";
@@ -30,11 +30,7 @@ function Signup() {
 
   return (
     <>
-      <Header position="middle">
-        <div className="logo">
-          <Link to="/">DASONI</Link>
-        </div>
-      </Header>
+      <Header position="middle" />
       <SignupSection>
         <div className="introduce">Please select your current status.</div>
         <ClickButton

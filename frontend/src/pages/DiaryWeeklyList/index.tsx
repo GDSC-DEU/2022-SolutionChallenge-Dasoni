@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-import { Header } from "components/atoms/wrapper/Header";
+import Header from "components/organisms/Header";
 import CalloutBox from "components/molecules/boxes/CalloutBox";
 import DiaryContentBox from "components/molecules/boxes/DiaryContentBox";
 
@@ -10,12 +10,7 @@ import { Main } from "./styles";
 function DiaryWeeklyList() {
   return (
     <>
-      <Header>
-        <Link to="/">
-          <div className="back-button"></div>
-        </Link>
-        <div className="title">List of your weekly moods</div>
-      </Header>
+      <Header />
       <Main>
         <CalloutBox>
           These were analyzed using our model, based on what you’ve written
