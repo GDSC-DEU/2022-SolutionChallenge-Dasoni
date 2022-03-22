@@ -2,6 +2,7 @@ package com.gdsc.backend.entity;
 
 import com.gdsc.backend.entity.enums.BoardCategory;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,13 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "boards")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Board {
     @Id
     @Schema(description = "게시글 아이디", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long boardId;
 
     @Schema(description = "제목", nullable = false, example = "Supporting Project Title")
     @Column(nullable = false)
@@ -35,7 +38,7 @@ public class Board {
     @Column(nullable = false)
     private LocalDate finishDate;
 
-    @Schema(description = "카테고리", nullable = false, allowableValues = {"All", "Financial", "Housing", "MedicalCare"}, example = "Categorizing Project")
+    @Schema(description = "카테고리", nullable = false, allowableValues = {"Financial", "Housing", "MedicalCare"}, example = "Categorizing Project")
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private BoardCategory boardCategory;
@@ -48,17 +51,5 @@ public class Board {
     @Column(nullable = false)
     private String link;
 
-    @Schema(description = "즐겨찾기", nullable = false, example = "bookmark of project")
-    @Column(nullable = false)
-    private boolean bookmark;
 
-    @Builder
-    public Board(String title, String organizer, LocalDate startDate, LocalDate finishDate, BoardCategory boardCategory, String content){
-        this.title = title;
-        this.organizer = organizer;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.boardCategory = boardCategory;
-        this.content = content;
-    }
 }
