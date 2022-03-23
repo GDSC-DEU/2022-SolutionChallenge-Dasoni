@@ -66,6 +66,10 @@ public class Diary extends BaseTimeEntity {
         this.date = date;
     }
 
+    public void setContentEmotion(EmotionType contentEmotion) {
+        this.contentEmotion = contentEmotion;
+    }
+
     public void setUsers(Users users) {
         this.users = users;
     }

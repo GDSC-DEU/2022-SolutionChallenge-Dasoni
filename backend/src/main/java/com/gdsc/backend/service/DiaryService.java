@@ -1,10 +1,12 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.entity.Diary;
+import com.gdsc.backend.entity.enums.EmotionType;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.repository.DiaryRepository;
 import com.gdsc.backend.repository.UserRepository;
+import com.gdsc.backend.service.util.NaturalLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,11 @@ import java.util.stream.Collectors;
 public class DiaryService {
     private final UserRepository userRepository;
     private final DiaryRepository diaryRepository;
+    private final NaturalLanguage naturalLanguage;
 
     @Autowired
-    public DiaryService(UserRepository userRepository, DiaryRepository diaryRepository) {
+    public DiaryService(NaturalLanguage naturalLanguage, UserRepository userRepository, DiaryRepository diaryRepository) {
+        this.naturalLanguage = naturalLanguage;
         this.userRepository = userRepository;
         this.diaryRepository=diaryRepository;
     }
@@ -42,6 +46,7 @@ public class DiaryService {
     public Diary save(Diary diary) {
         UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         diary.setUsers(userRepository.getById(userId));
+        diary.setContentEmotion(scoreEmotion(diary.getContent()));
         return diaryRepository.save(diary);
     }
 
@@ -54,6 +59,7 @@ public class DiaryService {
             }
             if(request.getContent() != null) {
                 diary.setContent(request.getContent());
+                diary.setContentEmotion(scoreEmotion(request.getContent()));
             }
             if(request.getEmotion() != null) {
                 diary.setEmotion(request.getEmotion());
@@ -75,4 +81,19 @@ public class DiaryService {
         return DiaryContentResponse.of(diary);
     }
 
+    private EmotionType scoreEmotion(String content) {
+        Float score = naturalLanguage.getData(content);
+        if(score >= -1.0 && score <= -0.6) {
+            return EmotionType.VERY_SAD;
+        } else if (score <= -0.2) {
+            return EmotionType.SAD;
+        } else if (score <= 0.2) {
+            return EmotionType.NORMAL;
+        } else if (score <= 0.6) {
+            return EmotionType.HAPPY;
+        } else if (score <= 1.0){
+            return EmotionType.VERY_HAPPY;
+        }
+        return EmotionType.NORMAL;
+    }
 }
