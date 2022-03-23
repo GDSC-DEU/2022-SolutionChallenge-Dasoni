@@ -7,6 +7,7 @@ import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.http.response.DiaryResponse;
 import com.gdsc.backend.http.response.EmotionAverageResponse;
 import com.gdsc.backend.service.DiaryService;
+import com.gdsc.backend.service.util.NaturalLanguage;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +34,7 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     @Autowired
-    public DiaryController(DiaryService diaryService) {this.diaryService = diaryService; }
+    public DiaryController(DiaryService diaryService) { this.diaryService = diaryService; }
 
     @Operation(summary = "전체 다이어리 조회", description = "사용자의 전체 다이어리를 최신 날짜 순으로 조회합니다.", tags = "diary",
         responses = {
