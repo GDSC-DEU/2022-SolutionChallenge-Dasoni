@@ -43,4 +43,8 @@ public class BoardContentResponse {
        boardCategory = board.getBoardCategory();
        link = board.getLink();
     }
+
+    public static BoardContentResponse of(Board board){
+        return new BoardContentResponse(board);
+    }
 }

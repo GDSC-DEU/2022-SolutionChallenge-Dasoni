@@ -19,6 +19,7 @@ import java.time.LocalDate;
 public class Board {
     @Id
     @Schema(description = "게시글 아이디", nullable = false)
+    @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
@@ -50,6 +51,4 @@ public class Board {
     @Schema(description = "웹사이트 주소", nullable = false, example = "Website link")
     @Column(nullable = false)
     private String link;
-
-
 }

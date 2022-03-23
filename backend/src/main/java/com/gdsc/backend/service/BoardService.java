@@ -1,5 +1,7 @@
 package com.gdsc.backend.service;
 
+import com.gdsc.backend.entity.Board;
+import com.gdsc.backend.entity.Bookmark;
 import com.gdsc.backend.entity.enums.BoardCategory;
 import com.gdsc.backend.http.response.BoardContentResponse;
 import com.gdsc.backend.http.response.UsersBoardContentResponse;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -28,24 +31,27 @@ public class BoardService {
     }
 
     public List<BoardContentResponse> findProjects(@PageableDefault Pageable pageable){
-        return this.boardRepository.allProjects(pageable);
+        List<Board> test = this.boardRepository.allProjects(pageable);
+        return test.stream().map(this::makeResponse).collect(Collectors.toList());
     }
 
     public List<BoardContentResponse> getCategory(@PageableDefault Pageable pageable, BoardCategory boardCategory){
-        return this.boardRepository.findByBoardCategory(pageable, boardCategory);
+        List<Board> test = this.boardRepository.findByBoardCategory(pageable, boardCategory);
+        return test.stream().map(this::makeResponse).collect(Collectors.toList());
     }
 
     // TODO: 북마크 등록하는 기능 추가
-    public void postBookmark(Long board_id){
-        UUID user_id = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        bookmarkRepository.insert(user_id, board_id);
+    public UsersBoardContentResponse postBookmark(Long boardId){
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        Bookmark mine = bookmarkRepository.save(userId, boardId);
+        return UsersBoardContentResponse.of(mine);
     }
 
     // TODO: 북마크 취소하는 기능 추가
-    public void removeBookmark(Long board_id){
-        UUID user_id = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        bookmarkRepository.delete(user_id, board_id);
-    }
+//    public void removeBookmark(Long board_id){
+//        UUID user_id = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+//        bookmarkRepository.delete(user_id, board_id);
+//    }
 
     // TODO: 북마크 조회하는 기능 추가
     public List<UsersBoardContentResponse> getBookmark(@PageableDefault Pageable pageable) {
@@ -53,10 +59,15 @@ public class BoardService {
         if(user_id == null){
             return null;
         }
-        List<UsersBoardContentResponse> project = this.bookmarkRepository.findByUsersAndBoard(user_id);
-        return project;
+        List<Bookmark> project = this.bookmarkRepository.findByUsersAndBoard(user_id);
+        return project.stream().map(this::madeResponse).collect(Collectors.toList());
     }
 
+    private BoardContentResponse makeResponse(Board board){
+        return BoardContentResponse.of(board);
+    }
 
-
+    private UsersBoardContentResponse madeResponse(Bookmark bookmark){
+        return UsersBoardContentResponse.of(bookmark);
+    }
 }

@@ -2,7 +2,6 @@ package com.gdsc.backend.entity;
 
 import lombok.*;
 
-import javax.annotation.Priority;
 import javax.persistence.*;
 
 @Data
@@ -10,11 +9,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "bookmarked")
 @IdClass(UserBoardPK.class)
-public class UsersBoard {
+public class Bookmarked {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @Id
