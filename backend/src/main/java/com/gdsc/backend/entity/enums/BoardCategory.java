@@ -1,11 +1,9 @@
 package com.gdsc.backend.entity.enums;
 
 public enum BoardCategory {
-    All("전체"),
     Financial("금융지원"),
     Housing("거주지원"),
-    MedicalCare("의료지원"),
-    Bookmark("즐겨찾기");
+    MedicalCare("의료지원");
 
     private String value;
 
