@@ -3,8 +3,8 @@ package com.gdsc.backend.controller;
 import com.gdsc.backend.entity.enums.BoardCategory;
 import com.gdsc.backend.http.response.BoardContentResponse;
 import com.gdsc.backend.http.response.BoardListResponse;
-import com.gdsc.backend.http.response.UsersBoardListResponse;
-import com.gdsc.backend.http.response.UsersBoardContentResponse;
+//import com.gdsc.backend.http.response.UsersBoardListResponse;
+//import com.gdsc.backend.http.response.UsersBoardContentResponse;
 import com.gdsc.backend.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -62,35 +62,35 @@ public class BoardController {
 
     }
 
-    @Operation(summary = "북마크된 지원사업 조회", description = "즐겨찾기한 지원 사업을 최신 순으로 조회합니다", tags = "support project",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "북마크 목록 조회 성공",
-                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UsersBoardListResponse.class)))
-            }
-    )
-    @GetMapping(value = "/bookmarked-boards", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsersBoardListResponse> getBookmark(@PageableDefault Pageable pageable) {
-
-        List<UsersBoardContentResponse> boards = this.boardService.getBookmark(pageable);
-        UsersBoardListResponse bookmarklist = UsersBoardListResponse.builder()
-                .boards(boards)
-                .build();
-        return ResponseEntity.status(HttpStatus.OK).body(bookmarklist);
-
-    }
-
-    @Operation(summary = "지원사업에 북마크 추가", description = "사용자가 지원사업을 즐겨찾기로 등록합니다", tags = "support project",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "북마크에 추가 성공",
-                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UsersBoardContentResponse.class)))
-            })
-
-    @ResponseStatus(value = HttpStatus.CREATED)
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsersBoardContentResponse> addBookmark(@RequestParam("boardId") Long boardId) {
-        UsersBoardContentResponse result = this.boardService.postBookmark(boardId);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
+//    @Operation(summary = "북마크된 지원사업 조회", description = "즐겨찾기한 지원 사업을 최신 순으로 조회합니다", tags = "support project",
+//            responses = {
+//                    @ApiResponse(responseCode = "200", description = "북마크 목록 조회 성공",
+//                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UsersBoardListResponse.class)))
+//            }
+//    )
+//    @GetMapping(value = "/bookmarked-boards", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<UsersBoardListResponse> getBookmark(@PageableDefault Pageable pageable) {
+//
+//        List<UsersBoardContentResponse> boards = this.boardService.getBookmark(pageable);
+//        UsersBoardListResponse bookmarklist = UsersBoardListResponse.builder()
+//                .boards(boards)
+//                .build();
+//        return ResponseEntity.status(HttpStatus.OK).body(bookmarklist);
+//
+//    }
+//
+//    @Operation(summary = "지원사업에 북마크 추가", description = "사용자가 지원사업을 즐겨찾기로 등록합니다", tags = "support project",
+//            responses = {
+//                    @ApiResponse(responseCode = "201", description = "북마크에 추가 성공",
+//                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = UsersBoardContentResponse.class)))
+//            })
+//
+//    @ResponseStatus(value = HttpStatus.CREATED)
+//    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<UsersBoardContentResponse> addBookmark(@RequestParam("boardId") Long boardId) {
+//        UsersBoardContentResponse result = this.boardService.postBookmark(boardId);
+//        return ResponseEntity.status(HttpStatus.OK).body(result);
+//    }
 }
 
 
