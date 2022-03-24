@@ -6,6 +6,7 @@ import { OAuthClientId } from "secret";
 import useUserActions from "hooks/useUserActions";
 
 import logoImg from "assets/logo/dasoni_logo.svg";
+import googleLogo from "assets/logo/google_logo.svg";
 import { LoginSection, Logo, LoginList, GoogleLoginButton } from "./styles";
 
 function Login() {
@@ -33,7 +34,7 @@ function Login() {
               onClick={renderProps.onClick}
               disabled={renderProps.disabled}
             >
-              <img src="" alt="google-logo" />
+              <img src={googleLogo} alt="google-logo" />
               <span>Register with Google</span>
             </GoogleLoginButton>
           )}
