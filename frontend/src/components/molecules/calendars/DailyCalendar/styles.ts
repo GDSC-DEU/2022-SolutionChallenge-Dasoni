@@ -5,13 +5,14 @@ export const DailyCalendarWrap = styled.div<{ backgroundColor: string }>`
   flex-direaction: row;
   justify-content: center;
   align-items: center;
-  padding: 11px 0;
+  padding: 8px 0;
 
   .month {
-    margin: 0 17px;
+    margin: 0 16px;
     font-family: "Roboto";
     font-weight: 700;
-    line-height: 19px;
+    font-size: 18px;
+    line-height: 20px;
   }
   .month,
   .chevron {
