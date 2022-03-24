@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class UserBoardPK implements Serializable {
+public class BookmarkPK implements Serializable {
     private Users users;
     private Board board;
 }

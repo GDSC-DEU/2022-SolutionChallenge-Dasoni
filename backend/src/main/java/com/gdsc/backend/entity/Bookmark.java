@@ -7,9 +7,9 @@ import javax.persistence.*;
 @Data
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Entity
-@Table(name = "bookmarked")
-@IdClass(UserBoardPK.class)
-public class Bookmarked {
+@Table(name = "bookmark")
+@IdClass(BookmarkPK.class)
+public class Bookmark {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
