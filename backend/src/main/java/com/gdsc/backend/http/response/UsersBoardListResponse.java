@@ -7,10 +7,10 @@ import java.util.List;
 
 @Getter
 public class UsersBoardListResponse {
-    private final List<UsersBoardContentResponse> boards;
+    private final List<BookmarkContentResponse> boards;
 
     @Builder
-    public UsersBoardListResponse(List<UsersBoardContentResponse> boards){
+    public UsersBoardListResponse(List<BookmarkContentResponse> boards){
         this.boards = boards;
     }
 }
