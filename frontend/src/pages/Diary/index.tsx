@@ -24,11 +24,11 @@ import {
 } from "./styles";
 
 import arrow_right from "assets/icons/arrow-right.png";
-import very_sad from "assets/emotionIcons/very_sad.svg";
+import very_sad from "assets/emotionIcons/verysad.svg";
 import sad from "assets/emotionIcons/sad.svg";
 import normal from "assets/emotionIcons/normal.svg";
 import happy from "assets/emotionIcons/happy.svg";
-import very_happy from "assets/emotionIcons/very_happy.svg";
+import very_happy from "assets/emotionIcons/veryhappy.svg";
 import Nav from "components/organisms/Nav";
 
 function Diary() {
