@@ -4,7 +4,7 @@ export const SignupSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 125px 16px 0;
+  margin: 158px 16px 0;
 
   .introduce {
     font-family: "Nunito";
