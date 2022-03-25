@@ -1,6 +1,7 @@
 package com.gdsc.backend.controller;
 
 import com.gdsc.backend.http.response.FeedListResponse;
+import com.gdsc.backend.http.response.FeedResponse;
 import com.gdsc.backend.service.FeedService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -50,13 +51,13 @@ public class FeedController {
     @Operation(summary = "피드 상세 조회", description = "피드의 상세 내용을 조회합니다.", tags = "feed",
             responses = {
                     @ApiResponse(responseCode = "200", description = "피드 상세 내용 조회 성공",
-                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = MediaType.class)))
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = FeedResponse.class)))
             }
     )
     @GetMapping(value = "/{idx}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getFeedDetail(
+    public ResponseEntity<FeedResponse> getFeedDetail(
             @Parameter(name = "idx", in = ParameterIn.PATH, description = "조회할 피드의 아이디") @PathVariable("idx") UUID id
     ) {
-        return ResponseEntity.ok("{}");
+        return ResponseEntity.ok(feedService.findFeed(id));
     }
 }
