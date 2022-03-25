@@ -17,8 +17,9 @@ import java.util.List;
 public class Feed extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "feed_id")
     @Schema(description = "피드 아이디", nullable = false)
-    private UUID feed_id;
+    private UUID feedId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "diary_id")
@@ -32,7 +33,12 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "feed_id")
     private List<FeedLike> likes = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users owner;
+
     public Feed(Diary diary) {
         this.diary = diary;
+        this.owner = diary.getUsers();
     }
 }
