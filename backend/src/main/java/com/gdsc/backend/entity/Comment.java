@@ -6,7 +6,7 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Schema(description = "피드")
+@Schema(description = "댓글")
 @Getter
 @Entity
 @Table(name = "comment")

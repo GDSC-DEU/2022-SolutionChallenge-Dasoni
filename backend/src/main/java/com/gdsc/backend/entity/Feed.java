@@ -28,6 +28,10 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "feed_id")
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "feed_id")
+    private List<FeedLike> likes = new ArrayList<>();
+
     public Feed(Diary diary) {
         this.diary = diary;
     }
