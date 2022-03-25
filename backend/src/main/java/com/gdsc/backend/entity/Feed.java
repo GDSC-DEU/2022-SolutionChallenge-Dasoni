@@ -26,6 +26,7 @@ public class Feed extends BaseTimeEntity {
     private Diary diary;
 
     @OneToMany
+    @OrderBy("createdDate")
     @JoinColumn(name = "feed_id")
     private List<Comment> comments = new ArrayList<>();
 
