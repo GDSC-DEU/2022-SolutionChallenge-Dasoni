@@ -7,7 +7,6 @@ import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.http.response.DiaryResponse;
 import com.gdsc.backend.http.response.EmotionAverageResponse;
 import com.gdsc.backend.service.DiaryService;
-import com.gdsc.backend.service.util.NaturalLanguage;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -85,6 +84,9 @@ public class DiaryController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DiaryResponse> postDiary(@RequestBody DiaryRequest diaryRequest) {
         Diary result = diaryService.save(diaryRequest.toEntity());
+        if (diaryRequest.getFeed()) {
+            diaryService.addFeed(result);
+        }
         return new ResponseEntity<>(DiaryResponse.of(ServletUriComponentsBuilder.fromCurrentContextPath()
                                                                                 .path(result.getId().toString())
                                                                                 .build()
@@ -105,6 +107,11 @@ public class DiaryController {
             @RequestBody DiaryRequest diaryRequest
     ) {
         Diary result = diaryService.update(id, diaryRequest);
+        if (diaryRequest.getFeed()) {
+            diaryService.addFeed(result);
+        } else {
+            diaryService.deleteFeed(result);
+        }
         return new ResponseEntity<>(DiaryResponse.of(ServletUriComponentsBuilder.fromCurrentContextPath()
                         .path(result.getId().toString())
                         .build()
