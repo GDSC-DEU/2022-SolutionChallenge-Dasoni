@@ -15,7 +15,7 @@ import java.util.UUID;
 @Schema(description = "다이어리")
 @Getter
 @Entity
-@Table(name = "diary")
+@Table(name = "diary", uniqueConstraints = {@UniqueConstraint(name = "diary_user_date_uq", columnNames = {"user_id", "date"})})
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Diary extends BaseTimeEntity {
@@ -49,6 +49,9 @@ public class Diary extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
+    @OneToOne(mappedBy = "diary")
+    private Feed feed;
 
     public void setTitle(String title) {
         this.title = title;
