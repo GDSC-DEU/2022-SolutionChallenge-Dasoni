@@ -41,7 +41,7 @@ public class StatisticsService {
             List<Diary> diaries = diaryRepository.findDiariesByUsersAndDateBetweenOrderByDateDesc(userRepository.getById(userId), date.minusDays(6), date);
             for(Diary diary : diaries) {
                 while (!date.isEqual(diary.getDate())) {
-                    emotion_average = EmotionType.NORMAL.getScore();:q
+                    emotion_average = EmotionType.NORMAL.getScore();
                     date = date.minusDays(1);
                     if( date.isEqual(endDate)) { break; }
                 }
