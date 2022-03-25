@@ -17,6 +17,10 @@ public class FeedLike {
     @Schema(description = "피드 좋아요 아이디", nullable = false)
     private UUID feedLikeId;
 
+    @ManyToOne
+    @JoinColumn(name = "feed_id", insertable = false, updatable = false)
+    private Feed feed;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private Users user;
