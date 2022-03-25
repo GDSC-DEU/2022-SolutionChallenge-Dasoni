@@ -1,10 +1,12 @@
 package com.gdsc.backend.service;
 
 import com.gdsc.backend.entity.Diary;
+import com.gdsc.backend.entity.Feed;
 import com.gdsc.backend.entity.enums.EmotionType;
 import com.gdsc.backend.http.request.DiaryRequest;
 import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.repository.DiaryRepository;
+import com.gdsc.backend.repository.FeedRepository;
 import com.gdsc.backend.repository.UserRepository;
 import com.gdsc.backend.service.util.NaturalLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,15 @@ import java.util.stream.Collectors;
 public class DiaryService {
     private final UserRepository userRepository;
     private final DiaryRepository diaryRepository;
+    private final FeedRepository feedRepository;
     private final NaturalLanguage naturalLanguage;
 
     @Autowired
-    public DiaryService(NaturalLanguage naturalLanguage, UserRepository userRepository, DiaryRepository diaryRepository) {
+    public DiaryService(NaturalLanguage naturalLanguage, UserRepository userRepository, DiaryRepository diaryRepository, FeedRepository feedRepository) {
         this.naturalLanguage = naturalLanguage;
         this.userRepository = userRepository;
-        this.diaryRepository=diaryRepository;
+        this.diaryRepository = diaryRepository;
+        this.feedRepository = feedRepository;
     }
 
     public List<DiaryContentResponse> findDiariesContent(Integer year, Integer month) {
@@ -75,6 +79,14 @@ public class DiaryService {
     public void deleteById(UUID diaryId) {
         UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         diaryRepository.deleteByUsersAndId(userRepository.getById(userId), diaryId);
+    }
+
+    public void addFeed(Diary diary) {
+        feedRepository.save(new Feed(diary));
+    }
+
+    public void deleteFeed(Diary diary) {
+        feedRepository.deleteByDiary(diary);
     }
 
     private DiaryContentResponse makeResponse(Diary diary) {
