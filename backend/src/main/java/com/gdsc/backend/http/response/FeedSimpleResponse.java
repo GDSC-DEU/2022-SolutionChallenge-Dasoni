@@ -7,9 +7,11 @@ import com.gdsc.backend.entity.enums.StateType;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 public class FeedSimpleResponse {
+    private UUID feedId;
     private EmotionType emotion;
     private String title;
     private String content;
@@ -20,6 +22,7 @@ public class FeedSimpleResponse {
 
     public FeedSimpleResponse(Feed feed) {
         Diary diary = feed.getDiary();
+        this.feedId = feed.getFeedId();
         this.emotion = diary.getEmotion();
         this.title = diary.getTitle();
         this.content = diary.getContent();
