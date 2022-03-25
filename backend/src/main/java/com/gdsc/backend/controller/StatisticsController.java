@@ -1,6 +1,7 @@
 package com.gdsc.backend.controller;
 
 import com.gdsc.backend.http.response.CalendarResponse;
+import com.gdsc.backend.http.response.ChartResponse;
 import com.gdsc.backend.service.StatisticsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,5 +46,16 @@ public class StatisticsController {
             throw new RuntimeException();
         }
         return ResponseEntity.ok(statisticsService.findEmotionByMonth(month));
+    }
+
+    @Operation(summary = "월별 차트 내용 조회", description = "월별 차트에 표시될 데이터를 전달합니다..", tags = "statistics",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "차트 내용 조회 성공",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ChartResponse.class)))
+            }
+    )
+    @GetMapping(value = "/chart", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ChartResponse>> getChart() {
+        return ResponseEntity.ok(statisticsService.findChartData());
     }
 }

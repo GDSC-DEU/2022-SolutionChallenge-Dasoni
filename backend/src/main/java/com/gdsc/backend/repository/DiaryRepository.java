@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, UUID> {
-    List<Diary> findDiariesByUsersAndDateBetween(Users userId, LocalDate start, LocalDate end);
+    List<Diary> findDiariesByUsersAndDateBetweenOrderByDateDesc(Users userId, LocalDate start, LocalDate end);
     Optional<Diary> findDiaryByUsersAndId(Users user, UUID id);
     @Query("SELECT new com.gdsc.backend.http.response.CalendarResponse (diary.date, diary.emotion) FROM Diary diary WHERE diary.users = :user and MONTH(diary.date) = :month")
     List<CalendarResponse> findEmotion(@Param("user") Users user, @Param("month") Integer month);

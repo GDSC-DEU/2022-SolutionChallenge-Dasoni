@@ -34,7 +34,7 @@ public class DiaryService {
     public List<DiaryContentResponse> findDiariesContent(Integer year, Integer month) {
         UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         LocalDate date = LocalDate.of(year, month, 1);
-        List<Diary> test = diaryRepository.findDiariesByUsersAndDateBetween(userRepository.getById(userId), date, date.withDayOfMonth(date.lengthOfMonth()));
+        List<Diary> test = diaryRepository.findDiariesByUsersAndDateBetweenOrderByDateDesc(userRepository.getById(userId), date, date.withDayOfMonth(date.lengthOfMonth()));
         return test.stream().map(this::makeResponse).collect(Collectors.toList());
     }
 
