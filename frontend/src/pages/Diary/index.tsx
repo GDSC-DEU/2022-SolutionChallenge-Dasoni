@@ -36,6 +36,11 @@ function Diary() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [day, setDay] = useState(new Date().getDate());
+  const [isWarningChecked, setIsWarningChecked] = useState(true);
+  const onWarningClick = () => {
+    setIsWarningChecked(!isWarningChecked);
+  };
+
   const diaryActions = useDiaryActions();
 
   useSWR(`${DASONI_BACKEND_API}/diaries`, (url) =>
@@ -87,18 +92,33 @@ function Diary() {
         <DailyCalendar>Jan 2022</DailyCalendar>
         <Notification>
           <span>Notification</span>
-          <ToggleSwitchButton />
+          <ToggleSwitchButton
+            checked={isWarningChecked}
+            onChange={onWarningClick}
+          />
         </Notification>
         <section>
           {diaries &&
-            diaries.map((diary) => (
-              <DiaryContentBox
-                key={diary.diaryId}
-                created_date={diary.date}
-                title={diary.title}
-                content={diary.content}
-              />
-            ))}
+            diaries.map((diary) =>
+              diary.emotion === "Very Sad" || diary.emotion === "Sad" ? (
+                <DiaryContentBox
+                  key={diary.diaryId}
+                  created_date={diary.date}
+                  title={diary.title}
+                  content={diary.content}
+                  emotion={diary.emotion}
+                  checked={isWarningChecked}
+                />
+              ) : (
+                <DiaryContentBox
+                  key={diary.diaryId}
+                  created_date={diary.date}
+                  title={diary.title}
+                  content={diary.content}
+                  emotion={diary.emotion}
+                />
+              )
+            )}
         </section>
       </DiaryArticle>
 
