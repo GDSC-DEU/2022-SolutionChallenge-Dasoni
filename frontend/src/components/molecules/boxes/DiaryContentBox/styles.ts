@@ -4,11 +4,9 @@ export const DiaryContentBoxWrap = styled.div<{
   emotion: string;
   checked?: boolean;
 }>`
-  position: relative;
   background-color: #fff;
   border-radius: 10px;
-  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.48))
-    drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.12));
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.48), 0px 0px 4px rgba(0, 0, 0, 0.12);
   padding: 16px 8px;
 
   display: grid;
