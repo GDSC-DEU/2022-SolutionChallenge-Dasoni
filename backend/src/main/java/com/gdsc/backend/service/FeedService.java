@@ -1,8 +1,11 @@
 package com.gdsc.backend.service;
 
+import com.gdsc.backend.entity.Comment;
 import com.gdsc.backend.entity.Feed;
+import com.gdsc.backend.entity.FeedLike;
 import com.gdsc.backend.http.response.FeedResponse;
 import com.gdsc.backend.http.response.FeedSimpleResponse;
+import com.gdsc.backend.repository.CommentRepository;
 import com.gdsc.backend.repository.FeedLikeRepository;
 import com.gdsc.backend.repository.FeedRepository;
 import com.gdsc.backend.repository.UserRepository;
@@ -16,12 +19,14 @@ import java.util.UUID;
 
 @Service
 public class FeedService {
+    private final CommentRepository commentRepository;
     private final FeedRepository feedRepository;
     private final FeedLikeRepository feedLikeRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public FeedService(FeedRepository feedRepository, FeedLikeRepository feedLikeRepository, UserRepository userRepository) {
+    public FeedService(CommentRepository commentRepository, FeedRepository feedRepository, FeedLikeRepository feedLikeRepository, UserRepository userRepository) {
+        this.commentRepository = commentRepository;
         this.feedRepository = feedRepository;
         this.feedLikeRepository = feedLikeRepository;
         this.userRepository = userRepository;
@@ -45,6 +50,30 @@ public class FeedService {
             response.setLikeBoolean(true);
         }
         return response;
+    }
+
+    public void saveComment(UUID id, String comment) {
+        Feed feed = feedRepository.getById(id);
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        feed.addComment(Comment.builder().content(comment).writer(userRepository.getById(userId)).build());
+        feedRepository.save(feed);
+    }
+
+    public void deleteComment(UUID commentId) {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        if(commentRepository.getById(commentId).getWriter().getUserId().compareTo(userId) == 0) {
+            commentRepository.deleteById(commentId);
+        }
+    }
+
+    public void saveFeedLike(UUID id) {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        feedLikeRepository.save(FeedLike.builder().feed(feedRepository.getById(id)).user(userRepository.getById(userId)).build());
+    }
+
+    public void deleteFeedLike(UUID id) {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        feedLikeRepository.delete(feedLikeRepository.findFeedLikeByUserAndFeed(userRepository.getById(userId), feedRepository.getById(id)).get());
     }
 
 }
