@@ -2,9 +2,9 @@ import * as React from "react";
 import { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 
-import { NavWrap } from "./styles";
+import { PageNavWrap } from "./styles";
 
-function Nav() {
+function PageNav() {
   const [currentPage, setCurrentPage] = useState("Diary");
 
   const onNavItemClicked = useCallback(
@@ -15,7 +15,7 @@ function Nav() {
   );
 
   return (
-    <NavWrap>
+    <PageNavWrap>
       <Link to="/">
         <div
           className={currentPage === "Diary" ? "nav-item current" : "nav-item"}
@@ -44,8 +44,8 @@ function Nav() {
           Feed
         </div>
       </Link>
-    </NavWrap>
+    </PageNavWrap>
   );
 }
 
-export default Nav;
+export default PageNav;

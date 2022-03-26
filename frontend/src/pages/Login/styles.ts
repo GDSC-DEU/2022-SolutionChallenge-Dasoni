@@ -6,7 +6,7 @@ export const LoginSection = styled.section`
   flex-direction: column;
   align-items: center;
 
-  background: #fe6f5b;
+  background: ${(props) => props.theme.mainColor};
 `;
 export const Logo = styled.article`
   margin-top: 218px;

@@ -1,18 +1,31 @@
-import axios from "axios";
 import * as React from "react";
 import { useState, useCallback } from "react";
 
-import DiaryInput from "components/atoms/inputs/DiaryInput";
-import SumbitButton from "components/atoms/buttons/SubmitButton";
+import { TextArea } from "components/atoms/inputs/TextArea";
 import useDiaryActions from "hooks/useDiaryActions";
 
-import {
-  DiaryPostFormWrap,
-  InputLabel,
-  CheckBoxLabel,
-  MoodBox,
-  MoodItem,
-} from "./styles";
+import { DiaryPostFormWrap, InputLabel, MoodBox, MoodItem } from "./styles";
+import { SumbitButton } from "components/atoms/buttons/SubmitButton";
+import { Input } from "components/atoms/inputs/Input";
+import { DateInput } from "components/atoms/inputs/DateInput";
+import CheckBox from "components/atoms/inputs/CheckBox";
+
+import VERY_SAD from "assets/emotionIcons/verysad.svg";
+import SAD from "assets/emotionIcons/sad.svg";
+import NORMAL from "assets/emotionIcons/normal.svg";
+import HAPPY from "assets/emotionIcons/happy.svg";
+import VERY_HAPPY from "assets/emotionIcons/veryhappy.svg";
+
+const emotions = ["VERY_SAD", "SAD", "NORMAL", "HAPPY", "VERY_HAPPY"];
+
+type Emotion = "VERY_SAD" | "SAD" | "NORMAL" | "HAPPY" | "VERY_HAPPY";
+const emotionImages = {
+  VERY_SAD,
+  SAD,
+  NORMAL,
+  HAPPY,
+  VERY_HAPPY,
+};
 
 function DiaryPostForm() {
   const diaryActions = useDiaryActions();
@@ -39,100 +52,58 @@ function DiaryPostForm() {
 
   return (
     <DiaryPostFormWrap onSubmit={onSubmit}>
-      <InputLabel>
-        <DiaryInput
+      <InputLabel flexDirection="row">
+        <span className="label">Date</span>
+        <DateInput
           type="date"
           value={date}
           placeholder="Date (click to open calendar)"
           onChange={(e) => setDate(e.target.value)}
-          valid={true}
         />
       </InputLabel>
-      <InputLabel>
-        <DiaryInput
+
+      <InputLabel flexDirection="column">
+        <span className="label">Mood</span>
+        <MoodBox>
+          {emotions.map((element, index) => (
+            <MoodItem
+              key={index}
+              clicked={emotion === element}
+              onClick={(e) => {
+                e.preventDefault();
+                setEmotion(element);
+              }}
+            >
+              <img src={emotionImages[element as Emotion]} />
+            </MoodItem>
+          ))}
+        </MoodBox>
+      </InputLabel>
+
+      <InputLabel flexDirection="column">
+        <span className="label">Title</span>
+        <Input
           type="text"
           value={title}
           placeholder="Title"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          valid={true}
         />
       </InputLabel>
 
-      <InputLabel>
-        Choose your mood
-        <MoodBox>
-          <MoodItem
-            className="clicked"
-            onClick={(e) => {
-              e.preventDefault();
-              setEmotion("VERY_SAD");
-            }}
-          >
-            <img src="" />
-            <div>So bad</div>
-          </MoodItem>
-          <MoodItem
-            onClick={(e) => {
-              e.preventDefault();
-              setEmotion("SAD");
-              console.log(emotion);
-            }}
-          >
-            <img src="" />
-            <div>Bad</div>
-          </MoodItem>
-          <MoodItem
-            onClick={(e) => {
-              e.preventDefault();
-              setEmotion("NORMAL");
-            }}
-          >
-            <img src="" />
-            <div>So-so</div>
-          </MoodItem>
-          <MoodItem
-            onClick={(e) => {
-              e.preventDefault();
-              setEmotion("HAPPY");
-            }}
-          >
-            <img src="" />
-            <div>Happy</div>
-          </MoodItem>
-          <MoodItem
-            onClick={(e) => {
-              e.preventDefault();
-              setEmotion("VERY_HAPPY");
-            }}
-          >
-            <img src="" />
-            <div>So Happy</div>
-          </MoodItem>
-        </MoodBox>
-      </InputLabel>
-
-      <InputLabel>
-        Record your day
-        <textarea
+      <InputLabel flexDirection="column">
+        <span className="label">Story</span>
+        <TextArea
           value={content}
           placeholder="Writing in English is so difficult... love u Google."
           onChange={(e) => setContent(e.target.value)}
         />
       </InputLabel>
-
-      <CheckBoxLabel>
-        <DiaryInput
-          type="checkbox"
-          onChange={(e) => setFeed(e.target.checked)}
-          valid={true}
-        />
-        Share this story
-      </CheckBoxLabel>
-      <div className="button-wrap">
-        <SumbitButton>Done</SumbitButton>
-      </div>
+      <CheckBox checkboxId="diary-post-share-checkbox">Share to Feed</CheckBox>
+      <SumbitButton type="submit" onSubmit={onSubmit}>
+        Done
+      </SumbitButton>
     </DiaryPostFormWrap>
   );
 }

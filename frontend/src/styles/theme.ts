@@ -16,9 +16,12 @@ const moodColor = {
   verysad: "#2196f3",
 };
 
+const mainColor = "#FE6F5B";
+
 const theme = {
   size,
   moodColor,
+  mainColor,
 };
 
 export default theme;

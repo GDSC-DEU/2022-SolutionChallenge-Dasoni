@@ -115,7 +115,7 @@ export const Details = styled.div`
   }
   button {
     width: 100%;
-    background: #fe6f5b;
+    background: ${(props) => props.theme.mainColor};
     border-radius: 8px;
     border: none;
     padding: 12px 0;
