@@ -11,6 +11,7 @@ import warning from "assets/icons/warning.png";
 import ToggleMenuButton from "components/atoms/buttons/ToggleMenuButton";
 
 export interface DiaryContentBoxProps {
+  id: string;
   created_date: string;
   title: string;
   content: string;
@@ -28,7 +29,7 @@ const emotionImages = {
 };
 
 function DiaryContentBox(props: DiaryContentBoxProps) {
-  const { created_date, title, content, checked } = props;
+  const { id, created_date, title, content, checked } = props;
   let emotion = props.emotion.split(" ").join("").toLowerCase();
 
   return (
@@ -43,7 +44,7 @@ function DiaryContentBox(props: DiaryContentBoxProps) {
         <div className="content">{content}</div>
       </div>
       <div className="right">
-        <ToggleMenuButton />
+        <ToggleMenuButton diaryId={id} />
         <img className="warning-button" src={warning} />
       </div>
     </DiaryContentBoxWrap>

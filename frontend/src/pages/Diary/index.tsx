@@ -103,6 +103,7 @@ function Diary() {
               diary.emotion === "Very Sad" || diary.emotion === "Sad" ? (
                 <DiaryContentBox
                   key={diary.diaryId}
+                  id={diary.diaryId}
                   created_date={diary.date}
                   title={diary.title}
                   content={diary.content}
@@ -112,6 +113,7 @@ function Diary() {
               ) : (
                 <DiaryContentBox
                   key={diary.diaryId}
+                  id={diary.diaryId}
                   created_date={diary.date}
                   title={diary.title}
                   content={diary.content}
