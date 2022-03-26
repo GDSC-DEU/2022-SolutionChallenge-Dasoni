@@ -13,6 +13,7 @@ import DiaryContentBox from "components/molecules/boxes/DiaryContentBox";
 import ToggleSwitchButton from "components/atoms/buttons/ToggleSwitchButton";
 import ShadowBox from "components/molecules/boxes/ShadowBox";
 import WriteButton from "components/atoms/buttons/WriteButton";
+import PageNav from "components/organisms/navbars/PageNav";
 
 import {
   DiaryArticle,
@@ -29,7 +30,6 @@ import sad from "assets/emotionIcons/sad.svg";
 import normal from "assets/emotionIcons/normal.svg";
 import happy from "assets/emotionIcons/happy.svg";
 import very_happy from "assets/emotionIcons/veryhappy.svg";
-import Nav from "components/organisms/Nav";
 
 function Diary() {
   const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesAtom);
@@ -49,7 +49,7 @@ function Diary() {
 
   return (
     <>
-      <Nav />
+      <PageNav />
       <QuoteArticle>
         <ShadowBox>
           <Quote>
