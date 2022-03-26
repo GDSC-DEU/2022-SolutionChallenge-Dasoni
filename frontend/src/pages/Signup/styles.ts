@@ -10,7 +10,7 @@ export const SignupSection = styled.section`
     font-family: "Nunito";
     font-weight: 700;
     line-height: 140%;
-    color: #fe6f5b;
+    color: ${(props) => props.theme.mainColor};
     margin-bottom: 32px;
   }
 

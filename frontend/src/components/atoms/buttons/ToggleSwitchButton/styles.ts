@@ -37,7 +37,7 @@ export const ToogleBox = styled.input`
   margin: 0;
 
   &:checked + ${ToggleBoxLabel} {
-    background: #fe6f5b;
+    background: ${(props) => props.theme.mainColor};
     content: "";
     display: block;
     width: 36px;
