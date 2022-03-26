@@ -13,9 +13,9 @@ import java.util.UUID;
 
 @Getter
 public class FeedResponse {
-    private FeedSimpleResponse content;
+    private final FeedSimpleResponse content;
     private Boolean likeBoolean;
-    private List<CommentResponse> comment;
+    private final List<CommentResponse> comment;
 
     public void setLikeBoolean(Boolean likeBoolean) {
         this.likeBoolean = likeBoolean;
@@ -43,12 +43,14 @@ public class FeedResponse {
     }
 
     @Getter
-    private class CommentResponse {
-        private String name;
-        private String content;
-        private LocalDateTime createdDate;
+    private static class CommentResponse {
+        private final UUID commentId;
+        private final String name;
+        private final String content;
+        private final LocalDateTime createdDate;
 
         public CommentResponse(Comment comment, String name) {
+            this.commentId = comment.getCommentId();
             this.name = name;
             this.content = comment.getContent();
             this.createdDate = comment.getCreatedDate();
