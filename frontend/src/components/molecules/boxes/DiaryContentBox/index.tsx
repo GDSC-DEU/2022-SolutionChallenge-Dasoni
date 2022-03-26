@@ -7,8 +7,8 @@ import sad from "assets/emotionIcons/sad.svg";
 import normal from "assets/emotionIcons/normal.svg";
 import happy from "assets/emotionIcons/happy.svg";
 import veryhappy from "assets/emotionIcons/veryhappy.svg";
-import dropdown from "assets/icons/dropdown-menu.png";
 import warning from "assets/icons/warning.png";
+import ToggleMenuButton from "components/atoms/buttons/ToggleMenuButton";
 
 export interface DiaryContentBoxProps {
   created_date: string;
@@ -43,7 +43,7 @@ function DiaryContentBox(props: DiaryContentBoxProps) {
         <div className="content">{content}</div>
       </div>
       <div className="right">
-        <img className="menu-button" src={dropdown} />
+        <ToggleMenuButton />
         <img className="warning-button" src={warning} />
       </div>
     </DiaryContentBoxWrap>
