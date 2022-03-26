@@ -1,70 +1,69 @@
 import styled from "styled-components";
 
-export const DiaryContentBoxWrap = styled.div`
+export const DiaryContentBoxWrap = styled.div<{
+  emotion: string;
+  checked?: boolean;
+}>`
   position: relative;
   background-color: #fff;
   border-radius: 10px;
   filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.48))
     drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.12));
-  padding: 14px 20px;
+  padding: 16px 8px;
 
   display: grid;
   grid-template-columns: 60px 1fr 24px;
   grid-gap: 10px;
   margin-bottom: 12px;
 
+  ${(props) =>
+    props.checked &&
+    `& {
+    background-color: #ffeae8;
+  }`}
   .left {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    /* margin-left: -10px; */
-
-    .warning-signer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 8px;
-      height: 100%;
-      background: #fe6f5b;
-      border-radius: 8px 0px 0px 8px;
-    }
+    margin-top: 4px;
 
     .mood-icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 7px;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 6px;
     }
     .date {
-      padding: 4px 6px;
-      border-radius: 5px;
+      padding: 4px;
+      border-radius: 3px;
+
       font-family: "Roboto";
       font-weight: 700;
       font-size: 12px;
-      line-height: 14px;
-      background: #ffbf41;
+      font-size: 10px;
+      line-height: 12px;
 
-      display: flex;
-      align-items: center;
       text-align: center;
       color: #ffffff;
+
+      background: ${(props) => props.theme.moodColor[props.emotion]};
     }
   }
 
   .center {
     border-left: 0.5px solid #9b9b9b;
-    padding: 7px 0 7px 12px;
+    padding: 4px 0 4px 10px;
     font-family: "Roboto";
 
     .title {
       font-weight: 600;
-      line-height: 120%;
-      margin-bottom: 4px;
+      line-height: 125%;
+      margin-bottom: 8px;
     }
     .content {
       font-weight: 400;
       font-size: 14px;
-      line-height: 150%;
+      line-height: 143%;
     }
   }
   .right {
@@ -80,6 +79,9 @@ export const DiaryContentBoxWrap = styled.div`
     .warning-button {
       width: 20px;
       height: 20px;
+      display: none;
+
+      ${(props) => props.checked && `display: block;`}
     }
   }
 `;

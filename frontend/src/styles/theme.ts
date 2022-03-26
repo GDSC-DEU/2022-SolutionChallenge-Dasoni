@@ -8,8 +8,17 @@ const size = {
   desktop: "2560px",
 };
 
+const moodColor = {
+  veryhappy: "#4cc968",
+  happy: "#b5e32f",
+  normal: "#ffbf41",
+  sad: "#6dcdf5",
+  verysad: "#2196f3",
+};
+
 const theme = {
   size,
+  moodColor,
 };
 
 export default theme;

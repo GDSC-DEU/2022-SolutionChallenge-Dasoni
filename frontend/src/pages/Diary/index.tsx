@@ -18,16 +18,17 @@ import {
   DiaryArticle,
   QuoteArticle,
   Quote,
+  RecentMoodLink,
   WeeklyMoodArticle,
   Notification,
 } from "./styles";
 
 import arrow_right from "assets/icons/arrow-right.png";
-import very_sad from "assets/emotionIcons/very_sad.svg";
+import very_sad from "assets/emotionIcons/verysad.svg";
 import sad from "assets/emotionIcons/sad.svg";
 import normal from "assets/emotionIcons/normal.svg";
 import happy from "assets/emotionIcons/happy.svg";
-import very_happy from "assets/emotionIcons/very_happy.svg";
+import very_happy from "assets/emotionIcons/veryhappy.svg";
 import Nav from "components/organisms/Nav";
 
 function Diary() {
@@ -35,6 +36,11 @@ function Diary() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [day, setDay] = useState(new Date().getDate());
+  const [isWarningChecked, setIsWarningChecked] = useState(true);
+  const onWarningClick = () => {
+    setIsWarningChecked(!isWarningChecked);
+  };
+
   const diaryActions = useDiaryActions();
 
   useSWR(`${DASONI_BACKEND_API}/diaries`, (url) =>
@@ -46,10 +52,10 @@ function Diary() {
       <Nav />
       <QuoteArticle>
         <ShadowBox>
-          <div className="date">
-            {day} {month}, {year}
-          </div>
           <Quote>
+            <div className="date">
+              {day} {month}, {year}
+            </div>
             <div className="quote">
               Whether you think you can or you think you can't, you're right.
             </div>
@@ -57,13 +63,15 @@ function Diary() {
           </Quote>
         </ShadowBox>
       </QuoteArticle>
+
+      <RecentMoodLink>
+        <span>Your recent mood</span>
+        <Link to="/weekly">
+          <img src={arrow_right} />
+        </Link>
+      </RecentMoodLink>
+
       <WeeklyMoodArticle>
-        <div className="title">
-          <span>Your recent mood</span>
-          <Link to="/weekly">
-            <img src={arrow_right} />
-          </Link>
-        </div>
         <Link to="/weekly">
           <ShadowBox align="center">
             <div className="date">
@@ -73,30 +81,47 @@ function Diary() {
               <img src={very_sad} />
             </div>
             <div className="suggestion">
-              You seem to have felt sad these days. Why don’t you share yout
-              story?
+              Mommy, you look Very Sad recently. Why don’t you share yours
+              stories?
             </div>
           </ShadowBox>
         </Link>
       </WeeklyMoodArticle>
+
       <DiaryArticle>
         <DailyCalendar>Jan 2022</DailyCalendar>
         <Notification>
           <span>Notification</span>
-          <ToggleSwitchButton />
+          <ToggleSwitchButton
+            checked={isWarningChecked}
+            onChange={onWarningClick}
+          />
         </Notification>
         <section>
           {diaries &&
-            diaries.map((diary) => (
-              <DiaryContentBox
-                key={diary.diaryId}
-                created_date={diary.date}
-                title={diary.title}
-                content={diary.content}
-              />
-            ))}
+            diaries.map((diary) =>
+              diary.emotion === "Very Sad" || diary.emotion === "Sad" ? (
+                <DiaryContentBox
+                  key={diary.diaryId}
+                  created_date={diary.date}
+                  title={diary.title}
+                  content={diary.content}
+                  emotion={diary.emotion}
+                  checked={isWarningChecked}
+                />
+              ) : (
+                <DiaryContentBox
+                  key={diary.diaryId}
+                  created_date={diary.date}
+                  title={diary.title}
+                  content={diary.content}
+                  emotion={diary.emotion}
+                />
+              )
+            )}
         </section>
       </DiaryArticle>
+
       <WriteButton />
     </>
   );

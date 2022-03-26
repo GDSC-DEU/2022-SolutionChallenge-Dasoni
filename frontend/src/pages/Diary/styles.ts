@@ -2,17 +2,8 @@ import { LinkHTMLAttributes } from "react";
 import styled from "styled-components";
 
 export const QuoteArticle = styled.article`
-  margin-bottom: 16px;
+  margin: 20px 16px 0;
   font-family: Montserrat;
-
-  .date {
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 137%;
-    color: #1f1f1f;
-
-    margin-bottom: 3px;
-  }
 `;
 
 export const Quote = styled.div`
@@ -22,12 +13,22 @@ export const Quote = styled.div`
   font-weight: 400;
   color: #1f1f1f;
 
+  .date {
+    font-family: "Roboto";
+    font-weight: 700;
+    line-height: 125%;
+    color: #1f1f1f;
+    margin-bottom: 8px;
+  }
+
   .quote {
     line-height: 140%;
   }
   .author {
-    font-size: 12px;
-    line-height: 160%;
+    font-family: "Nunito";
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 143%;
     align-self: flex-end;
   }
   .author::before {
@@ -35,46 +36,46 @@ export const Quote = styled.div`
   }
 `;
 
+export const RecentMoodLink = styled.article`
+  margin: 22px 16px 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  color: #1f1f1f;
+  font-family: "Roboto";
+  font-weight: 600;
+  line-height: 19px;
+
+  & > a > img {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
 export const WeeklyMoodArticle = styled.article`
-  margin-bottom: 13px;
+  margin: 0 16px 32px;
   display: flex;
   flex-direction: column;
-  font-family: Montserrat;
-
-  .title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    color: #1f1f1f;
-    font-family: "Roboto";
-    font-weight: 700;
-    line-height: 19px;
-
-    margin-bottom: 8px;
-
-    & > a > img {
-      width: 24px;
-      height: 24px;
-    }
-  }
+  font-family: "Roboto";
 
   & > a > div {
     background: linear-gradient(0deg, #bce0fb, #bce0fb), #ffffff;
-    padding: 12px 20px;
+    padding: 12px 34px;
   }
 
   .date {
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 137%;
+    font-weight: 600;
+    line-height: 19px;
   }
   .emotion-icon > img {
-    width: 67px;
-    height: 67px;
-    margin: 5px 0;
+    width: 72px;
+    height: 72px;
+    margin: 6px 0;
   }
   .suggestion {
+    margin-top: 1px;
+    font-weight: 400;
     font-size: 14px;
     line-height: 150%;
   }
@@ -90,9 +91,11 @@ export const Notification = styled.div`
     font-family: "Roboto";
     font-weight: 400;
     font-size: 14px;
-    line-height: 150%;
+    line-height: 143%;
     margin-right: 4px;
   }
 `;
 
-export const DiaryArticle = styled.article``;
+export const DiaryArticle = styled.article`
+  margin: 0 16px;
+`;

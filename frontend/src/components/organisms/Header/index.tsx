@@ -15,10 +15,12 @@ function Header(props: { position?: string }) {
           <img src={dasoni_logo_letter} alt="DASONI" />
         </Link>
       </div>
-      <ButtonBox>
-        <img src={location} />
-        <img src={hamburger_menu} />
-      </ButtonBox>
+      {props.position !== "middle" && (
+        <ButtonBox>
+          <img src={location} />
+          <img src={hamburger_menu} />
+        </ButtonBox>
+      )}
     </HeaderWrap>
   );
 }
