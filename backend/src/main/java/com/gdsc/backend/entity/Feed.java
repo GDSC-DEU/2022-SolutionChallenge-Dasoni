@@ -25,7 +25,7 @@ public class Feed extends BaseTimeEntity {
     @JoinColumn(name = "diary_id")
     private Diary diary;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("createdDate")
     @JoinColumn(name = "feed_id")
     private List<Comment> comments = new ArrayList<>();
@@ -37,6 +37,10 @@ public class Feed extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users owner;
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
 
     public Feed(Diary diary) {
         this.diary = diary;
