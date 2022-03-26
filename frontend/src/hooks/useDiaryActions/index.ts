@@ -93,9 +93,31 @@ function useDiaryActions() {
       });
   }
 
+  async function deleteDiary(diaryId: string) {
+    let config = {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        diaryId,
+      },
+    };
+
+    await axios
+      .get(`${DASONI_BACKEND_API}/diaries/${diaryId}`, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
   return {
     getDiaries,
     postDiary,
+    deleteDiary,
   };
 }
 
