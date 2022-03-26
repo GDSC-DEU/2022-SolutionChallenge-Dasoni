@@ -108,6 +108,9 @@ function useDiaryActions() {
       .get(`${DASONI_BACKEND_API}/diaries/${diaryId}`, config)
       .then((res) => {
         console.log(res);
+        setDiaries((diaries) =>
+          diaries.filter((diary) => diary.diaryId !== diaryId)
+        );
       })
       .catch((error) => {
         console.log(error.response);
