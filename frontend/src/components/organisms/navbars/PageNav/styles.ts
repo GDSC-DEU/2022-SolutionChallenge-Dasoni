@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const NavWrap = styled.nav`
+export const PageNavWrap = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -17,6 +17,6 @@ export const NavWrap = styled.nav`
   }
   .current {
     font-weight: 700;
-    color: #fe6f5b;
+    color: ${(props) => props.theme.mainColor};
   }
 `;
