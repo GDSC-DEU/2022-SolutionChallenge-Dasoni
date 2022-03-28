@@ -51,7 +51,7 @@ public class DiaryController {
             throw new RuntimeException();
         }
 
-        EmotionAverageResponse emotionAverage = EmotionAverageResponse.builder().emotion("Very Sad").build();
+        EmotionAverageResponse emotionAverage = EmotionAverageResponse.builder().emotion(diaryService.averageEmotion().getValue()).build();
         List<DiaryContentResponse> diaries = diaryService.findDiariesContent(year, month);
 
         DiaryListResponse response = DiaryListResponse.builder()
@@ -61,6 +61,17 @@ public class DiaryController {
 
         return  ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "한주 다이어리 목록 조회", description = "한주의 다이어리 내용을 조회합니다.", tags = "diary",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "다이어리 목록 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = DiaryContentResponse.class)))
+            }
+    )
+    @GetMapping(value = "/weekend",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<DiaryContentResponse>> getWeekendDiaries() {
+        return ResponseEntity.ok(diaryService.findWeekendDiaries());
+    }
+
 
     @Operation(summary = "다이어리 상세 조회", description = "다이어리 아이디를 통해 다이어리 내용을 상세 조회합니다.", tags = "diary",
             responses = {
