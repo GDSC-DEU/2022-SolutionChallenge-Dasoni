@@ -1,3 +1,3 @@
 export interface UserTypes {
-  stateType: string | null;
+  stateType: "FATHER" | "MOTHER" | "PREGNANT" | string | null;
 }

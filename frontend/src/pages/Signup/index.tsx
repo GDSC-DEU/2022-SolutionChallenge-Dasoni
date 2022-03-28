@@ -2,7 +2,6 @@ import Header from "components/organisms/Header";
 import { ClickButton } from "components/atoms/buttons/ClickButton";
 import * as React from "react";
 import { useState, SetStateAction, Dispatch } from "react";
-import { Link } from "react-router-dom";
 
 import useUserActions from "hooks/useUserActions";
 
@@ -12,7 +11,7 @@ function Signup() {
   const userActions = useUserActions();
   const [stateType, setStateType] = useState("");
 
-  const [unmarriedClicked, setUnmarriedClicked] = useState(false);
+  const [pregnantClicked, setPregnantClicked] = useState(false);
   const [momClicked, setMomClicked] = useState(false);
   const [dadClicked, setDadClicked] = useState(false);
 
@@ -21,7 +20,7 @@ function Signup() {
     setter: Dispatch<SetStateAction<boolean>>,
     stateType: string
   ) => {
-    setUnmarriedClicked(false);
+    setPregnantClicked(false);
     setMomClicked(false);
     setDadClicked(false);
     setter(!state);
@@ -36,9 +35,9 @@ function Signup() {
         <ClickButton
           kind="line"
           onClick={() =>
-            handleClick(unmarriedClicked, setUnmarriedClicked, "UNMARRIED")
+            handleClick(pregnantClicked, setPregnantClicked, "PREGNANT")
           }
-          clicked={unmarriedClicked}
+          clicked={pregnantClicked}
         >
           I’m an unmarried pregnant woman now.
         </ClickButton>
