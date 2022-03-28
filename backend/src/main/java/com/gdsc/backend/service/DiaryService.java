@@ -4,6 +4,7 @@ import com.gdsc.backend.entity.Diary;
 import com.gdsc.backend.entity.Feed;
 import com.gdsc.backend.entity.enums.EmotionType;
 import com.gdsc.backend.http.request.DiaryRequest;
+import com.gdsc.backend.http.response.ChartResponse;
 import com.gdsc.backend.http.response.DiaryContentResponse;
 import com.gdsc.backend.repository.DiaryRepository;
 import com.gdsc.backend.repository.FeedRepository;
@@ -45,6 +46,31 @@ public class DiaryService {
     @Transactional
     public Diary findDiary(UUID id){
         return diaryRepository.getById(id);
+    }
+
+    public List<DiaryContentResponse> findWeekendDiaries() {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        LocalDate date = LocalDate.now().minusDays(1);
+        List<Diary> diaries = diaryRepository.findDiariesByUsersAndDateBetweenOrderByDateDesc(userRepository.getById(userId), date.minusDays(6), date);
+        return diaries.stream().map(this::makeResponse).collect(Collectors.toList());
+    }
+
+    public EmotionType averageEmotion() {
+        UUID userId = UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+        LocalDate date = LocalDate.now().minusDays(1);
+        Float emotion_average = 0f;
+        LocalDate endDate = date.minusDays(6);
+        List<Diary> diaries = diaryRepository.findDiariesByUsersAndDateBetweenOrderByDateDesc(userRepository.getById(userId), endDate, date);
+        for(Diary diary : diaries) {
+            while (!date.isEqual(diary.getDate())) {
+                emotion_average = EmotionType.NORMAL.getScore();
+                date = date.minusDays(1);
+                if( date.isEqual(endDate)) { break; }
+            }
+            emotion_average = (diary.getEmotion().getScore() + diary.getContentEmotion().getScore())/2;
+            date = date.minusDays(1);
+        }
+        return getEmotion(emotion_average);
     }
 
     public Diary save(Diary diary) {
@@ -95,6 +121,10 @@ public class DiaryService {
 
     private EmotionType scoreEmotion(String content) {
         Float score = naturalLanguage.getData(content);
+        return getEmotion(score);
+    }
+
+    private EmotionType getEmotion(Float score) {
         if(score >= -1.0 && score <= -0.6) {
             return EmotionType.VERY_SAD;
         } else if (score <= -0.2) {

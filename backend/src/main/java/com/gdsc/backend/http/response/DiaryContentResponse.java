@@ -41,5 +41,4 @@ public class DiaryContentResponse {
     public static DiaryContentResponse of(Diary diary) {
         return new DiaryContentResponse(diary);
     }
-
 }
