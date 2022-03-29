@@ -5,7 +5,6 @@ export const CheckBoxWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 18px;
 
   font-family: "Roboto";
   font-weight: 500;
