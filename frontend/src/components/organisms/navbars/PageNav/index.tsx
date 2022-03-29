@@ -4,21 +4,25 @@ import { Link } from "react-router-dom";
 
 import { PageNavWrap } from "./styles";
 
-function PageNav() {
-  const [currentPage, setCurrentPage] = useState("Diary");
+export interface NavPages {
+  currentPage: "Diary" | "Statistics" | "Feed" | string;
+}
+
+function PageNav(props: NavPages) {
+  const [clickedPage, setClickedPage] = useState(props.currentPage);
 
   const onNavItemClicked = useCallback(
     (page: string) => {
-      setCurrentPage(page);
+      setClickedPage(page);
     },
-    [currentPage]
+    [clickedPage]
   );
 
   return (
     <PageNavWrap>
       <Link to="/">
         <div
-          className={currentPage === "Diary" ? "nav-item current" : "nav-item"}
+          className={clickedPage === "Diary" ? "nav-item current" : "nav-item"}
           onClick={() => onNavItemClicked("Diary")}
         >
           Diary
@@ -28,7 +32,7 @@ function PageNav() {
       <Link to="/statistics">
         <div
           className={
-            currentPage === "Statistics" ? "nav-item current" : "nav-item"
+            clickedPage === "Statistics" ? "nav-item current" : "nav-item"
           }
           onClick={() => onNavItemClicked("Statistics")}
         >
@@ -38,7 +42,7 @@ function PageNav() {
 
       <Link to="/feed">
         <div
-          className={currentPage === "Feed" ? "nav-item current" : "nav-item"}
+          className={clickedPage === "Feed" ? "nav-item current" : "nav-item"}
           onClick={() => onNavItemClicked("Feed")}
         >
           Feed

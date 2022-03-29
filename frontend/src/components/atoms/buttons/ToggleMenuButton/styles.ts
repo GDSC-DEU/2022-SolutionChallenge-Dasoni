@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 export const ToggleMenuButtonWrap = styled.div`
   position: relative;
+
+  .menu-button {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const Menu = styled.div<{ menuClicked: boolean }>`

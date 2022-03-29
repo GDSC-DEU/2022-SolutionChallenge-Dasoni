@@ -5,6 +5,11 @@ export const PageNavWrap = styled.nav`
   flex-direction: row;
   justify-content: flex-start;
   padding: 6px 16px;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 56px;
+  background: #fff;
 
   font-family: "Roboto";
   font-weight: 400;

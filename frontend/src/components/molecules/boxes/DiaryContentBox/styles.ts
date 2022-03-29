@@ -70,10 +70,6 @@ export const DiaryContentBoxWrap = styled.div<{
     justify-content: space-between;
     align-items: flex-end;
 
-    .menu-button {
-      width: 24px;
-      height: 24px;
-    }
     .warning-button {
       width: 20px;
       height: 20px;

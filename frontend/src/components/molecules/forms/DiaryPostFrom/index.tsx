@@ -100,7 +100,11 @@ function DiaryPostForm() {
           onChange={(e) => setContent(e.target.value)}
         />
       </InputLabel>
-      <CheckBox checkboxId="diary-post-share-checkbox">Share to Feed</CheckBox>
+      <div className="checkbox-wrap">
+        <CheckBox checkboxId="diary-post-share-checkbox">
+          Share to Feed
+        </CheckBox>
+      </div>
       <SumbitButton type="submit" onSubmit={onSubmit}>
         Done
       </SumbitButton>

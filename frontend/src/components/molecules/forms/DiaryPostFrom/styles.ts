@@ -4,6 +4,10 @@ export const DiaryPostFormWrap = styled.form`
   display: flex;
   flex-direction: column;
   padding: 18px 16px;
+
+  .checkbox-wrap {
+    margin-bottom: 18px;
+  }
 `;
 
 export const InputLabel = styled.label<{ flexDirection: "row" | "column" }>`
@@ -23,14 +27,6 @@ export const InputLabel = styled.label<{ flexDirection: "row" | "column" }>`
     ${(props) => props.flexDirection === "row" && "margin-right: 32px;"}
     ${(props) => props.flexDirection === "column" && "margin-bottom: 12px;"}
   }
-`;
-
-export const CheckBox = styled.div`
-  font-family: "Roboto";
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 143%;
-  color: #9b9b9b;
 `;
 
 export const MoodBox = styled.div`

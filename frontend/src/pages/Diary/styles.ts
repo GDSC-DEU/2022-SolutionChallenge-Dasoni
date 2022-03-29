@@ -1,8 +1,11 @@
-import { LinkHTMLAttributes } from "react";
 import styled from "styled-components";
 
+export const DiaryWrap = styled.div`
+  margin-top: 100px;
+  padding: 16px;
+`;
+
 export const QuoteArticle = styled.article`
-  margin: 20px 16px 0;
   font-family: Montserrat;
 `;
 
@@ -37,7 +40,7 @@ export const Quote = styled.div`
 `;
 
 export const RecentMoodLink = styled.article`
-  margin: 22px 16px 12px;
+  margin: 22px 0 12px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -54,7 +57,7 @@ export const RecentMoodLink = styled.article`
 `;
 
 export const WeeklyMoodArticle = styled.article`
-  margin: 0 16px 32px;
+  margin-bottom: 32px;
   display: flex;
   flex-direction: column;
   font-family: "Roboto";
@@ -94,8 +97,4 @@ export const Notification = styled.div`
     line-height: 143%;
     margin-right: 4px;
   }
-`;
-
-export const DiaryArticle = styled.article`
-  margin: 0 16px;
 `;
