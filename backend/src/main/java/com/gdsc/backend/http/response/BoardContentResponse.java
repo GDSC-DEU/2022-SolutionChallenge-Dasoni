@@ -33,6 +33,9 @@ public class BoardContentResponse {
     @Schema(description = "웹사이트 주소")
     private String link;
 
+    @Schema(description = "지원 대상자")
+    private String eligibility;
+
     private BoardContentResponse(Board board){
        boardId = board.getBoardId();
        title = board.getTitle();
@@ -42,6 +45,7 @@ public class BoardContentResponse {
        finishDate = board.getFinishDate();
        boardCategory = board.getBoardCategory();
        link = board.getLink();
+       eligibility = board.getEligibility();
     }
 
     public static BoardContentResponse of(Board board){
