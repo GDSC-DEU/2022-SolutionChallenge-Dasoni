@@ -44,6 +44,10 @@ public class Board {
     @Column(nullable = false)
     private BoardCategory boardCategory;
 
+    @Schema(description = "지원대상자", nullable = false, example = "Unmarried Woman")
+    @Column(nullable = false)
+    private String eligibility;
+
     @Schema(description = "내용", nullable = false, example = "Supporting Project Content")
     @Column(columnDefinition = "TEXT")
     private String content;
