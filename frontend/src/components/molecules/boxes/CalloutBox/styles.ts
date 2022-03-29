@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CalloutBoxWrap = styled.div`
-  padding: 6px 16px;
+  padding: 12px 16px;
   margin-bottom: 16px;
 
   font-family: Pretendard;
