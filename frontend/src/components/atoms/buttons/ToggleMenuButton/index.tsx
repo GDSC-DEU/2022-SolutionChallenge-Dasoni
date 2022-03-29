@@ -8,14 +8,14 @@ import dropdown from "assets/icons/dropdown-menu.png";
 
 import { ToggleMenuButtonWrap, Menu } from "./styles";
 
-function ToggleMenuButton(props: { diaryId: string }) {
+function ToggleMenuButton(props: { targetId: string }) {
   const diaryActions = useDiaryActions();
   const [menuClicked, setMenuClicked] = useState(false);
 
   const onDeleteClick = useCallback((e) => {
     e.preventDefault();
 
-    diaryActions.deleteDiary(props.diaryId);
+    diaryActions.deleteDiary(props.targetId);
   }, []);
 
   return (
