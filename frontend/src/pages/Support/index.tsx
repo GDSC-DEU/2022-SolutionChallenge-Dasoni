@@ -16,7 +16,7 @@ function Support() {
   const size = 10;
 
   useEffect(() => {
-    let supportBoards = supportActions.getSupports(size);
+    supportActions.getSupports(size);
   }, []);
 
   return (
