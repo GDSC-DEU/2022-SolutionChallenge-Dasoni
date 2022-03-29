@@ -14,8 +14,19 @@ import eligibility from "assets/icons/eligibility.png";
 import details from "assets/icons/details.png";
 import chevron_up from "assets/icons/chevron-up.png";
 import chevron_down from "assets/icons/chevron-down.png";
+import { SupportTypes } from "recoil/Support";
 
-function SuppportContentBox() {
+function SuppportContentBox(props: { support: SupportTypes }) {
+  const {
+    title,
+    startDate,
+    finishDate,
+    boardCategory,
+    organizer,
+    content,
+    link,
+  } = props.support;
+
   const [bookmarked, setBookmarked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,14 +42,13 @@ function SuppportContentBox() {
           </div>
 
           <div className="content">
-            <div className="title">
-              Assistance for single parent family and unmarried mother
+            <div className="title">{title}</div>
+            <div className="date">
+              {startDate} - {finishDate}
             </div>
-            <div className="date">1.07-1.15</div>
             <div>
               <div className="tags">
-                <span className="tag">Financial</span>
-                <span className="tag">Medical Care</span>
+                <span className="tag">{boardCategory}</span>
               </div>
             </div>
           </div>
@@ -57,14 +67,16 @@ function SuppportContentBox() {
               <img src={sponsor} />
               <span>Sponsor</span>
             </div>
-            <div className="content">Ministery of Gender Equality & Family</div>
+            <div className="content">{organizer}</div>
           </p>
           <p>
             <div className="title">
               <img src={period} />
               <span>Period</span>
             </div>
-            <div className="content">Jan 7 - Jan 15, 2022</div>
+            <div className="content">
+              {startDate} - {finishDate}
+            </div>
           </p>
           <p>
             <div className="title">
@@ -78,13 +90,9 @@ function SuppportContentBox() {
               <img src={details} />
               <span>Details</span>
             </div>
-            <div className="content">
-              Local welfare assistance is a discretionary suppory scheme. The
-              fund is there to help people to try to maintain an independant
-              life or for those facing an immediate financial crisis.
-            </div>
+            <div className="content">{content}</div>
           </p>
-          <a href="https://www.google.com">
+          <a href={link}>
             <button>Go go the website</button>
           </a>
         </Details>
