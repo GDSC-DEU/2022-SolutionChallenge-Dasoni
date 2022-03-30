@@ -1,5 +1,6 @@
 import * as React from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { useState, useCallback } from "react";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
 import { GOOGLEMAPAPIKEY } from "secret";
 
@@ -8,18 +9,29 @@ const containerStyle = {
   height: "100%",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
+interface MapProps {
+  positions: { lat: number; lng: number }[];
+  searchRegion?: string;
+}
 
-function Map() {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: GOOGLEMAPAPIKEY,
+function Map(props: MapProps) {
+  const { positions, searchRegion } = props;
+  const [center, setCenter] = useState(positions[0]);
+
+  React.useEffect(() => {
+    if (searchRegion === "Seoul") {
+      setCenter({
+        lat: 37.566535,
+        lng: 126.9779692,
+      });
+    }
+  }, [searchRegion]);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: GOOGLEMAPAPIKEY, // ,
+    // ...otherOptions
   });
-
-  const [map, setMap] = React.useState(null);
+  const [map, setMap] = useState(null);
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
@@ -27,7 +39,7 @@ function Map() {
     setMap(map);
   }, []);
 
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
 
@@ -38,10 +50,14 @@ function Map() {
       zoom={10}
       onLoad={onLoad}
       onUnmount={onUnmount}
-    />
+    >
+      {positions.map((position, index) => (
+        <Marker key={index} position={position} />
+      ))}
+    </GoogleMap>
   ) : (
-    <></>
+    <div>Map cannot be loaded right now, sorry.</div>
   );
 }
 
-export default React.memo(Map);
+export default Map;
