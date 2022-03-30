@@ -20,7 +20,9 @@ function Header(props: { position?: string }) {
       </div>
       {props.position !== "middle" && (
         <ButtonBox>
-          <img src={location} />
+          <Link to="/center">
+            <img src={location} />
+          </Link>
           <img onClick={() => setDisplay(!display)} src={hamburger_menu} />
         </ButtonBox>
       )}
