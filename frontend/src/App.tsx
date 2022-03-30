@@ -7,7 +7,7 @@ import Diary from "pages/Diary";
 import DiaryPost from "pages/DiaryPost";
 import Feed from "pages/Feed";
 import Statistics from "pages/Statistics";
-import Map from "pages/Map";
+import Center from "pages/Center";
 import Support from "pages/Support";
 import Settings from "pages/Settings";
 import DiaryWeeklyList from "pages/DiaryWeeklyList";
@@ -29,7 +29,7 @@ function App() {
               <Route path="feed" element={<Feed />} />
               <Route path="statistics" element={<Statistics />} />
               <Route path="post" element={<DiaryPost />} />
-              <Route path="map" element={<Map />} />
+
               <Route path="support" element={<Support />} />
               <Route path="settings" element={<Settings />} />
             </Route>
@@ -37,6 +37,7 @@ function App() {
             <Route path="/weekly" element={<DiaryWeeklyList />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="center" element={<Center />} />
           </Routes>
         </RecoilRoot>
       </ThemeProvider>
