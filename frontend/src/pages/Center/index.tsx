@@ -14,7 +14,7 @@ function Center() {
           <Input />
         </Search>
         <MapWrap>
-          <Map />
+          <Map positions={positions} searchRegion={searchRegion} />
         </MapWrap>
       </CenterWrap>
     </>
