@@ -15,17 +15,21 @@ export const MapWrap = styled.section`
   height: calc(100vh - 120px);
 `;
 
-export const CenterListWrap = styled.section`
+export const CenterListWrap = styled.section<{ show: boolean }>`
   position: absolute;
   z-index: 100;
-  top: 50vh;
+
   width: 100%;
-  height: 50vh;
+
+  height: 58px;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
   background: #ffffff;
   border-radius: 12px 12px 0px 0px;
+
+  ${(props) =>
+    props.show ? "top: 50vh;height: 50vh;" : "bottom:0;height:58px"}
 
   &::-webkit-scrollbar {
     display: none;
@@ -48,8 +52,5 @@ export const CenterListWrap = styled.section`
       width: 24px;
       height: 24px;
     }
-  }
-
-  .list-wrap {
   }
 `;

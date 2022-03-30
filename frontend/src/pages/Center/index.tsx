@@ -17,6 +17,7 @@ function Center() {
   const centerActions = useCenterActions();
   const [centers, setCenters] = useRecoilState<CenterTypes[]>(centersAtoms);
   const [searchRegion, setSearchRegion] = useState("Seoul");
+  const [show, setShow] = useState(false);
   const positions = centers.map((center) => ({
     lat: center.latitude,
     lng: center.longitude,
@@ -41,17 +42,20 @@ function Center() {
         <MapWrap>
           <Map positions={positions} searchRegion={searchRegion} />
         </MapWrap>
-        <CenterListWrap>
-          <div className="scroll-box">
-            <div className="title">
-              <img src={indicator} />
-              <span>Click to Show List</span>
-            </div>
-            <div className="list-wrap">
-              {centers.map((center, index) => (
-                <CenterContentBox key={index} information={center} />
-              ))}
-            </div>
+        <CenterListWrap
+          show={show}
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          <div className="title">
+            <img src={indicator} />
+            <span>Click to Show List</span>
+          </div>
+          <div className="list-wrap">
+            {centers.map((center, index) => (
+              <CenterContentBox key={index} information={center} />
+            ))}
           </div>
         </CenterListWrap>
       </CenterWrap>
