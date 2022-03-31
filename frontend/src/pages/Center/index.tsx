@@ -36,7 +36,7 @@ function Center() {
             type="text"
             value={searchRegion}
             onChange={(e) => setSearchRegion(e.target.value)}
-            placeholder="Find a facility for single parent"
+            placeholder="Find a center for single parent"
           />
         </Search>
         <MapWrap>
