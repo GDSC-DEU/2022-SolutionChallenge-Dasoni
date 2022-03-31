@@ -18,12 +18,12 @@ export const CheckBoxWrap = styled.div`
 
   input + label {
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    background: ${(props) => props.theme.mainColor};
+    width: 12px;
+    height: 12px;
+    border: 2px solid ${(props) => props.theme.mainColor};
     cursor: pointer;
     position: relative;
-    margin-right: 12px;
+    margin-right: 8px;
   }
 
   input:checked + label::after {
@@ -33,8 +33,9 @@ export const CheckBoxWrap = styled.div`
     height: 16px;
     text-align: center;
     position: absolute;
-    left: 0;
+    left: -1px;
     top: -1px;
     color: white;
+    background: ${(props) => props.theme.mainColor};
   }
 `;
