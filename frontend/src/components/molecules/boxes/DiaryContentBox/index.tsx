@@ -29,15 +29,16 @@ export const emotionImages = {
 };
 
 function DiaryContentBox(props: DiaryContentBoxProps) {
-  const { id, created_date, title, content, checked } = props;
+  const { id, title, content, checked } = props;
   let emotion = props.emotion.split(" ").join("").toLowerCase();
+  let created_date =
+    props.created_date.split("-")[1] + "." + props.created_date.split("-")[2];
 
   return (
     <DiaryContentBoxWrap emotion={emotion} checked={checked}>
       <div className="left">
         <img src={emotionImages[emotion as Emotion]} className="mood-icon" />
-        <div className="date">12 Sat</div>
-        {/* <div>{created_date}</div> */}
+        <div className="date">{created_date}</div>
       </div>
       <div className="center">
         <div className="title">{title}</div>

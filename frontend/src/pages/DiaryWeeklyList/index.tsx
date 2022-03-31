@@ -1,45 +1,42 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 
-import Header from "components/organisms/Header";
 import CalloutBox from "components/molecules/boxes/CalloutBox";
 import DiaryContentBox from "components/molecules/boxes/DiaryContentBox";
+import { DiaryTypes, weeklyDiariesAtom } from "recoil/Diary";
 
 import { Main } from "./styles";
+import useDiaryActions from "hooks/useDiaryActions";
+import BackNav from "components/organisms/navbars/BackNav";
 
 function DiaryWeeklyList() {
+  const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(weeklyDiariesAtom);
+  const diaryActions = useDiaryActions();
+
+  useEffect(() => {
+    diaryActions.getWeeklyDiaries();
+  }, []);
+
   return (
     <>
-      <Header />
+      <BackNav type="title">Your recent mood</BackNav>
       <Main>
         <CalloutBox>
           These were analyzed using our model, based on what you’ve written
-          during last week. We show you in order of the most related diaries.
+          during last 7 days. We show you in order of the most related diaries.
         </CalloutBox>
-        <DiaryContentBox
-          key="1"
-          created_date=""
-          title="What can I do?"
-          content="So scary.. There’s nobody who will be on my side."
-        />
-        <DiaryContentBox
-          key="1"
-          created_date=""
-          title="What can I do?"
-          content="So scary.. There’s nobody who will be on my side."
-        />
-        <DiaryContentBox
-          key="1"
-          created_date=""
-          title="What can I do?"
-          content="So scary.. There’s nobody who will be on my side."
-        />
-        <DiaryContentBox
-          key="1"
-          created_date=""
-          title="What can I do?"
-          content="So scary.. There’s nobody who will be on my side."
-        />
+        {diaries &&
+          diaries.map((diary) => (
+            <DiaryContentBox
+              key={diary.diaryId}
+              id={diary.diaryId}
+              created_date={diary.date}
+              title={diary.title}
+              content={diary.content}
+              emotion={diary.emotion}
+            />
+          ))}
       </Main>
     </>
   );
