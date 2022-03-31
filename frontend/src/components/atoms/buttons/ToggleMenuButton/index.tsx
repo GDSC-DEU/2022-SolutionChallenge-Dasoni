@@ -8,7 +8,14 @@ import dropdown from "assets/icons/dropdown-menu.png";
 
 import { ToggleMenuButtonWrap, Menu } from "./styles";
 
-function ToggleMenuButton(props: { targetId: string }) {
+interface ToggleMenuButtonProps {
+  targetId: string;
+  share: boolean;
+  edit: boolean;
+  delete: boolean;
+}
+
+function ToggleMenuButton(props: ToggleMenuButtonProps) {
   const diaryActions = useDiaryActions();
   const [menuClicked, setMenuClicked] = useState(false);
 
@@ -28,11 +35,13 @@ function ToggleMenuButton(props: { targetId: string }) {
       <Menu menuClicked={menuClicked}>
         <div className="menu-wrap">
           <ul>
-            <li>Share</li>
-            <Link to={"/edit"}>
-              <li>Edit</li>
-            </Link>
-            <li onClick={onDeleteClick}>Delete</li>
+            {props.share && <li>Share</li>}
+            {props.edit && (
+              <Link to={"/edit"}>
+                <li>Edit</li>
+              </Link>
+            )}
+            {props.delete && <li onClick={onDeleteClick}>Delete</li>}
           </ul>
         </div>
       </Menu>
