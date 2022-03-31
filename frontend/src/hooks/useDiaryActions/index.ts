@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 import { authAtom } from "recoil/Auth";
-import { diariesAtom } from "recoil/Diary";
+import {
+  diariesAtom,
+  weeklyDiariesAtom,
+} from "recoil/Diary";
 import { DASONI_BACKEND_API } from "secret";
 
 export interface DiaryPost {
@@ -16,6 +19,7 @@ export interface DiaryPost {
 
 function useDiaryActions() {
   const setDiaries = useSetRecoilState(diariesAtom);
+  const setWeeklyDiaries = useSetRecoilState(weeklyDiariesAtom);
   const auth = useRecoilValue(authAtom);
   let navigate = useNavigate();
 
@@ -38,6 +42,24 @@ function useDiaryActions() {
       .get(url, config)
       .then((res) => {
         setDiaries(res.data.diaries);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
+  async function getWeeklyDiaries() {
+    let config = {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    await axios
+      .get(`${DASONI_BACKEND_API}/diaries/week`, config)
+      .then((res) => {
+        setWeeklyDiaries(res.data);
       })
       .catch((error) => {
         console.log(error.response);
