@@ -19,8 +19,8 @@ export interface DiaryContentBoxProps {
   checked?: boolean;
 }
 
-type Emotion = "verysad" | "sad" | "normal" | "happy" | "veryhappy";
-const emotionImages = {
+export type Emotion = "verysad" | "sad" | "normal" | "happy" | "veryhappy";
+export const emotionImages = {
   verysad,
   sad,
   normal,

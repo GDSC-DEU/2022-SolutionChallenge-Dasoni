@@ -4,44 +4,54 @@ import ToggleMenuButton from "components/atoms/buttons/ToggleMenuButton";
 
 import { FeedContentBoxWrap } from "./styles";
 
-import veryhappy from "assets/emotionIcons/veryhappy.svg";
-import happy from "assets/emotionIcons/happy.svg";
-import normal from "assets/emotionIcons/normal.svg";
-import sad from "assets/emotionIcons/sad.svg";
-import verysad from "assets/emotionIcons/verysad.svg";
-
-import dad from "assets/stateIcons/dad.svg";
-import mom from "assets/stateIcons/mom.svg";
+import father from "assets/stateIcons/dad.svg";
+import mother from "assets/stateIcons/mom.svg";
 import pregnant from "assets/stateIcons/pregnant.svg";
 
-import dropdown_menu from "assets/icons/dropdown-menu.png";
 import heart from "assets/icons/heart.png";
 import message from "assets/icons/message.png";
+import { FeedTypes } from "recoil/Feed";
+import { Emotion, emotionImages } from "../DiaryContentBox";
 
-function FeedContentBox() {
+const stateTypeImages = {
+  father,
+  mother,
+  pregnant,
+};
+
+type StateType = "mother" | "father" | "pregnant";
+
+function FeedContentBox(props: { contents: FeedTypes }) {
+  const { comment, content, like, title } = props.contents;
+  let createdTime = props.contents.createdTime.split("T")[0];
+  let emotion = props.contents.emotion.split("_").join("").toLowerCase();
+  let stateType = props.contents.stateType.toLowerCase();
+
   return (
     <FeedContentBoxWrap>
       <div className="feed-content-title">
-        <img className="emotion" src={veryhappy} />
-        <span>Tortor Nullam Fringilla</span>
-        <ToggleMenuButton targetId="1" />
+        <img className="emotion" src={emotionImages[emotion as Emotion]} />
+        <span>{title}</span>
+        <ToggleMenuButton
+          targetId="1"
+          share={false}
+          edit={false}
+          delete={true}
+        />
       </div>
-      <div className="feed-content-content">
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-        cubilia Curae;
-      </div>
+      <div className="feed-content-content">{content}</div>
       <div className="feed-content-information">
         <div className="feedback">
           <img src={heart} />
-          <span>3</span>
+          <span>{like}</span>
 
           <img src={message} />
-          <span>12</span>
+          <span>{comment}</span>
 
-          <div className="time">• 5m ago</div>
+          <div className="time">• {createdTime}</div>
         </div>
         <div className="writer">
-          <img src={dad} />
+          <img src={stateTypeImages[stateType as StateType]} />
           <span>Anonymous</span>
         </div>
       </div>
