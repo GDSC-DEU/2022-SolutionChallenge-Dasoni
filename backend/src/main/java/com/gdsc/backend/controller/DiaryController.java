@@ -67,7 +67,7 @@ public class DiaryController {
                     @ApiResponse(responseCode = "200", description = "다이어리 목록 조회 성공", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = DiaryContentResponse.class)))
             }
     )
-    @GetMapping(value = "/weekend",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/week",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DiaryContentResponse>> getWeekendDiaries() {
         return ResponseEntity.ok(diaryService.findWeekendDiaries());
     }
