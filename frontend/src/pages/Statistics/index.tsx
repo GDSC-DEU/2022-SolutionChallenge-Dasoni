@@ -23,10 +23,6 @@ function Statistics() {
       <PageNav currentPage="Statistics" />
       <StatisticsWrap>
         <StatisticsBox>
-          <div className="statistics-title">Calendar</div>
-        </StatisticsBox>
-
-        <StatisticsBox>
           <div className="statistics-title">Statistics</div>
           <div className="box">
             <LineChart chartData={statistics} />
