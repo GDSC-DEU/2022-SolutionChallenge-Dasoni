@@ -58,7 +58,7 @@ function SlideBar(props: { display: boolean }) {
         <Link to="/support">
           <li>
             <img src={Welfare} />
-            <span>Welfare Assistance</span>
+            <span>Social Servcies</span>
           </li>
         </Link>
         <Link to="/settings">
