@@ -39,7 +39,7 @@ function Signup() {
           }
           clicked={pregnantClicked}
         >
-          I’m an unmarried pregnant woman now.
+          I’m a pregnant single mom
         </ClickButton>
         <ClickButton
           kind="line"
