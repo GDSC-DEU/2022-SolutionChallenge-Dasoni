@@ -30,7 +30,7 @@ const options = {
     },
     title: {
       display: true,
-      text: "Mood of this month",
+      text: "Average Mood for 4 weeks from today",
     },
   },
 };
@@ -38,10 +38,7 @@ const options = {
 function LineChart(props: { chartData: StatisticsTypes[] }) {
   const { chartData } = props;
   const scores = chartData.map((statistic) => statistic.score).reverse();
-  const labels = chartData.map((statistic) => statistic.date).reverse();
-
-  console.log("scores", scores);
-  console.log("labels", labels);
+  const labels = ["4weeks ago", "3weeks ago", "2weeks ago", "last week"];
 
   const data = {
     labels,

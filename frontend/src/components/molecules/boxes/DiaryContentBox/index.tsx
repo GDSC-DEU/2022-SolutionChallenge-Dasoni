@@ -44,7 +44,12 @@ function DiaryContentBox(props: DiaryContentBoxProps) {
         <div className="content">{content}</div>
       </div>
       <div className="right">
-        <ToggleMenuButton targetId={id} />
+        <ToggleMenuButton
+          targetId={id}
+          share={true}
+          edit={true}
+          delete={true}
+        />
         <img className="warning-button" src={warning} />
       </div>
     </DiaryContentBoxWrap>

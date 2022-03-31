@@ -20,7 +20,6 @@ function useStatisticsActions() {
     await axios
       .get(`${DASONI_BACKEND_API}/statistics/chart`, config)
       .then((res) => {
-        console.log(res.data);
         setStatistics(res.data);
       })
       .catch((error) => {

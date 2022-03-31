@@ -47,14 +47,6 @@ function useDiaryActions() {
   async function postDiary(props: DiaryPost) {
     const { content, date, emotion, feed, title } = props;
 
-    console.log({
-      content: content,
-      date: date,
-      emotion: emotion,
-      feed: feed,
-      title: title,
-    });
-
     interface DiaryPostResponse {
       content: {
         content: string;
@@ -107,7 +99,6 @@ function useDiaryActions() {
     await axios
       .get(`${DASONI_BACKEND_API}/diaries/${diaryId}`, config)
       .then((res) => {
-        console.log(res);
         setDiaries((diaries) =>
           diaries.filter((diary) => diary.diaryId !== diaryId)
         );

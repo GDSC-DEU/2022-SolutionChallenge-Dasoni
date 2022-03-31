@@ -65,7 +65,7 @@ function SuppportContentBox(props: { support: SupportTypes }) {
           <p>
             <div className="title">
               <img src={sponsor} />
-              <span>Sponsor</span>
+              <span>Host</span>
             </div>
             <div className="content">{organizer}</div>
           </p>

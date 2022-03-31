@@ -25,7 +25,6 @@ const stateImages = {
 
 function SlideBar(props: { display: boolean }) {
   const userState = useRecoilValue(userAtom).stateType;
-  console.log(typeof userState);
 
   return (
     <SlideBarWrap display={props.display}>
@@ -58,7 +57,7 @@ function SlideBar(props: { display: boolean }) {
         <Link to="/support">
           <li>
             <img src={Welfare} />
-            <span>Welfare Assistance</span>
+            <span>Social Servcies</span>
           </li>
         </Link>
         <Link to="/settings">

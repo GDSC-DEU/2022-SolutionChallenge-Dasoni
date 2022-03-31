@@ -20,7 +20,6 @@ function useFeedActions() {
     await axios
       .get(`${DASONI_BACKEND_API}/feeds`, config)
       .then((res) => {
-        console.log(res.data.resources.content);
         setFeeds(res.data.resources.content);
       })
       .catch((error) => {

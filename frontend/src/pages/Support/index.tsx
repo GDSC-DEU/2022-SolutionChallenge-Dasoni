@@ -21,7 +21,7 @@ function Support() {
 
   return (
     <>
-      <Title>Welfare Assistance</Title>
+      <Title>Social Services Organizations </Title>
       <ListWrap>
         <div className="filter">
           <ToggleBox />

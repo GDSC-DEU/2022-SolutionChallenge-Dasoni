@@ -21,7 +21,6 @@ function useCenterActions() {
       .get(`${DASONI_BACKEND_API}/centers`, config)
       .then((res) => {
         setCenters(res.data);
-        console.log(res.data);
       })
       .catch((error) => {
         console.log(error.response);

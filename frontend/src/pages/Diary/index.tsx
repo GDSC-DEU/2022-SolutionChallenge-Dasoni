@@ -41,6 +41,21 @@ function Diary() {
     setIsWarningChecked(!isWarningChecked);
   };
 
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
   const diaryActions = useDiaryActions();
 
   useSWR(`${DASONI_BACKEND_API}/diaries`, (url) =>
@@ -55,7 +70,7 @@ function Diary() {
           <ShadowBox>
             <Quote>
               <div className="date">
-                {day} {month}, {year}
+                {day} {monthNames[month - 1]}, {year}
               </div>
               <div className="quote">
                 Whether you think you can or you think you can't, you're right.
@@ -82,8 +97,8 @@ function Diary() {
                 <img src={very_sad} />
               </div>
               <div className="suggestion">
-                Mommy, you look Very Sad recently. Why don’t you share yours
-                stories?
+                <div>Mommy, you look Very Sad recently.</div>
+                <div>Why don’t you share yours stories?</div>
               </div>
             </ShadowBox>
           </Link>
