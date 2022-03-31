@@ -2,11 +2,22 @@ import CheckBox from "components/atoms/inputs/CheckBox";
 import CalloutBox from "components/molecules/boxes/CalloutBox";
 import FeedContentBox from "components/molecules/boxes/FeedContentBox";
 import PageNav from "components/organisms/navbars/PageNav";
+import useFeedActions from "hooks/useFeedActions";
 import * as React from "react";
+import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { feedsAtoms, FeedTypes } from "recoil/Feed";
 
 import { FeedWrap, TodaySharedBox } from "./styles";
 
 function Feed() {
+  const feedActions = useFeedActions();
+  const [feeds, setFeeds] = useRecoilState<FeedTypes[]>(feedsAtoms);
+
+  useEffect(() => {
+    feedActions.getFeeds();
+  }, []);
+
   return (
     <>
       <PageNav currentPage="Feed" />
@@ -22,9 +33,9 @@ function Feed() {
               Show my diaries
             </CheckBox>
           </div>
-          <FeedContentBox />
-          <FeedContentBox />
-          <FeedContentBox />
+          {feeds.map((feed) => (
+            <FeedContentBox key={feed.feedId} contents={feed} />
+          ))}
         </TodaySharedBox>
       </FeedWrap>
     </>
