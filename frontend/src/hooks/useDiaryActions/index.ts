@@ -6,6 +6,7 @@ import { authAtom } from "recoil/Auth";
 import {
   diariesAtom,
   weeklyDiariesAtom,
+  weeklyEmotionAverageAtom,
 } from "recoil/Diary";
 import { DASONI_BACKEND_API } from "secret";
 
@@ -20,6 +21,7 @@ export interface DiaryPost {
 function useDiaryActions() {
   const setDiaries = useSetRecoilState(diariesAtom);
   const setWeeklyDiaries = useSetRecoilState(weeklyDiariesAtom);
+  const setWeeklyEmotionAverage = useSetRecoilState(weeklyEmotionAverageAtom);
   const auth = useRecoilValue(authAtom);
   let navigate = useNavigate();
 
@@ -41,6 +43,7 @@ function useDiaryActions() {
     await axios
       .get(url, config)
       .then((res) => {
+        setWeeklyEmotionAverage(res.data.emotionAverage);
         setDiaries(res.data.diaries);
       })
       .catch((error) => {
@@ -132,6 +135,7 @@ function useDiaryActions() {
 
   return {
     getDiaries,
+    getWeeklyDiaries,
     postDiary,
     deleteDiary,
   };

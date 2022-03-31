@@ -20,16 +20,11 @@ import {
   QuoteArticle,
   Quote,
   RecentMoodLink,
-  WeeklyMoodArticle,
   Notification,
 } from "./styles";
 
 import arrow_right from "assets/icons/arrow-right.png";
-import very_sad from "assets/emotionIcons/verysad.svg";
-import sad from "assets/emotionIcons/sad.svg";
-import normal from "assets/emotionIcons/normal.svg";
-import happy from "assets/emotionIcons/happy.svg";
-import very_happy from "assets/emotionIcons/veryhappy.svg";
+import WeeklyMoodBox from "components/molecules/boxes/WeeklyMoodBox";
 
 function Diary() {
   const [diaries, setDiaries] = useRecoilState<DiaryTypes[]>(diariesAtom);
@@ -86,23 +81,7 @@ function Diary() {
             <img src={arrow_right} />
           </Link>
         </RecentMoodLink>
-
-        <WeeklyMoodArticle>
-          <Link to="/weekly">
-            <ShadowBox align="center">
-              <div className="date">
-                {month}.{day - 7} - {month}.{day}
-              </div>
-              <div className="emotion-icon">
-                <img src={very_sad} />
-              </div>
-              <div className="suggestion">
-                <div>Mommy, you look Very Sad recently.</div>
-                <div>Why don’t you share yours stories?</div>
-              </div>
-            </ShadowBox>
-          </Link>
-        </WeeklyMoodArticle>
+        <WeeklyMoodBox />
 
         <article>
           <DailyCalendar>Jan 2022</DailyCalendar>
