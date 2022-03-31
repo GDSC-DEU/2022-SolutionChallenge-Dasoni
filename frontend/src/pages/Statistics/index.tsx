@@ -23,12 +23,11 @@ function Statistics() {
       <PageNav currentPage="Statistics" />
       <StatisticsWrap>
         <StatisticsBox>
-          <div className="statistics-title">Mood Calendar</div>
-          <div className="box"></div>
+          <div className="statistics-title">Calendar</div>
         </StatisticsBox>
 
         <StatisticsBox>
-          <div className="statistics-title">Mood Statistics</div>
+          <div className="statistics-title">Statistics</div>
           <div className="box">
             <LineChart chartData={statistics} />
           </div>
