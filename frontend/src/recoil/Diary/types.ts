@@ -12,3 +12,9 @@ export interface Config {
     content: DiaryTypes[];
   };
 }
+
+export interface EmotionAverage {
+  emotion: string;
+  endedDate: string;
+  startedDate: string;
+}
