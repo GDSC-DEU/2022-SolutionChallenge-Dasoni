@@ -40,9 +40,6 @@ function LineChart(props: { chartData: StatisticsTypes[] }) {
   const scores = chartData.map((statistic) => statistic.score).reverse();
   const labels = chartData.map((statistic) => statistic.date).reverse();
 
-  console.log("scores", scores);
-  console.log("labels", labels);
-
   const data = {
     labels,
     datasets: [

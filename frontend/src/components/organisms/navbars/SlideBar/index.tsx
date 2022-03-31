@@ -25,7 +25,6 @@ const stateImages = {
 
 function SlideBar(props: { display: boolean }) {
   const userState = useRecoilValue(userAtom).stateType;
-  console.log(typeof userState);
 
   return (
     <SlideBarWrap display={props.display}>
