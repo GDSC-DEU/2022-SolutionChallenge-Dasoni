@@ -23,7 +23,7 @@ function Feed() {
       <PageNav currentPage="Feed" />
       <FeedWrap>
         <CalloutBox>
-          You can see others’ stories here. Express your sympathy with the heart
+          You can see others’ stories here. Express your empathy with the heart
           icon or replies.
         </CalloutBox>
         <TodaySharedBox>
