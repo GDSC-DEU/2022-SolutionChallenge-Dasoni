@@ -44,7 +44,7 @@ export const DiaryContentBoxWrap = styled.div<{
       text-align: center;
       color: #ffffff;
 
-      background: ${(props) => props.theme.moodColor[props.emotion]};
+      background: ${(props) => props.theme.moodColor[props.emotion][100]};
     }
   }
 
