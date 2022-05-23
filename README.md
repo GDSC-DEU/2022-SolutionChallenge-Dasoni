@@ -93,7 +93,7 @@ $ yarn start
 
   사용자는 날짜와 함께 감정을 선택할 수 있다. 아래 체크박스를 통해 피드에 업로드 할 수 있다.
 
-  <img width="220" alt="다소니-글쓰기" src="https://user-images.githubusercontent.com/54584063/169789054-83d409df-6577-4e7b-89ca-fb55d87c24ea.gif"/>
+  <video width="330" src="https://user-images.githubusercontent.com/54584063/169795799-19288ff8-554a-42a2-941c-e6df720521fc.MOV" controls autoplay></video>
 
    <br/>
 
@@ -101,7 +101,7 @@ $ yarn start
 
 사용자가 입력한 감정 상태와 텍스트 분석을 통한 감정 상태 결과를 평균낸 결과를 그래프로 그려준다.
 
-   <img width="220" alt="다소니-statistics" src="https://user-images.githubusercontent.com/54584063/169734281-232214ad-5aec-4502-9754-67ab27371514.gif"/>
+<video width="330" src="https://user-images.githubusercontent.com/54584063/169795303-19a66da5-d53f-4c14-964e-76e8287ce343.MOV" type="video/mp4" controls autoplay></video>
 
    <br/>
 
@@ -109,15 +109,15 @@ $ yarn start
 
 피드로 작성한 일기를 다른 사용자와 공유할 수 있다.
 
-    <img width="330" alt="다소니-feed" src="https://user-images.githubusercontent.com/54584063/169697065-bba92d2d-881d-4a83-9740-eb1c73f1278d.gif"/>
+<video width="330" src="https://user-images.githubusercontent.com/54584063/169795331-e4793d59-d142-4a89-9efd-0667db18e379.MOV" controls autoplay></video>
 
-   <br/>
+<br/>
 
 **5. 지원 사업**
 
 카테고리별 지원사업을 확인할 수 있다. 여러 지원 사업에 대해 한 페이지에서 비교할 수 있고, 관련 링크로 바로 이동할 수 있다.
 
-    <img width="330" alt="다소니-지원사업" src="https://user-images.githubusercontent.com/54584063/169697074-413fd8fa-1154-43a0-905d-ec740d516571.gif"/>
+<video width="330" src="https://user-images.githubusercontent.com/54584063/169797233-50c8f7fd-6690-480b-aaa8-a00d411202ef.mov" controls autoplay></video>
 
    <br/>
 
@@ -125,6 +125,6 @@ $ yarn start
 
 미혼모/부를 위한 지원센터 위치를 지도에서 확인할 수 있다. 하단 리스트를 통해 지원 센터 정보를 확인할 수 있고, 홈페이지로 이동도 가능하다
 
-    <img width="330" alt="다소니-지원센터지도" src="https://user-images.githubusercontent.com/54584063/169697071-745d7b5c-154b-4881-b50e-841a18af55c5.gif"/>
+<video width="330" src="https://user-images.githubusercontent.com/54584063/169797098-4f6640c7-4ff3-455d-a80b-7a75c9a9b27f.mov" controls autoplay></video>
 
    <br/>
