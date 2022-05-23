@@ -5,9 +5,10 @@ export const FeedWrap = styled.article`
   padding: 16px;
 `;
 
-export const TodaySharedBox = styled.section`
+export const SharedBox = styled.section`
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
 
   .title {
     display: flex;

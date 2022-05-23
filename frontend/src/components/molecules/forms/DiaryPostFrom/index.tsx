@@ -85,7 +85,7 @@ function DiaryPostForm() {
         <Input
           type="text"
           value={title}
-          placeholder="Title"
+          placeholder="Add a title to this entry"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -96,7 +96,7 @@ function DiaryPostForm() {
         <span className="label">Story</span>
         <TextArea
           value={content}
-          placeholder="Writing in English is so difficult... love u Google."
+          placeholder="Write something"
           onChange={(e) => setContent(e.target.value)}
         />
       </InputLabel>
